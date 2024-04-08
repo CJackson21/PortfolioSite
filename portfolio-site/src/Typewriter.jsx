@@ -8,7 +8,7 @@ const TypingEffect = ({ text }) => {
 
   useEffect(() => {
     let i = 0;
-    const speed = 100; // Typing speed in milliseconds
+    const speed = 30; // Typing speed in milliseconds
 
     function typeWriter() {
         if (i < text.length) {
