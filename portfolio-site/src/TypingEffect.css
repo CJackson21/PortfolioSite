@@ -1,0 +1,16 @@
+/* TypingEffect.css */
+@keyframes blink {
+    from, to { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  
+  .cursor {
+    animation: blink 1s infinite;
+  }
+  
+  .typing-effect {
+    display: inline-flex;
+    align-items: center;
+    white-space: pre;
+  }
+  
