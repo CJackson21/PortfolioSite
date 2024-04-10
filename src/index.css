@@ -182,4 +182,9 @@ button:focus-visible {
   margin-bottom: 2%;
 }
 
-
+.pdf-container {
+  height: 100vh; /* 100% of the viewport height */
+  width: 100%; /* 100% of the viewport width */
+  overflow: hidden; /* Hide scrollbars */
+  background: black;
+}

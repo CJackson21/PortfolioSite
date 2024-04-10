@@ -7,10 +7,7 @@ function App() {
 
   return (
     <>
-      {/* This is where the typing effect will occur */}
       <TypingEffect text={aboutText} />
-      {/* Any other content you want to include below the typing effect */}
-      {/* ... */}
     </>
   );
 }
