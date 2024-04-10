@@ -1,30 +1,18 @@
-import React, { useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 import TypingEffect from './Typewriter';
 import './App.css';
 
 function App() {
-  useEffect(() => {
-    const introElement = document.getElementById('introduction');
-    const aboutElement = document.getElementById('about');
+  const aboutText = "I am currently a Senior studying Computer Science.\nFeel free to take a look around at some of my work.";
 
-    if (introElement) {
-      ReactDOM.createPortal(
-        <h1>Hey there, my name is Caleb Jackson</h1>,
-        introElement
-      );
-    }
-
-    if (aboutElement) {
-      ReactDOM.createPortal(
-        <TypingEffect text="I am currently a Junior studying Computer Science with a concentration in Cybersecurity at George Fox University." />,
-        aboutElement
-      );
-    }
-  }, []);
-
-  return null; // Since we're directly manipulating elements outside React's root, this component doesn't need to render anything itself.
+  return (
+    <>
+      {/* This is where the typing effect will occur */}
+      <TypingEffect text={aboutText} />
+      {/* Any other content you want to include below the typing effect */}
+      {/* ... */}
+    </>
+  );
 }
 
 export default App;
-

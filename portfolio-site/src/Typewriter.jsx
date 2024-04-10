@@ -1,4 +1,3 @@
-// TypingEffect.js or TypingEffect.jsx
 import React, { useEffect, useState } from 'react';
 import './TypingEffect.css';
 
@@ -10,13 +9,13 @@ const TypingEffect = ({ text }) => {
     let i = 0;
     const speed = 30; // Typing speed in milliseconds
 
-    function typeWriter() {
-        if (i < text.length) {
-          setDisplayedText(text.slice(0, i + 1));
-          i++;
-          setTimeout(typeWriter, speed);
-        }
+    const typeWriter = () => {
+      if (i < text.length) {
+        setDisplayedText(text.slice(0, i + 1));
+        i++;
+        setTimeout(typeWriter, speed);
       }
+    };
 
     typeWriter();
 
@@ -25,17 +24,15 @@ const TypingEffect = ({ text }) => {
       setShowCursor((show) => !show);
     }, 500);
 
-    return () => clearInterval(cursorInterval); // Cleanup interval on component unmount
+    return () => clearInterval(cursorInterval); // Cleanup on component unmount
   }, [text]);
 
   return (
     <div className="typing-effect">
-      {displayedText}
-      <span className={`cursor ${showCursor ? 'visible' : ''}`}>|</span>
+      <center><span>{displayedText}</span><span className={`cursor ${showCursor ? 'visible' : ''}`}>|</span></center>
     </div>
   );
+  
 };
 
 export default TypingEffect;
-
-

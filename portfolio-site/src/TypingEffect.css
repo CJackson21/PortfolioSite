@@ -1,16 +1,22 @@
 /* TypingEffect.css */
 @keyframes blink {
-    from, to { opacity: 1; }
-    50% { opacity: 0; }
-  }
-  
-  .cursor {
-    animation: blink 1s infinite;
-  }
-  
-  .typing-effect {
-    display: inline-flex;
-    align-items: center;
-    white-space: pre;
-  }
-  
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.cursor {
+  display: inline; /* Keep the cursor inline with the text */
+  animation: blink 1s infinite;
+}
+
+.typing-effect {
+  display: block; /* Allows for the container to expand as needed */
+  justify-content: center;
+  align-items: center;
+  white-space: pre-wrap; /* Allows text wrapping and preserves formatting */
+  word-break: break-word; /* Ensures long words do not overflow the container */
+}
+
+.visible {
+  opacity: 1;
+}
