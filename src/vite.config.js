@@ -7,8 +7,6 @@ export default defineConfig({
             input: {
                 main: resolve(__dirname, 'index.html'),
                 fetch: resolve(__dirname, 'about.html'),
-                key: resolve(__dirname, 'CalebJackson_SoftwareEngineer.pdf'),
-
             }
         }
     },
