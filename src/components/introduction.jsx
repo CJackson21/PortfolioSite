@@ -23,7 +23,7 @@ function MainPage() { // Accept typingText as a prop
             </div>
             <div className="information">
                 <a href="https://github.com/CJackson21">GitHub</a>
-                <a href="/public/CalebJackson_SoftwareEngineer.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
+                <a href="/CalebJackson_SoftwareEngineer.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
                 <a href="https://www.linkedin.com/in/caleb-jackson-b08660264">LinkedIn</a>
                 <Link to="/about">About Me</Link>
             </div>
