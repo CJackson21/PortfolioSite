@@ -194,7 +194,7 @@ button:focus-visible {
 /* Media queries for mobile devices */
 @media (max-width: 768px) { /* Adjusts styles for screens smaller than 768px */
   #introduction, .aboutMe {
-    font-size: 2.0em; /* Smaller font size for mobile devices */
+    font-size: 40px; /* Smaller font size for mobile devices */
     font-weight: bold;
     justify-content: center; /* Centers children vertically */
 
