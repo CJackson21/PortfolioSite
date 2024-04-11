@@ -85,16 +85,6 @@ a:hover {
   font-weight: bold;
 }
 
-/* Media queries for mobile devices */
-@media (max-width: 768px) { /* Adjusts styles for screens smaller than 768px */
-  #introduction, .aboutMe {
-    font-size: 36px; /* Smaller font size for mobile devices */
-    font-weight: bold;
-    justify-content: center; /* Centers children vertically */
-
-  }
-}
-
 #introduction {
   flex-direction: column;
   text-align: left;
@@ -198,4 +188,20 @@ button:focus-visible {
   width: 100%; /* 100% of the viewport width */
   overflow: hidden; /* Hide scrollbars */
   background: black;
+}
+
+
+/* Media queries for mobile devices */
+@media (max-width: 768px) { /* Adjusts styles for screens smaller than 768px */
+  #introduction, .aboutMe {
+    font-size: 2.25em; /* Smaller font size for mobile devices */
+    font-weight: bold;
+    justify-content: center; /* Centers children vertically */
+
+  }
+
+  #about {
+    font-size: 18px; /* Smaller font size for mobile devices */
+    padding: 10px; /* Add some padding to ensure text doesn't touch the edges */
+  }
 }
