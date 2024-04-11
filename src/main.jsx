@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import './index.css';
+import './index.css'; // Assuming you have a global stylesheet
 
-const about = ReactDOM.createRoot(document.getElementById('about'));
-about.render(
+const root = ReactDOM.createRoot(document.getElementById('app'));
+root.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>

@@ -1,14 +1,19 @@
 import React from 'react';
-import TypingEffect from './Typewriter';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import AboutMe from './components/AboutMe';
+import Home from './components/Home'; // Import the new Home component
+import MainPage from './components/introduction';
 import './App.css';
 
 function App() {
-  const aboutText = "I am currently a Senior studying Computer Science.\nFeel free to take a look around at some of my work.";
-
   return (
-    <>
-      <TypingEffect text={aboutText} />
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/about" element={<AboutMe />} />
+        {/* Add more routes here if needed */}
+      </Routes>
+    </Router>
   );
 }
 
