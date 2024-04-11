@@ -1,4 +1,5 @@
-// MainPage.jsx
+// introduction.jsx
+import { Link } from 'react-router-dom';
 import React from 'react';
 import TypingEffect from './Typewriter'; // Adjust the import path as necessary
 import '../index.css'; 
@@ -24,7 +25,7 @@ function MainPage() { // Accept typingText as a prop
                 <a href="https://github.com/CJackson21">GitHub</a>
                 <a href="../public/CalebJackson_SoftwareEngineer.pdf">Resume</a>
                 <a href="https://www.linkedin.com/in/caleb-jackson-b08660264">LinkedIn</a>
-                <a href="/about">About Me</a>
+                <Link to="/about">About Me</Link>
             </div>
         </div>
     );
