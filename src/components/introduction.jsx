@@ -12,7 +12,7 @@ function MainPage() { // Accept typingText as a prop
             <div className="mainWrapper">
                 <div id="introduction">
                     <p>
-                        <span className="aboutMe" id="notName">Hey there, I'm<br/></span>
+                        <span className="aboutMe">Hey there, I'm<br/></span>
                         <span id="name">Caleb Jackson</span>
                         <span className="aboutMe" id="notName"><br/>Full Stack Developer</span>
                     </p>
