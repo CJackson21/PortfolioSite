@@ -198,7 +198,7 @@ button:focus-visible {
     font-size: 50px; /* Smaller font size for mobile devices */
     font-weight: bold;
     justify-content: center; /* Centers children vertically */
-    max-width: 80vw;
+    max-width: 95vw;
   }
 
   #about {
