@@ -225,7 +225,7 @@ button:focus-visible {
   }
   
   .information {
-    display: grid; /* Switches to grid layout for better alignment control */
+    display: grid !important; /* Switches to grid layout for better alignment control */
     grid-template-columns: repeat(2, 1fr); /* Each link takes full width */
     gap: 20px; /* Adjust gap for visual separation */
     padding: 20px; /* Increased padding for better touch interaction */
