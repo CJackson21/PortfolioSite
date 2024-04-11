@@ -224,4 +224,31 @@ button:focus-visible {
     font-weight: bold;
   }
   
+  .information {
+    display: grid; /* Switches to grid layout for better alignment control */
+    grid-template-columns: repeat(2, 1fr); /* Each link takes full width */
+    gap: 20px; /* Adjust gap for visual separation */
+    padding: 20px; /* Increased padding for better touch interaction */
+    justify-items: center; /* Centers items horizontally */
+    text-align: center; /* Ensures text within each link is centered */
+  }
+
+  /* Alternatively, if sticking with Flexbox: */
+  .information {
+    flex-direction: column; /* Stack links vertically */
+    align-items: center; /* Centers items horizontally */
+    justify-content: start; /* Aligns items to the start of the flex container */
+    gap: 20px; /* Adds space between each link */
+    padding: 20px; /* Adjusts padding for better layout on mobile */
+  }
+
+  /* Adjusting text size for readability on mobile */
+  .information a {
+    font-size: 18px; /* Larger font size for easier readability */
+  }
+  
+  /* Ensuring buttons and links are easily tappable */
+  .information button {
+    padding: 12px 24px; /* Larger touch targets for mobile users */
+  }
 }
