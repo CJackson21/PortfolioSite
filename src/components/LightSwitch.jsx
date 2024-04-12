@@ -10,7 +10,7 @@ function LightSwitch() {
 
     return (
         <div className="Lightswitch">
-            <img src={lightMode ? '/img/lightswitch-off.png' : '/public/img/lightswitch-on.png'}
+            <img src={lightMode ? '/img/lightswitch-off.png' : '/img/lightswitch-on.png'}
                  alt='Toggle Light Mode'
                  onClick={handleClick} />
         </div>
