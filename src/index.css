@@ -27,6 +27,39 @@ body {
   background-image: radial-gradient(circle at center, rgba(0, 0, 255, 0.1) 0%, rgba(0, 0, 255, 0.05) 50%, rgba(0, 0, 255, 0) 100%);
 }
 
+.Container {
+  display: flex;
+  width: 100%; /* Full width but not full height */
+  justify-content: center;
+  align-items: center;
+  position: absolute; /* If you want it to overlay without affecting layout */
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  height: 100vh;
+}
+
+.light-mode {
+  flex-direction: column;
+  background: #d3d3d3; /* Light gray background for light mode */
+  background-image: radial-gradient(circle at center, rgba(135, 206, 235, 0.4) 0%, rgba(255, 100, 0, 0.05) 50%, rgba(255, 100, 0, 0) 100%);
+  color: #000000; /* Dark text for better readability in light mode */
+}
+
+.dark-mode {
+  flex-direction: column;
+  background: #141414; /* Dark background */
+  background-image: radial-gradient(circle at center, rgba(0, 0, 255, 0.1) 0%, rgba(0, 0, 255, 0.05) 50%, rgba(0, 0, 255, 0) 100%);
+  color: #ffffff; /* Light text for better readability in dark mode */
+}
+
+.Lightswitch img {
+  width: 7vh; 
+  margin: 0.5%;
+  height: auto;
+  cursor: pointer; 
+}
+
 
 a {
   font-size: 26px;
@@ -64,11 +97,12 @@ a:hover {
   justify-content: center;
   align-items: center;
   min-width: 320px;
-  padding: 1em;
+  padding: 0;
   box-sizing: border-box;
   overflow: hidden;
   margin: 0;
 }
+
 
 #introduction, #about {
   display: flex; /* Makes the div a flex container */
@@ -97,6 +131,7 @@ a:hover {
   -webkit-text-stroke-color: white;
   -webkit-text-stroke-width: 1px;
 }
+
 
 #aboutText {
   width:60vw;
@@ -205,7 +240,7 @@ button:focus-visible {
     height: 10vh;
   }
 
-  #about-paragraph {
+  #paragraph {
     font-size: 14px;
   }
 

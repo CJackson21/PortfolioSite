@@ -1,20 +1,28 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AboutMe from './components/AboutMe';
-import Home from './components/Home'; // Import the new Home component
 import MainPage from './components/introduction';
+import { LightModeProvider } from './components/ToggleTheme';
+import LightSwitch from './components/LightSwitch';  // Ensure the component is properly imported 
+import ThemeApplier from './components/Container';
 import './App.css';
 
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/about" element={<AboutMe />} />
-        {/* Add more routes here if needed */}
-      </Routes>
+      <LightModeProvider>
+        <div className="App">
+          <ThemeApplier /> {/* Ensures the body class is updated */}
+          <LightSwitch />  {/* Allows the user to toggle the theme */}
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/about" element={<AboutMe />} />
+          </Routes>
+        </div>
+      </LightModeProvider>
     </Router>
   );
 }
+
 
 export default App;

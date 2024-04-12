@@ -4,7 +4,7 @@ import './AboutMe.css';
 export default function AboutMe() {
     return (
         <div className="about-container">
-            <div class="aboutMe" id="aboutText">About Me</div>
+            <div className="aboutMe" id="aboutText">About Me</div>
             <div id="about-paragraph">
                 <p id="about-description">
                     I am studying Computer Science at George Fox University with a concentration in cybersecurity.
@@ -17,7 +17,7 @@ export default function AboutMe() {
                     get outside as often as possible.
                 </p>
             </div>
-            <div class="information" id="info">
+            <div className="information" id="info">
                 <a href="/">Back</a>
             </div>
         </div>

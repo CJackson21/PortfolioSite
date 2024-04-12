@@ -1,20 +1,26 @@
 // introduction.jsx
 import { Link } from 'react-router-dom';
-import React from 'react';
-import TypingEffect from './Typewriter'; // Adjust the import path as necessary
+import React, { useContext } from 'react';
+import { LightModeContext } from './ToggleTheme';
+import TypingEffect from './Typewriter';
 import '../index.css'; 
 
 const typingText = "I am currently a Senior studying Computer Science.\nFeel free to take a look around at some of my work.";
 
-function MainPage() { // Accept typingText as a prop
+function MainPage() { 
+    const { lightMode } = useContext(LightModeContext); // Use the lightMode state
+    const aboutMeStyle = {
+        WebkitTextStrokeColor: lightMode ? '#000' : '#fff'
+    
+    };
     return (
         <div>
             <div className="mainWrapper">
                 <div id="introduction">
                     <p>
-                        <span className="aboutMe">Hey there, I'm<br/></span>
+                        <span className="aboutMe" style={aboutMeStyle}>Hey there, I'm<br/></span>
                         <span id="name">Caleb Jackson</span>
-                        <span className="aboutMe" id="notName"><br/>Full Stack Developer</span>
+                        <span className="aboutMe" id="notName" style={aboutMeStyle}><br/>Full Stack Developer</span>
                     </p>
                     {/* Render TypingEffect here */}
                 
