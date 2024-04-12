@@ -1,0 +1,123 @@
+:root {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    /* background-color: #3b3b3b; */
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  
+  html, body {
+    margin: 0;
+    padding: 0;
+    /* min-height: 100vh; Ensure at least viewport height */
+    display: flex;
+    flex-direction: column;
+    font-family: Helvetica, sans-serif;
+  }
+  
+  body {
+    flex-direction: column;
+    background: 	#141414; /* Set the default background to black */
+    background-image: radial-gradient(circle at center, rgba(0, 0, 255, 0.1) 0%, rgba(0, 0, 255, 0.05) 50%, rgba(0, 0, 255, 0) 100%);
+  }
+  
+  
+  a {
+    font-size: 26px;
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  a {
+    background:
+      linear-gradient(
+        to right,
+        rgba(100, 200, 200, 1),
+        rgba(100, 200, 200, 1)
+      ),
+      linear-gradient(
+        to right,
+        rgba(255, 0, 0, 1),
+        rgba(255, 0, 180, 1),
+        rgba(0, 100, 200, 1)
+    );
+    background-size: 100% 3px, 0 3px;
+    background-position: 100% 100%, 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 400ms;
+  }
+  
+  a:hover {
+    background-size: 0 3px, 100% 3px;
+  }
+
+  .about-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column; /* Ensures the children are stacked vertically */
+    justify-content: center;
+    align-items: center;
+    min-width: 320px;
+    padding: 1em;
+    box-sizing: border-box;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+.aboutMe {
+    color: transparent;
+    -webkit-text-stroke-color: white;
+    -webkit-text-stroke-width: 1px;
+}
+
+#about-description {
+    width:60vw;
+    text-align: start;
+}
+
+#about-paragraph {
+    justify-content: start;
+    max-width: 60vw;
+    font-size: 28px;
+    line-height: 1.5em;
+    overflow: hidden;
+    overflow-y: auto;
+    margin-bottom: 2%;
+}
+
+
+.information {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1em;
+    text-align: center;
+    box-sizing: border-box;
+    gap: 10%;
+    margin-bottom: 5%; 
+    bottom: 0;
+    flex-wrap: wrap;
+    height: 5vh;
+}
+
+
+#info {
+    padding-left: 0;
+    width: 60vw;
+    justify-content: start;
+}
+
+/* Media queries for mobile devices */
+@media (max-width: 768px) { /* Adjusts styles for screens smaller than 768px */
+    #about-paragraph {
+        font-size: 16px;
+    }
+  }
