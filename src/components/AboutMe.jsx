@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { LightModeContext } from './ToggleTheme';
 import './AboutMe.css';
 
 export default function AboutMe() {
+    const { lightMode } = useContext(LightModeContext); // Use the lightMode state
+    const aboutMeStyle = {
+        WebkitTextStrokeColor: lightMode ? '#000' : '#fff'
+    
+    };
     return (
         <div className="about-container">
-            <div className="aboutMe" id="aboutText">About Me</div>
+            <div className="aboutMe" id="aboutText" style={aboutMeStyle}>About Me</div>
             <div id="about-paragraph">
                 <p id="about-description">
                     I am studying Computer Science at George Fox University with a concentration in cybersecurity.
