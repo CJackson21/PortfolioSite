@@ -29,9 +29,9 @@ function MainPage() {
                 <div id="about"><TypingEffect text={typingText} /></div>
             </div>
             <div className="information">
-                <a href="https://github.com/CJackson21">GitHub</a>
+                <a href="https://github.com/CJackson21" target='_blank'>GitHub</a>
                 <a href="/CalebJackson_SoftwareEngineer.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
-                <a href="https://www.linkedin.com/in/caleb-jackson-b08660264">LinkedIn</a>
+                <a href="https://www.linkedin.com/in/caleb-jackson-b08660264" target='_blank'>LinkedIn</a>
                 <Link to="/about">About Me</Link>
             </div>
             <Bubbles />
