@@ -59,7 +59,7 @@ body {
 }
 
 .Lightswitch img {
-  width: 2.8vw; 
+  width: auto; 
   margin: 0.5%;
   height: 6vh;
   cursor: pointer; 
@@ -215,7 +215,7 @@ button:focus-visible {
               0 0 50px #4fc3dc,
               0 0 100px #4fc3dc;
   animation: animate 15s linear infinite;
-  animation-duration: calc(150s / var(--i));
+  animation-duration: calc(125s / var(--i));
 }
 
 .bubbles span:nth-child(even) {
@@ -273,6 +273,8 @@ button:focus-visible {
 
 /* Media queries for mobile devices */
 @media (max-width: 768px) { /* Adjusts styles for screens smaller than 768px */
+  
+
   #introduction, .aboutMe {
     height: 55vh;
     font-size: 50px; /* Smaller font size for mobile devices */
@@ -292,7 +294,7 @@ button:focus-visible {
   #about {
     font-size: 16px; /* Smaller font size for mobile devices */
     padding: 10px; /* Add some padding to ensure text doesn't touch the edges */
-    height: 6vh;
+    height: 7vh;
   }
 
   #notName {
@@ -330,5 +332,25 @@ button:focus-visible {
   /* Ensuring buttons and links are easily tappable */
   .information button {
     padding: 12px 24px; /* Larger touch targets for mobile users */
+  }
+
+  .bubbles span {
+    width: 15px;
+    height: 15px;
+    background: #4fc3dc;
+    margin: 0 3px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 6px #4fc3dc44,
+                0 0 30px #4fc3dc,
+                0 0 70px #4fc3dc;
+    animation: animate 15s linear infinite;
+    animation-duration: calc(125s / var(--i));
+  }
+  
+  .bubbles span:nth-child(even) {
+    background: #ff2d75;
+    box-shadow: 0 0 0 6px #ff2d7544,
+                0 0 30px #ff2d75,
+                0 0 70px #ff2d75;
   }
 }

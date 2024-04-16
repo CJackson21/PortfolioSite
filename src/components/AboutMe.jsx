@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { LightModeContext } from './ToggleTheme';
+import Bubbles from './Bubbles'; 
 import './AboutMe.css';
 
 export default function AboutMe() {
@@ -26,6 +27,7 @@ export default function AboutMe() {
             <div className="information" id="info">
                 <a href="/">Back</a>
             </div>
+            <Bubbles />
         </div>
         
     );
