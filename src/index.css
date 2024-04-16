@@ -273,7 +273,9 @@ button:focus-visible {
 
 /* Media queries for mobile devices */
 @media (max-width: 768px) { /* Adjusts styles for screens smaller than 768px */
-  
+  #Container {
+    overflow: visible !important;
+  }
 
   #introduction, .aboutMe {
     height: 55vh;
@@ -332,6 +334,10 @@ button:focus-visible {
   /* Ensuring buttons and links are easily tappable */
   .information button {
     padding: 12px 24px; /* Larger touch targets for mobile users */
+  }
+
+  .bubbles {
+    z-index: 1;
   }
 
   .bubbles span {
