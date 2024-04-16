@@ -343,11 +343,10 @@ button:focus-visible {
   .bubbles {
     overflow: visible !important;
     position: fixed;
-    z-index: 1;
   }
 
   .bubbles span {
-    position: absolute;
+    position: relative;
     width: 15px;
     height: 15px;
     background: #4fc3dc;
