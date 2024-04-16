@@ -14,7 +14,7 @@ function MainPage() {
     
     };
     return (
-        <div>
+        <div id="Container">
             <div className="mainWrapper">
                 <div id="introduction">
                     <p>
@@ -32,6 +32,28 @@ function MainPage() {
                 <a href="/CalebJackson_SoftwareEngineer.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
                 <a href="https://www.linkedin.com/in/caleb-jackson-b08660264">LinkedIn</a>
                 <Link to="/about">About Me</Link>
+            </div>
+            <div className="bubbles">
+                <span style={{ '--i': 11 }}></span>
+                <span style={{ '--i': 12 }}></span>
+                <span style={{ '--i': 24 }}></span>
+                <span style={{ '--i': 10 }}></span>
+                <span style={{ '--i': 14 }}></span>
+                <span style={{ '--i': 23 }}></span>
+                <span style={{ '--i': 18 }}></span>
+                <span style={{ '--i': 16 }}></span>
+                <span style={{ '--i': 19 }}></span>
+                <span style={{ '--i': 20 }}></span>
+                <span style={{ '--i': 22 }}></span>
+                <span style={{ '--i': 25 }}></span>
+                <span style={{ '--i': 18 }}></span>
+                <span style={{ '--i': 21 }}></span>
+                <span style={{ '--i': 15 }}></span>
+                <span style={{ '--i': 13 }}></span>
+                <span style={{ '--i': 26 }}></span>
+                <span style={{ '--i': 17 }}></span>
+                <span style={{ '--i': 13 }}></span>
+                <span style={{ '--i': 28 }}></span>
             </div>
         </div>
     );

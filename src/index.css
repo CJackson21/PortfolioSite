@@ -11,11 +11,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 
 html, body {
   margin: 0;
   padding: 0;
-  /* min-height: 100vh; Ensure at least viewport height */
+  min-height: 100vh; 
   display: flex;
   flex-direction: column;
   font-family: Helvetica, sans-serif;
@@ -27,16 +31,12 @@ body {
   background-image: radial-gradient(circle at center, rgba(0, 0, 255, 0.1) 0%, rgba(0, 0, 255, 0.05) 50%, rgba(0, 0, 255, 0) 100%);
 }
 
-.Container {
+#Container {
   display: flex;
-  width: 100%; /* Full width but not full height */
-  justify-content: center;
-  align-items: center;
-  position: absolute; /* If you want it to overlay without affecting layout */
-  overflow: hidden;
-  top: 0;
-  left: 0;
   height: 100vh;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
 }
 
 .light-mode {
@@ -53,10 +53,15 @@ body {
   color: #ffffff; /* Light text for better readability in dark mode */
 }
 
+.Lightswitch {
+  position: fixed;
+  z-index: 10;
+}
+
 .Lightswitch img {
-  width: 7vh; 
+  width: 2.8vw; 
   margin: 0.5%;
-  height: auto;
+  height: 6vh;
   cursor: pointer; 
 }
 
@@ -187,6 +192,46 @@ button:focus-visible {
   margin-bottom: 5%; 
   bottom: 0;
   flex-wrap: wrap;
+}
+
+.bubbles {
+  position: absolute;
+  display: flex;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  justify-content: space-evenly;
+}
+
+
+.bubbles span {
+  width: 30px;
+  height: 30px;
+  background: #4fc3dc;
+  margin: 0 4px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 10px #4fc3dc44,
+              0 0 50px #4fc3dc,
+              0 0 100px #4fc3dc;
+  animation: animate 15s linear infinite;
+  animation-duration: calc(150s / var(--i));
+}
+
+.bubbles span:nth-child(even) {
+  background: #ff2d75;
+  box-shadow: 0 0 0 10px #ff2d7544,
+              0 0 50px #ff2d75,
+              0 0 100px #ff2d75;
+}
+
+@keyframes animate {
+  0% {
+    transform: translateY(100vh) scale(0.1);
+  }
+  100% {
+    transform: translateY(-10vh) scale(1);
+  }
 }
 
 #info {
