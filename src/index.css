@@ -277,6 +277,10 @@ button:focus-visible {
     overflow: visible !important;
   }
 
+  .mainWrapper {
+    overflow: visible !important;
+  }
+
   #introduction, .aboutMe {
     height: 55vh;
     font-size: 50px; /* Smaller font size for mobile devices */
