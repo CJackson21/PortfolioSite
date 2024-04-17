@@ -226,6 +226,22 @@ button:focus-visible {
               0 0 100px #ff2d75;
 }
 
+.light-mode .bubbles span {
+  background: #dabeff; /* Light purple bubbles for light mode */
+  box-shadow: 0 0 0 10px #dabeff44,
+              0 0 50px #dabeff,
+              0 0 100px #dabeff;
+}
+
+.light-mode .bubbles span:nth-child(even) {
+  background: #ffd700; /* Yellow bubbles for light mode */
+  box-shadow: 0 0 0 10px #ffd70044,
+              0 0 5cap #ffd700,
+              0 0 100px #ffd700;
+}
+
+
+
 @keyframes animate {
   0% {
     transform: translateY(100vh) scale(0.1);
@@ -365,5 +381,19 @@ button:focus-visible {
     box-shadow: 0 0 0 6px #ff2d7544,
                 0 0 30px #ff2d75,
                 0 0 70px #ff2d75;
+  }
+
+  .light-mode .bubbles span {
+    background: #dabeff; /* Light purple bubbles for light mode */
+    box-shadow: 0 0 0 6px #dabeff44,
+                0 0 30px #dabeff,
+                0 0 70px #dabeff;
+  }
+  
+  .light-mode .bubbles span:nth-child(even) {
+    background: #ffd700; /* Yellow bubbles for light mode */
+    box-shadow: 0 0 0 6px #ffd70044,
+                0 0 30px #ffd700,
+                0 0 70px #ffd700;
   }
 }
