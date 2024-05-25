@@ -1,12 +1,12 @@
-import React, { useContext, useEffect } from 'react';
-import { LightModeContext } from './ToggleTheme';
+import React from "react";
+import { LightModeContext } from "../contexts/ToggleThemeContext";
 
 function ThemeApplier() {
-  const { lightMode } = useContext(LightModeContext);
+  const { lightMode } = React.useContext(LightModeContext);
 
-  useEffect(() => {
+  React.useEffect(() => {
     // Apply the class to the body or a root element, so no extra DOM element is needed
-    document.body.className = lightMode ? 'light-mode' : 'dark-mode';
+    document.body.className = lightMode ? "light-mode" : "dark-mode";
   }, [lightMode]);
 
   // No rendering, just apply the theme
