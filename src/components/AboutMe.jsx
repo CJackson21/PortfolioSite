@@ -1,15 +1,9 @@
-import React from "react";
-import { LightModeContext } from "../contexts/ToggleThemeContext";
-import "./AboutMe.css";
+import "../css/AboutMe.css";
 
 export default function AboutMe() {
-  const { lightMode } = React.useContext(LightModeContext); // Use the lightMode state
-  const aboutMeStyle = {
-    WebkitTextStrokeColor: lightMode ? "#000" : "#fff",
-  };
   return (
     <div className='about-container'>
-      <div className='aboutMe' id='aboutText' style={aboutMeStyle}>
+      <div className='aboutMe' id='aboutText'>
         About Me
       </div>
       <div id='about-paragraph'>

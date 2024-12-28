@@ -27,7 +27,7 @@ body {
 
 body {
   flex-direction: column;
-  background: #141414; /* Set the default background to black */
+  background: #141414;
   background-image: radial-gradient(
     circle at center,
     rgba(0, 0, 255, 0.1) 0%,
@@ -58,19 +58,6 @@ body {
     rgba(0, 0, 255, 0) 100%
   );
   color: #ffffff; /* Light text for better readability in dark mode */
-}
-
-.Lightswitch {
-  position: fixed;
-  z-index: 10;
-}
-
-.Lightswitch img {
-  width: 50px;
-  height: 50px;
-  margin: 0.5%;
-  height: 6vh;
-  cursor: pointer;
 }
 
 a {

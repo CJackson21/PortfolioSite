@@ -1,81 +1,94 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import { Stack, Typography, Button } from "@mui/material";
+import { Box, Stack, Typography, Button } from "@mui/material";
+import ResumePopup from "./Resume";
+import ThemeSwitcher from "./ThemeSwitcher";
 import TypingEffect from "./Typewriter";
 import "../index.css";
 
 function MainPage() {
-  // If you need the theme inside MainPage, you can do:
-  // const { theme } = useCustomTheme();
-  // const { palette } = theme;
-
   return (
-    <Stack
-      spacing={4}
-      alignItems='center'
-      justifyContent='center'
-      sx={{ padding: 4, minHeight: "100vh" }}
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100vh", // Full viewport height
+      }}
     >
-      {/* Main introduction section */}
+      {/* ThemeSwitcher positioned at the top */}
+      <Box
+        sx={{
+          position: "absolute",
+          top: "16px",
+          right: "16px",
+        }}
+      >
+        <ThemeSwitcher />
+      </Box>
+
+      {/* Main content, Stack takes remaining space */}
       <Stack
-        className='mainWrapper'
-        spacing={2}
+        spacing={4}
         alignItems='center'
-        textAlign='center'
-      >
-        <Typography variant='h4' component='p'>
-          {"Hey there, I'm"}
-        </Typography>
-        <Typography id='name' variant='h2' fontWeight='bold'>
-          Caleb Jackson
-        </Typography>
-        <Typography id='notName' variant='h5' component='p'>
-          Full Stack Developer
-        </Typography>
-      </Stack>
-
-      {/* Typing effect */}
-      <Stack id='about' textAlign='center'>
-        <TypingEffect />
-      </Stack>
-
-      {/* Links section */}
-      <Stack
-        className='information'
-        direction='row'
-        spacing={2}
         justifyContent='center'
+        sx={{
+          flexGrow: 1,
+        }}
       >
-        <Button
-          href='https://github.com/CJackson21'
-          target='_blank'
-          variant='contained'
-          color='primary'
+        {/* Main introduction section */}
+        <Stack
+          className='mainWrapper'
+          spacing={2}
+          alignItems='center'
+          textAlign='center'
         >
-          GitHub
-        </Button>
-        <Button
-          href='/CalebJackson_SoftwareEngineer.pdf'
-          target='_blank'
-          rel='noopener noreferrer'
-          variant='contained'
-          color='secondary'
+          <Typography variant='h4'>{"Hey there, I'm"}</Typography>
+          <Typography id='name' variant='h2' fontWeight='bold'>
+            Caleb Jackson
+          </Typography>
+          <Typography id='notName' variant='h5'>
+            Full Stack Developer
+          </Typography>
+        </Stack>
+
+        {/* Typing effect */}
+        <Stack
+          id='about'
+          textAlign='center'
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
         >
-          Resume
-        </Button>
-        <Button
-          href='https://www.linkedin.com/in/caleb-jackson-b08660264'
-          target='_blank'
-          variant='contained'
-          color='primary'
-        >
-          LinkedIn
-        </Button>
-        <Button component={Link} to='/about' variant='contained' color='info'>
-          About Me
-        </Button>
+          <TypingEffect />
+        </Stack>
+
+        {/* Links section */}
+        <Stack className='information' spacing={2} justifyContent='center'>
+          <Button
+            href='https://github.com/CJackson21'
+            target='_blank'
+            variant='contained'
+            color='primary'
+          >
+            GitHub
+          </Button>
+          {/* Use ResumePopup */}
+          <ResumePopup />
+          <Button
+            href='https://www.linkedin.com/in/caleb-jackson-b08660264'
+            target='_blank'
+            variant='contained'
+            color='primary'
+          >
+            LinkedIn
+          </Button>
+          <Button component={Link} to='/about' variant='contained' color='info'>
+            About Me
+          </Button>
+        </Stack>
       </Stack>
-    </Stack>
+    </Box>
   );
 }
 
