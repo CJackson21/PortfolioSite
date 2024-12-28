@@ -2,11 +2,13 @@ import React from "react";
 import "./TypingEffect.css";
 import PropTypes from "prop-types";
 
-const TypingEffect = ({ text }) => {
+const TypingEffect = () => {
   const [displayedText, setDisplayedText] = React.useState("");
   const [showCursor, setShowCursor] = React.useState(true);
 
   React.useEffect(() => {
+    const text =
+      "I am currently a Senior studying Computer Science.\nFeel free to take a look around at some of my work.";
     let i = 0;
     const speed = 30; // Typing speed in milliseconds
 
@@ -28,7 +30,7 @@ const TypingEffect = ({ text }) => {
     }, 500);
 
     return () => clearInterval(cursorInterval); // Cleanup on component unmount
-  }, [text]);
+  }, []);
 
   return (
     <div className='typing-effect'>

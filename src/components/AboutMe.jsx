@@ -1,6 +1,5 @@
 import React from "react";
 import { LightModeContext } from "../contexts/ToggleThemeContext";
-import Bubbles from "./Bubbles";
 import "./AboutMe.css";
 
 export default function AboutMe() {
@@ -32,7 +31,6 @@ export default function AboutMe() {
       <div className='information' id='info'>
         <a href='/'>Back</a>
       </div>
-      <Bubbles />
     </div>
   );
 }
