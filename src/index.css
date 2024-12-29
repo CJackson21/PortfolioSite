@@ -11,96 +11,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  font-family: Helvetica, sans-serif;
-}
-
-body {
-  flex-direction: column;
-  background: #141414;
-  background-image: radial-gradient(
-    circle at center,
-    rgba(0, 0, 255, 0.1) 0%,
-    rgba(0, 0, 255, 0.05) 50%,
-    rgba(0, 0, 255, 0) 100%
-  );
-}
-
-.light-mode {
-  flex-direction: column;
-  background: white; /* Light gray background for light mode */
-  background-image: radial-gradient(
-    circle at center,
-    rgba(135, 206, 235, 0.4) 0%,
-    rgba(255, 100, 0, 0.05) 50%,
-    rgba(255, 100, 0, 0) 100%
-  );
-  color: #000000; /* Dark text for better readability in light mode */
-}
-
-.dark-mode {
-  flex-direction: column;
-  background: #141414; /* Dark background */
-  background-image: radial-gradient(
-    circle at center,
-    rgba(0, 0, 255, 0.1) 0%,
-    rgba(0, 0, 255, 0.05) 50%,
-    rgba(0, 0, 255, 0) 100%
-  );
-  color: #ffffff; /* Light text for better readability in dark mode */
-}
-
-a {
-  font-size: 26px;
-  color: inherit;
-  text-decoration: none;
-}
-
-a {
-  background: linear-gradient(
-      to right,
-      rgba(100, 200, 200, 1),
-      rgba(100, 200, 200, 1)
-    ),
-    linear-gradient(
-      to right,
-      rgba(255, 0, 0, 1),
-      rgba(255, 0, 180, 1),
-      rgba(0, 100, 200, 1)
-    );
-  background-size: 100% 3px, 0 3px;
-  background-position: 100% 100%, 0 100%;
-  background-repeat: no-repeat;
-  transition: background-size 400ms;
-}
-
-a:hover {
-  background-size: 0 3px, 100% 3px;
-}
-
-.mainWrapper {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-width: 320px;
-  padding: 0;
-  box-sizing: border-box;
-  overflow: hidden;
-  margin: 0;
-}
-
 #aboutText {
   width: 60vw;
   text-align: start;
@@ -111,36 +21,9 @@ a:hover {
   font-weight: bold;
 }
 
-#about {
-  height: 20vh;
-  align-items: center;
-  justify-content: start;
-  text-align: start;
-  font-size: 28px;
-}
-
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
 .information {
@@ -163,19 +46,6 @@ button:focus-visible {
   justify-content: start;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
 #aboutParagraph {
   justify-content: start;
   max-width: 60vw;
@@ -186,67 +56,15 @@ button:focus-visible {
   margin-bottom: 2%;
 }
 
-.pdf-container {
-  height: 100vh; /* 100% of the viewport height */
-  width: 100%; /* 100% of the viewport width */
-  overflow: hidden; /* Hide scrollbars */
-  background: black;
+a {
+  text-decoration: none;
+  color: inherit; /* Inherit color from parent (Material-UI theme in this case) */
 }
 
-/* Media queries for mobile devices */
-@media (max-width: 768px) {
-  .mainWrapper {
-    overflow: visible !important;
-  }
+a:visited {
+  color: inherit; /* Remove purple visited state */
+}
 
-  #aboutText {
-    height: 10vh;
-  }
-
-  #paragraph {
-    font-size: 14px;
-  }
-
-  #about {
-    font-size: 16px; /* Smaller font size for mobile devices */
-    padding: 10px; /* Add some padding to ensure text doesn't touch the edges */
-    height: 7vh;
-  }
-
-  #notName {
-    font-size: 32px;
-  }
-
-  #name {
-    font-size: 80px;
-    font-weight: bold;
-  }
-
-  .information {
-    display: grid !important; /* Switches to grid layout for better alignment control */
-    grid-template-columns: repeat(2, 1fr); /* Each link takes full width */
-    gap: 20px; /* Adjust gap for visual separation */
-    padding: 20px; /* Increased padding for better touch interaction */
-    justify-items: center; /* Centers items horizontally */
-    text-align: center; /* Ensures text within each link is centered */
-  }
-
-  /* Alternatively, if sticking with Flexbox: */
-  .information {
-    flex-direction: column; /* Stack links vertically */
-    align-items: center; /* Centers items horizontally */
-    justify-content: start; /* Aligns items to the start of the flex container */
-    gap: 20px; /* Adds space between each link */
-    padding: 20px; /* Adjusts padding for better layout on mobile */
-  }
-
-  /* Adjusting text size for readability on mobile */
-  .information a {
-    font-size: 18px; /* Larger font size for easier readability */
-  }
-
-  /* Ensuring buttons and links are easily tappable */
-  .information button {
-    padding: 12px 24px; /* Larger touch targets for mobile users */
-  }
+a:hover {
+  text-decoration: underline; /* Optional: Add hover effect for clarity */
 }

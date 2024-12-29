@@ -10,16 +10,16 @@
 }
 
 .cursor {
-  display: inline; /* Keep the cursor inline with the text */
+  display: inline;
   animation: blink 1s infinite;
 }
 
 .typing-effect {
-  display: block; /* Allows for the container to expand as needed */
+  display: block;
   justify-content: center;
   align-items: center;
-  white-space: pre-wrap; /* Allows text wrapping and preserves formatting */
-  word-break: break-word; /* Ensures long words do not overflow the container */
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 .visible {

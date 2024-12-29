@@ -1,4 +1,3 @@
-import React from "react";
 import PropTypes from "prop-types";
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import useCustomTheme from "./customizeReactTheme";

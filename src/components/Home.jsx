@@ -1,45 +1,45 @@
-import { Link } from "react-router-dom";
-import { Box, Stack, Typography, Button } from "@mui/material";
-import ResumePopup from "./Resume";
+import React from "react";
+import { Box, Stack, Typography } from "@mui/material";
+import Sidebar from "./SideBar";
 import ThemeSwitcher from "./ThemeSwitcher";
 import TypingEffect from "./Typewriter";
+import HamburgerButton from "./HamburgerButton";
 import "../index.css";
 
 function MainPage() {
+  const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen((prev) => !prev);
+  };
+
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        height: "100vh", // Full viewport height
-      }}
-    >
-      {/* ThemeSwitcher positioned at the top */}
+    <Box sx={{ height: "100vh", display: "flex", flexDirection: "column" }}>
+      {/* Top bar */}
       <Box
         sx={{
-          position: "absolute",
-          top: "16px",
-          right: "16px",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "1rem",
         }}
       >
+        <HamburgerButton onClick={toggleSidebar} />
         <ThemeSwitcher />
       </Box>
-
-      {/* Main content, Stack takes remaining space */}
+      <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
       <Stack
         spacing={4}
         alignItems='center'
         justifyContent='center'
-        sx={{
-          flexGrow: 1,
-        }}
+        sx={{ flexGrow: 1 }}
       >
-        {/* Main introduction section */}
         <Stack
           className='mainWrapper'
           spacing={2}
           alignItems='center'
           textAlign='center'
+          sx={{ height: "20vh" }}
         >
           <Typography variant='h4'>{"Hey there, I'm"}</Typography>
           <Typography id='name' variant='h2' fontWeight='bold'>
@@ -50,7 +50,6 @@ function MainPage() {
           </Typography>
         </Stack>
 
-        {/* Typing effect */}
         <Stack
           id='about'
           textAlign='center'
@@ -61,31 +60,6 @@ function MainPage() {
           }}
         >
           <TypingEffect />
-        </Stack>
-
-        {/* Links section */}
-        <Stack className='information' spacing={2} justifyContent='center'>
-          <Button
-            href='https://github.com/CJackson21'
-            target='_blank'
-            variant='contained'
-            color='primary'
-          >
-            GitHub
-          </Button>
-          {/* Use ResumePopup */}
-          <ResumePopup />
-          <Button
-            href='https://www.linkedin.com/in/caleb-jackson-b08660264'
-            target='_blank'
-            variant='contained'
-            color='primary'
-          >
-            LinkedIn
-          </Button>
-          <Button component={Link} to='/about' variant='contained' color='info'>
-            About Me
-          </Button>
         </Stack>
       </Stack>
     </Box>

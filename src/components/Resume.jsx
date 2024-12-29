@@ -1,19 +1,26 @@
 import React from "react";
-import { Button, Dialog, DialogTitle, DialogContent } from "@mui/material";
+import { Dialog, DialogTitle, DialogContent, Typography } from "@mui/material";
 
 function ResumePopup() {
   const [open, setOpen] = React.useState(false);
 
   return (
     <>
-      {/* Button to open the modal */}
-      <Button
-        variant='contained'
-        color='secondary'
+      {/* Text link to open the modal */}
+      <Typography
+        component='span'
+        sx={{
+          textDecoration: "none",
+          cursor: "pointer",
+          color: "primary.main", // Consistent with primary color
+          fontWeight: 500,
+          "&:hover": { color: "primary.dark" }, // Slight darkening on hover
+          "&:visited": { color: "primary.main" }, // Prevent visited state color change
+        }}
         onClick={() => setOpen(true)}
       >
         View Resume
-      </Button>
+      </Typography>
 
       {/* Modal with <iframe> for your PDF */}
       <Dialog

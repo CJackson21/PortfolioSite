@@ -1,56 +1,121 @@
 import React from "react";
 import { createTheme } from "@mui/material/styles";
-import { blue } from "@mui/material/colors";
+import { blue, blueGrey, lightBlue } from "@mui/material/colors";
+import { useMediaQuery } from "@mui/material";
+import useLocalStorage from "react-use-localstorage";
 
-function getStoredTheme() {
-  // Attempt to read the saved theme mode from localStorage
-  // If nothing is stored, default to "light"
-  const savedTheme = localStorage.getItem("themeMode");
-  return savedTheme ? savedTheme : "light";
-}
+// Customize these colors to your liking:
+const PRIMARY_LIGHT = "#58a5ef";
+const PRIMARY_MAIN = lightBlue[800];
+const PRIMARY_DARK = "#004c8b";
 
-const useCustomTheme = () => {
-  const [themeMode, setThemeMode] = React.useState(getStoredTheme);
+const SECONDARY_LIGHT = "#80d6ff";
+const SECONDARY_MAIN = blue[400];
+const SECONDARY_DARK = "#0077c2";
 
-  // Toggle between "light" and "dark"
-  const toggleTheme = React.useCallback(() => {
-    setThemeMode((prev) => (prev === "light" ? "dark" : "light"));
-  }, []);
+const TERTIARY_LIGHT = "#62727b";
+const TERTIARY_MAIN = blueGrey[800];
+const TERTIARY_DARK = "#102027";
 
-  // Persist theme to localStorage whenever `themeMode` changes
-  React.useEffect(() => {
-    localStorage.setItem("themeMode", themeMode);
-  }, [themeMode]);
+export default function useCustomTheme() {
+  //---------------------------------------------------------------------------
+  // 1) Read from localStorage and check OS preference
+  //---------------------------------------------------------------------------
+  const [storedTheme, setStoredTheme] = useLocalStorage(
+    "my-app-selected-theme",
+    "system"
+  );
+  // `system`, `light`, or `dark`
 
-  // For convenience, boolean to check if we are in dark mode
-  const isDarkMode = themeMode === "dark";
+  // Check if the OS-level setting is in dark mode:
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
-  // Optional: dynamically set body background & text color
-  React.useEffect(() => {
-    document.body.style.backgroundColor = isDarkMode ? "#000" : "#FFF";
-    document.body.style.color = isDarkMode ? "#FFF" : "#000";
-  }, [isDarkMode]);
+  //---------------------------------------------------------------------------
+  // 2) A callback to let us set the theme mode easily
+  //---------------------------------------------------------------------------
+  const handleSelectTheme = React.useCallback(
+    (event, newTheme) => {
+      if (newTheme != null) {
+        setStoredTheme(newTheme);
+      }
+    },
+    [setStoredTheme]
+  );
 
-  // Create the Material-UI theme
+  //---------------------------------------------------------------------------
+  // 3) Decide if we should be in dark mode
+  //---------------------------------------------------------------------------
+  const isDarkMode = React.useMemo(
+    () =>
+      storedTheme === "dark" || (storedTheme === "system" && prefersDarkMode),
+    [prefersDarkMode, storedTheme]
+  );
+
+  //---------------------------------------------------------------------------
+  // 4) Create a Material-UI theme that adapts to the dark or light mode
+  //---------------------------------------------------------------------------
   const theme = React.useMemo(() => {
     return createTheme({
+      // We can attach extra info to the theme if we want:
+      handleSelectTheme, // so components can call it if needed
+      selectedTheme: storedTheme,
+
       palette: {
         mode: isDarkMode ? "dark" : "light",
+
         primary: {
-          // Tweak these as you like
-          light: "#fafafa",
-          main: "#fafafa",
-          dark: "#000000",
+          light: PRIMARY_LIGHT,
+          main: PRIMARY_MAIN,
+          dark: PRIMARY_DARK,
           contrastText: "#ffffff",
+        },
+        secondary: {
+          light: SECONDARY_LIGHT,
+          main: SECONDARY_MAIN,
+          dark: SECONDARY_DARK,
+          contrastText: "#ffffff",
+        },
+        tertiary: {
+          light: TERTIARY_LIGHT,
+          main: TERTIARY_MAIN,
+          dark: TERTIARY_DARK,
+          contrastText: "#ffffff",
+        },
+        error: {
+          main: "#c62828",
+        },
+        warning: {
+          main: "#ffab00",
         },
         info: {
           main: blue[400],
         },
+        // Adjust background if you want
+        background: {
+          default: isDarkMode ? "#121212" : "#f5f5f5",
+          paper: isDarkMode ? "#1e1e1e" : "#ffffff",
+        },
+        // MUI advanced settings:
+        contrastThreshold: 3,
+        tonalOffset: 0.2,
+      },
+
+      // Set typography
+      typography: {
+        h5: {
+          fontWeight: 500,
+        },
       },
     });
-  }, [isDarkMode]);
+  }, [handleSelectTheme, storedTheme, isDarkMode]);
 
-  return { theme, themeMode, toggleTheme };
-};
-
-export default useCustomTheme;
+  //---------------------------------------------------------------------------
+  // 5) Return the theme and also an easy way to switch theme
+  //---------------------------------------------------------------------------
+  return {
+    theme, // The Material-UI theme object
+    storedTheme, // 'system', 'light', or 'dark'
+    handleSelectTheme,
+    isDarkMode,
+  };
+}

@@ -1,12 +1,35 @@
+import React from "react";
 import { Button } from "@mui/material";
-import useCustomTheme from "../hooks/customizeReactTheme";
+import { useTheme } from "@mui/material/styles";
+import DarkModeIcon from "@mui/icons-material/DarkModeOutlined";
+import LightModeIcon from "@mui/icons-material/WbSunny";
 
 function ThemeSwitcher() {
-  const { themeMode, toggleTheme } = useCustomTheme();
+  // We'll read our custom fields (selectedTheme, handleSelectTheme)
+  // from the theme (make sure you attach them in your createTheme config).
+  const theme = useTheme();
+  const { selectedTheme, handleSelectTheme } = theme;
+
+  // Determine if we're currently in dark mode
+  const isDark = selectedTheme === "dark";
+
+  // Handler to toggle between dark and light
+  const toggleThemeMode = () => {
+    // If we are in dark mode, switch to light; otherwise switch to dark
+    const newMode = isDark ? "light" : "dark";
+    // Our original callback expects: handleSelectTheme(event, newValue)
+    handleSelectTheme(null, newMode);
+  };
 
   return (
-    <Button variant='contained' onClick={toggleTheme}>
-      Switch to {themeMode === "light" ? "Dark" : "Light"} Mode
+    <Button
+      variant='contained'
+      color='secondary'
+      onClick={toggleThemeMode}
+      startIcon={isDark ? <LightModeIcon /> : <DarkModeIcon />}
+    >
+      {/* Toggle button text based on the current theme mode */}
+      {isDark ? "Switch to Light" : "Switch to Dark"}
     </Button>
   );
 }
