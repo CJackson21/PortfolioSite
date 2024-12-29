@@ -60,6 +60,7 @@ const TypingEffect = () => {
           whiteSpace: "pre-wrap",
           wordBreak: "break-word",
           position: "relative",
+          height: "4rem",
         }}
       >
         {displayedText}

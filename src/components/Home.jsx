@@ -1,65 +1,41 @@
-import React from "react";
 import { Box, Stack, Typography } from "@mui/material";
-import Sidebar from "./SideBar";
 import TypingEffect from "./Typewriter";
-import HamburgerButton from "./HamburgerButton";
 import "../index.css";
 
 function MainPage() {
-  const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen((prev) => !prev);
-  };
-
   return (
-    <Box sx={{ height: "100vh", display: "flex", flexDirection: "column" }}>
-      {/* Top bar */}
+    <Box sx={{ position: "relative", height: "100vh" }}>
+      {/* Main Content */}
       <Box
         sx={{
+          height: "100%",
           display: "flex",
-          justifyContent: "space-between",
+          flexDirection: "column",
           alignItems: "center",
-          padding: "1rem",
+          justifyContent: "center",
         }}
       >
-        <HamburgerButton onClick={toggleSidebar} />
-      </Box>
-      <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
-      <Stack
-        spacing={4}
-        alignItems='center'
-        justifyContent='center'
-        sx={{ flexGrow: 1 }}
-      >
-        <Stack
-          className='mainWrapper'
-          spacing={2}
-          alignItems='center'
-          textAlign='center'
-          sx={{ height: "20vh" }}
-        >
-          <Typography variant='h4'>{"Hey there, I'm"}</Typography>
-          <Typography id='name' variant='h2' fontWeight='bold'>
+        <Stack spacing={2} alignItems='center' textAlign='center'>
+          <Typography sx={{ fontSize: "2.5rem" }}>
+            {"Hey there, I'm"}
+          </Typography>
+          <Typography id='name' fontWeight='bold' sx={{ fontSize: "5rem" }}>
             Caleb Jackson
           </Typography>
-          <Typography id='notName' variant='h5'>
+          <Typography sx={{ fontSize: "2.5rem" }}>
             Full Stack Developer
           </Typography>
         </Stack>
 
-        <Stack
-          id='about'
+        <Box
           textAlign='center'
           sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+            mt: "2rem",
           }}
         >
           <TypingEffect />
-        </Stack>
-      </Stack>
+        </Box>
+      </Box>
     </Box>
   );
 }

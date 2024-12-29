@@ -11,51 +11,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-#aboutText {
-  width: 60vw;
-  text-align: start;
-}
-
-#name {
-  font-size: 100px;
-  font-weight: bold;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-.information {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1em;
-  text-align: center;
-  box-sizing: border-box;
-  gap: 10%;
-  margin-bottom: 5%;
-  bottom: 0;
-  flex-wrap: wrap;
-}
-
-#info {
-  padding-left: 0;
-  width: 60vw;
-  justify-content: start;
-}
-
-#aboutParagraph {
-  justify-content: start;
-  max-width: 60vw;
-  font-size: 28px;
-  line-height: 1.5em;
-  overflow: hidden;
-  overflow-y: auto;
-  margin-bottom: 2%;
-}
-
 a {
   text-decoration: none;
   color: inherit;

@@ -1,24 +1,61 @@
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./components/Home";
-import ThemeProviderWrapper from "./hooks/ThemeProviderWrapper"; // Wraps app with MUI theme
-import Stack from "@mui/material/Stack"; // Import Stack from Material-UI
+import { ThemeProvider, CssBaseline, Box } from "@mui/material";
+import useCustomTheme from "./hooks/customizeReactTheme";
+import About from "./components/About";
+import MainPage from "./components/Home";
+import Projects from "./components/Projects";
+import Background from "./components/Background";
+import Sidebar from "./components/SideBar";
+import HamburgerButton from "./components/HamburgerButton";
 
-function App() {
+const App = () => {
+  const { theme } = useCustomTheme();
+  const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen((prev) => !prev);
+  };
+
   return (
-    <ThemeProviderWrapper>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Router>
-        <Stack
-          className='App'
-          direction='column'
-          spacing={2} // Adds spacing between items
+        <Box
+          sx={{
+            position: "relative",
+            height: "100vh",
+            overflow: "hidden",
+          }}
         >
+          {/* Background Component */}
+          <Background />
+
+          {/* Hamburger Button */}
+          <Box
+            sx={{
+              position: "absolute",
+              top: "1rem",
+              left: "1rem",
+              zIndex: 10,
+            }}
+          >
+            <HamburgerButton onClick={toggleSidebar} />
+          </Box>
+
+          {/* Sidebar */}
+          <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
+
+          {/* Main Content */}
           <Routes>
-            <Route path='/' element={<Home />} />
+            <Route path='/' element={<MainPage />} />
+            <Route path='/about' element={<About />} />
+            <Route path='/projects' element={<Projects />} />
           </Routes>
-        </Stack>
+        </Box>
       </Router>
-    </ThemeProviderWrapper>
+    </ThemeProvider>
   );
-}
+};
 
 export default App;

@@ -1,16 +1,11 @@
 import PropTypes from "prop-types";
-import { ThemeProvider, CssBaseline } from "@mui/material";
+import { ThemeProvider } from "@mui/material";
 import useCustomTheme from "./customizeReactTheme";
 
 function ThemeProviderWrapper({ children }) {
   const { theme } = useCustomTheme();
 
-  return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      {children}
-    </ThemeProvider>
-  );
+  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 }
 
 ThemeProviderWrapper.propTypes = {

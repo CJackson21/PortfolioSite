@@ -27,14 +27,14 @@ function ThemeSwitcher() {
       onClick={toggleThemeMode}
       startIcon={isDark ? <LightModeIcon /> : <DarkModeIcon />}
       sx={{
-        minWidth: "fit-content", // Ensure the button size adjusts to its content
+        minWidth: "fit-content",
         width: "fit-content",
-        padding: "0.5rem 1rem", // Add padding around the text and icon
-        display: "inline-flex", // Ensure icon and text remain in one line
-        alignItems: "center", // Center align text and icon vertically
-        gap: "0.5rem", // Add spacing between the icon and text
-        textTransform: "none", // Keep the text as it is, without uppercase transformation
-        whiteSpace: "nowrap", // Prevent text from wrapping
+        padding: "0.5rem 1rem",
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "0.5rem",
+        textTransform: "none",
+        whiteSpace: "nowrap",
       }}
     >
       {/* Toggle button text based on the current theme mode */}

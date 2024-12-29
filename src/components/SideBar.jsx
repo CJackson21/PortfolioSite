@@ -19,17 +19,22 @@ const Sidebar = ({ isOpen, onClose }) => {
     },
   };
 
+  const handleLinkClick = () => {
+    onClose();
+  };
+
   return (
     <Drawer
       anchor='left'
       open={isOpen}
       onClose={onClose}
+      transitionDuration={{ enter: 300, exit: 300 }}
       sx={{
         "& .MuiDrawer-paper": {
           width: "fit-content",
           padding: "1rem",
           maxWidth: "80%",
-          minWidth: "10%",
+          minWidth: "15%",
           backgroundColor: theme.palette.background.paper,
           boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.5)",
           flexDirection: "column",
@@ -49,6 +54,26 @@ const Sidebar = ({ isOpen, onClose }) => {
             }}
           />
         </Typography>
+        {/* Home page */}
+        <Typography
+          component={Link}
+          to='/'
+          onClick={handleLinkClick}
+          sx={linkStyles}
+        >
+          Home
+        </Typography>
+        <Divider />
+        {/* Projects */}
+        <Typography
+          component={Link}
+          to='/projects'
+          onClick={handleLinkClick}
+          sx={linkStyles}
+        >
+          Projects
+        </Typography>
+        <Divider />
         {/* GitHub Link */}
         <Typography
           component='a'
@@ -75,7 +100,12 @@ const Sidebar = ({ isOpen, onClose }) => {
         </Typography>
         <Divider />
         {/* About Me Link */}
-        <Typography component={Link} to='/about' sx={linkStyles}>
+        <Typography
+          component={Link}
+          to='/about'
+          onClick={handleLinkClick}
+          sx={linkStyles}
+        >
           About Me
         </Typography>
         <Divider />

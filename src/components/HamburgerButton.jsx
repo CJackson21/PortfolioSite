@@ -33,7 +33,7 @@ const HamburgerButton = ({ onClick }) => {
           width: "70%",
           height: "4px",
           backgroundColor: "secondary.main",
-          transition: "width 0.3s ease",
+          transition: "width 0.4s ease",
         }}
       />
       <Box

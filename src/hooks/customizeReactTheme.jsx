@@ -5,15 +5,15 @@ import { useMediaQuery } from "@mui/material";
 import useLocalStorage from "react-use-localstorage";
 
 // Customize these colors to your liking:
-const PRIMARY_LIGHT = "#58a5ef";
+const PRIMARY_LIGHT = "#004c8b";
 const PRIMARY_MAIN = lightBlue[800];
 const PRIMARY_DARK = "#004c8b";
 
-const SECONDARY_LIGHT = "#80d6ff";
+const SECONDARY_LIGHT = "#0077c2";
 const SECONDARY_MAIN = blue[400];
 const SECONDARY_DARK = "#0077c2";
 
-const TERTIARY_LIGHT = "#62727b";
+const TERTIARY_LIGHT = "#102027";
 const TERTIARY_MAIN = blueGrey[800];
 const TERTIARY_DARK = "#102027";
 
@@ -62,7 +62,10 @@ export default function useCustomTheme() {
 
       palette: {
         mode: isDarkMode ? "dark" : "light",
-
+        text: {
+          primary: "#ffffff",
+          secondary: "#cccccc",
+        },
         primary: {
           light: PRIMARY_LIGHT,
           main: PRIMARY_MAIN,
@@ -113,8 +116,8 @@ export default function useCustomTheme() {
   // 5) Return the theme and also an easy way to switch theme
   //---------------------------------------------------------------------------
   return {
-    theme, // The Material-UI theme object
-    storedTheme, // 'system', 'light', or 'dark'
+    theme,
+    storedTheme,
     handleSelectTheme,
     isDarkMode,
   };
