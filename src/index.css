@@ -58,13 +58,10 @@ h1 {
 
 a {
   text-decoration: none;
-  color: inherit; /* Inherit color from parent (Material-UI theme in this case) */
-}
-
-a:visited {
-  color: inherit; /* Remove purple visited state */
+  color: inherit;
 }
 
 a:hover {
-  text-decoration: underline; /* Optional: Add hover effect for clarity */
+  text-decoration: none;
+  color: inherit;
 }

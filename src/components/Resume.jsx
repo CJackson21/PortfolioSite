@@ -6,16 +6,15 @@ function ResumePopup() {
 
   return (
     <>
-      {/* Text link to open the modal */}
       <Typography
-        component='span'
         sx={{
+          fontSize: "1.5rem",
           textDecoration: "none",
           cursor: "pointer",
-          color: "primary.main", // Consistent with primary color
+          color: "primary.main",
           fontWeight: 500,
-          "&:hover": { color: "primary.dark" }, // Slight darkening on hover
-          "&:visited": { color: "primary.main" }, // Prevent visited state color change
+          "&:hover": { color: "primary.dark" },
+          "&:visited": { color: "primary.main" },
         }}
         onClick={() => setOpen(true)}
       >

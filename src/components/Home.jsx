@@ -1,7 +1,6 @@
 import React from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import Sidebar from "./SideBar";
-import ThemeSwitcher from "./ThemeSwitcher";
 import TypingEffect from "./Typewriter";
 import HamburgerButton from "./HamburgerButton";
 import "../index.css";
@@ -25,7 +24,6 @@ function MainPage() {
         }}
       >
         <HamburgerButton onClick={toggleSidebar} />
-        <ThemeSwitcher />
       </Box>
       <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
       <Stack
