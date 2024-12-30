@@ -11,6 +11,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+img {
+  background: none;
+}
+
 a {
   text-decoration: none;
   color: inherit;

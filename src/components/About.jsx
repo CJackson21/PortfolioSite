@@ -3,7 +3,14 @@ import { Box, Stack, Typography } from "@mui/material";
 
 function About() {
   return (
-    <Box sx={{ position: "relative", height: "100vh" }}>
+    <Box
+      sx={{
+        position: "relative",
+        minHeight: "100vh",
+        overflow: "auto",
+        padding: "2rem",
+      }}
+    >
       {/* Main Content */}
       <Box
         sx={{

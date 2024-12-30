@@ -25,7 +25,6 @@ const App = () => {
           sx={{
             position: "relative",
             height: "100vh",
-            overflow: "hidden",
           }}
         >
           {/* Background Component */}
