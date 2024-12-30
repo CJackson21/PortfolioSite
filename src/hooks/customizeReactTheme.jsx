@@ -1,21 +1,21 @@
 import React from "react";
 import { createTheme } from "@mui/material/styles";
-import { blue, blueGrey, lightBlue } from "@mui/material/colors";
+import { blue, blueGrey } from "@mui/material/colors";
 import { useMediaQuery } from "@mui/material";
 import useLocalStorage from "react-use-localstorage";
 
 // Customize these colors to your liking:
 const PRIMARY_LIGHT = "#004c8b";
-const PRIMARY_MAIN = lightBlue[800];
-const PRIMARY_DARK = "#004c8b";
+const PRIMARY_MAIN = "#8b56e8";
+const PRIMARY_DARK = "#b48bfc";
 
 const SECONDARY_LIGHT = "#0077c2";
-const SECONDARY_MAIN = blue[400];
-const SECONDARY_DARK = "#0077c2";
+const SECONDARY_MAIN = "#8b56e8";
+const SECONDARY_DARK = "#b48bfc";
 
 const TERTIARY_LIGHT = "#102027";
 const TERTIARY_MAIN = blueGrey[800];
-const TERTIARY_DARK = "#102027";
+const TERTIARY_DARK = "#b48bfc";
 
 export default function useCustomTheme() {
   //---------------------------------------------------------------------------

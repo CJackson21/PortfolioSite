@@ -1,7 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Dialog, DialogTitle, DialogContent, Typography } from "@mui/material";
 
-function ResumePopup() {
+function ResumePopup({ color }) {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -11,7 +12,7 @@ function ResumePopup() {
           fontSize: "1.5rem",
           textDecoration: "none",
           cursor: "pointer",
-          color: "primary.main",
+          color,
           fontWeight: 500,
           "&:hover": { color: "primary.dark" },
           "&:visited": { color: "primary.main" },
@@ -47,5 +48,9 @@ function ResumePopup() {
     </>
   );
 }
+
+ResumePopup.propTypes = {
+  color: PropTypes.string.isRequired,
+};
 
 export default ResumePopup;

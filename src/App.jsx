@@ -9,6 +9,8 @@ import Background from "./components/Background";
 import Sidebar from "./components/SideBar";
 import HamburgerButton from "./components/HamburgerButton";
 
+const SIDEBAR_WIDTH = "20rem";
+
 const App = () => {
   const { theme } = useCustomTheme();
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
@@ -21,36 +23,39 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
-        <Box
-          sx={{
-            position: "relative",
-            height: "100vh",
-          }}
-        >
-          {/* Background Component */}
-          <Background />
-
-          {/* Hamburger Button */}
+        <Box sx={{ display: "flex", height: "100vh" }}>
+          {/* 1. Sidebar Container */}
           <Box
             sx={{
-              position: "absolute",
-              top: "1rem",
-              left: "1rem",
-              zIndex: 10,
+              // Dynamically set width to push main content
+              width: isSidebarOpen ? SIDEBAR_WIDTH : 0,
+              transition: "width 0.3s ease",
+              overflow: "hidden",
             }}
           >
-            <HamburgerButton onClick={toggleSidebar} />
+            <Sidebar />
           </Box>
 
-          {/* Sidebar */}
-          <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
+          {/* 2. Main Content */}
+          <Box sx={{ flexGrow: 1, position: "relative" }}>
+            <Background />
+            <Box
+              sx={{
+                position: "absolute",
+                top: theme.spacing(2),
+                left: theme.spacing(2),
+                zIndex: 10,
+              }}
+            >
+              <HamburgerButton onClick={toggleSidebar} isOpen={isSidebarOpen} />
+            </Box>
 
-          {/* Main Content */}
-          <Routes>
-            <Route path='/' element={<MainPage />} />
-            <Route path='/about' element={<About />} />
-            <Route path='/projects' element={<Projects />} />
-          </Routes>
+            <Routes>
+              <Route path='/' element={<MainPage />} />
+              <Route path='/about' element={<About />} />
+              <Route path='/projects' element={<Projects />} />
+            </Routes>
+          </Box>
         </Box>
       </Router>
     </ThemeProvider>

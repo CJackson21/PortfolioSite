@@ -1,15 +1,23 @@
-import PropTypes from "prop-types";
-import { Drawer, Stack, Typography, Divider } from "@mui/material";
+import React from "react";
+import { Box, Stack, Typography, Divider } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import ResumePopup from "./Resume";
 import ThemeSwitcher from "./ThemeSwitcher";
 
-const Sidebar = ({ isOpen, onClose }) => {
+const Sidebar = () => {
   const theme = useTheme();
+
+  // Example: dynamic color usage
+  const color = React.useCallback(() => {
+    return theme.palette.mode === "dark"
+      ? theme.palette.primary.dark
+      : theme.palette.primary.main;
+  }, [theme]);
+
   const linkStyles = {
     textDecoration: "none",
-    color: theme.palette.primary.main,
+    color,
     fontWeight: 500,
     fontSize: "1.5rem",
     display: "block",
@@ -19,30 +27,23 @@ const Sidebar = ({ isOpen, onClose }) => {
     },
   };
 
-  const handleLinkClick = () => {
-    onClose();
-  };
-
   return (
-    <Drawer
-      anchor='left'
-      open={isOpen}
-      onClose={onClose}
-      transitionDuration={{ enter: 300, exit: 300 }}
+    <Box
       sx={{
-        "& .MuiDrawer-paper": {
-          width: "fit-content",
-          padding: "1rem",
-          maxWidth: "80%",
-          minWidth: "15%",
-          backgroundColor: theme.palette.background.paper,
-          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.5)",
-          flexDirection: "column",
-          justifyContent: "space-between",
-        },
+        width: "100%",
+        height: "100%",
+        backgroundColor: theme.palette.background.paper,
+        boxShadow: `0 ${theme.spacing(0.5)} ${theme.spacing(
+          2.5
+        )} rgba(0, 0, 0, 0.5)`,
+        display: "flex",
+        flexDirection: "column",
+        flexGrow: 1,
+        justifyContent: "space-between",
       }}
     >
-      <Stack spacing={2}>
+      <Stack spacing={2} sx={{ padding: theme.spacing(2) }}>
+        {/* Example image */}
         <Typography sx={{ alignSelf: "center" }}>
           <img
             src='/img/Jackson_Caleb_1-2.jpg'
@@ -54,27 +55,17 @@ const Sidebar = ({ isOpen, onClose }) => {
             }}
           />
         </Typography>
-        {/* Home page */}
-        <Typography
-          component={Link}
-          to='/'
-          onClick={handleLinkClick}
-          sx={linkStyles}
-        >
+
+        <Typography component={Link} to='/' sx={linkStyles}>
           Home
         </Typography>
         <Divider />
-        {/* Projects */}
-        <Typography
-          component={Link}
-          to='/projects'
-          onClick={handleLinkClick}
-          sx={linkStyles}
-        >
+
+        <Typography component={Link} to='/projects' sx={linkStyles}>
           Projects
         </Typography>
         <Divider />
-        {/* GitHub Link */}
+
         <Typography
           component='a'
           href='https://github.com/CJackson21'
@@ -85,10 +76,10 @@ const Sidebar = ({ isOpen, onClose }) => {
           GitHub
         </Typography>
         <Divider />
-        {/* Resume Popup */}
-        <ResumePopup />
+
+        <ResumePopup color={color} />
         <Divider />
-        {/* LinkedIn Link */}
+
         <Typography
           component='a'
           href='https://www.linkedin.com/in/caleb-jackson-b08660264'
@@ -99,27 +90,18 @@ const Sidebar = ({ isOpen, onClose }) => {
           LinkedIn
         </Typography>
         <Divider />
-        {/* About Me Link */}
-        <Typography
-          component={Link}
-          to='/about'
-          onClick={handleLinkClick}
-          sx={linkStyles}
-        >
+
+        <Typography component={Link} to='/about' sx={linkStyles}>
           About Me
         </Typography>
         <Divider />
       </Stack>
-      <Stack>
+
+      <Stack sx={{ padding: 2 }}>
         <ThemeSwitcher />
       </Stack>
-    </Drawer>
+    </Box>
   );
-};
-
-Sidebar.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
 };
 
 export default Sidebar;

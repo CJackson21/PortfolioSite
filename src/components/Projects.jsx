@@ -5,23 +5,22 @@ import {
   Card,
   CardContent,
   CardActions,
-  Button,
 } from "@mui/material";
 
 const projects = [
   {
     title: "Spotify Discord Bot",
     description:
-      "A bot that uses Spotify's API to play music in Discord voice channels.",
+      "A custom Discord bot designed to bring collaborative music playback to voice channels. The bot integrates the Spotify API to fetch playlist details and the YouTube API to stream songs, overcoming Spotify's playback limitations. Users can contribute to a shared Spotify playlist directly from their phones, and the bot automatically syncs the updates, playing tracks by fetching them from YouTube. Built using Node.js, discord.js, and ffmpeg, the bot supports commands like !play, !skip, and !queue, providing users with full control over the music experience. This project demonstrates advanced API integration, real-time updates, and seamless user interaction within Discord.",
     link: "#",
-    image: "/img/spotify.png", // Path to your logo image
+    image: "/img/spotify.png",
   },
   {
-    title: "Portfolio Website",
+    title: "Portfolio Website (v2)",
     description:
-      "A responsive and modern portfolio website built using React and Material-UI.",
+      "This very website is version 2 of my portfolio, designed to showcase my projects, skills, and creativity. Built with React and Material-UI for a modern, responsive user interface, it also integrates Three.js for interactive 3D elements (this site's background). This iteration incorporates cool tools and techniques to enhance user experience, such as smooth animations, modular component design, and advanced styling. It's a demonstration of my ability to build engaging and functional web applications while continuously improving on past work.",
     link: "#",
-    image: "/img/discord.png", // Path to your logo image
+    image: "/img/react.png",
   },
 ];
 
@@ -29,6 +28,10 @@ function Projects() {
   return (
     <Box
       sx={{
+        display: "flex",
+        flexDirection: "column",
+        maxWidth: "80vw",
+        flexGrow: 1,
         padding: "5vh",
         textAlign: "center",
       }}
@@ -49,14 +52,14 @@ function Projects() {
           <Grid item xs={12} sm={6} md={4} key={index}>
             <Card
               sx={{
-                height: "100%",
+                // Let the card height adjust to text length
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
+                height: "100%",
               }}
             >
               <CardContent>
-                {/* Add Logo Image */}
                 <Box
                   sx={{
                     height: "10rem",
@@ -70,7 +73,6 @@ function Projects() {
                     src={project.image}
                     alt={`${project.title} Logo`}
                     style={{
-                      maxWidth: "100%",
                       maxHeight: "100%",
                       objectFit: "contain",
                     }}
@@ -79,20 +81,20 @@ function Projects() {
                 <Typography variant='h5' fontWeight='bold' gutterBottom>
                   {project.title}
                 </Typography>
-                <Typography variant='body2' color='text.secondary'>
+                <Typography
+                  variant='body2'
+                  color='text.primary'
+                  sx={{
+                    // Allow text to wrap properly
+                    whiteSpace: "normal",
+                    wordWrap: "break-word",
+                  }}
+                >
                   {project.description}
                 </Typography>
               </CardContent>
               <CardActions sx={{ justifyContent: "center" }}>
-                <Button
-                  variant='contained'
-                  color='primary'
-                  href={project.link}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  View Project
-                </Button>
+                {/* Add buttons or links here if needed */}
               </CardActions>
             </Card>
           </Grid>

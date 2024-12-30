@@ -1,7 +1,13 @@
+import React from "react";
 import PropTypes from "prop-types";
 import { IconButton, Box } from "@mui/material";
 
-const HamburgerButton = ({ onClick }) => {
+const HamburgerButton = ({ onClick, isOpen }) => {
+  const topWidth = React.useCallback(() => (isOpen ? "100%" : "40%"), [isOpen]);
+  const middleWidth = React.useCallback(
+    () => (isOpen ? "100%" : "70%"),
+    [isOpen]
+  );
   return (
     <IconButton
       onClick={onClick}
@@ -21,18 +27,18 @@ const HamburgerButton = ({ onClick }) => {
       <Box
         className='line'
         sx={{
-          width: "40%",
+          width: topWidth,
           height: "4px",
-          backgroundColor: "secondary.main",
+          backgroundColor: "white",
           transition: "width 0.3s ease",
         }}
       />
       <Box
         className='line'
         sx={{
-          width: "70%",
+          width: middleWidth,
           height: "4px",
-          backgroundColor: "secondary.main",
+          backgroundColor: "white",
           transition: "width 0.4s ease",
         }}
       />
@@ -41,7 +47,7 @@ const HamburgerButton = ({ onClick }) => {
         sx={{
           width: "100%",
           height: "4px",
-          backgroundColor: "secondary.main",
+          backgroundColor: "white",
           transition: "width 0.3s ease",
         }}
       />
@@ -51,6 +57,7 @@ const HamburgerButton = ({ onClick }) => {
 
 HamburgerButton.propTypes = {
   onClick: PropTypes.func.isRequired,
+  isOpen: PropTypes.func.isRequired,
 };
 
 export default HamburgerButton;

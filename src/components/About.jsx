@@ -6,9 +6,9 @@ function About() {
     <Box
       sx={{
         position: "relative",
+        alignContent: "center",
         minHeight: "100vh",
         overflow: "auto",
-        padding: "2rem",
       }}
     >
       {/* Main Content */}
@@ -26,7 +26,7 @@ function About() {
           spacing={3}
           sx={{
             padding: "5vh", // Padding for spacing around content
-            maxWidth: "80vw", // Constrain the width for better readability
+            maxWidth: "50vw", // Constrain the width for better readability
             textAlign: "center",
           }}
         >
