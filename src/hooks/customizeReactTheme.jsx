@@ -29,21 +29,50 @@ export default function useCustomTheme() {
   );
 
   // check if the OS-level setting is in dark mode:
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  const [isDarkMode, setIsDarkMode] = React.useState(() => {
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    return storedTheme === 'system' ? mq.matches : storedTheme === 'dark';
+  });
+
+  React.useEffect(() => {
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+
+    // Update state based on the current system preference
+    const updateDarkMode = (evt) => {
+      if (storedTheme === 'system') {
+        setIsDarkMode(evt.matches);
+      }
+    };
+
+    // Set initial value and listen for changes
+    if (storedTheme === 'system') {
+      setIsDarkMode(mq.matches);
+    }
+    mq.addEventListener('change', updateDarkMode);
+
+    // Cleanup the listener on unmount
+    return () => {
+      mq.removeEventListener('change', updateDarkMode);
+    };
+  }, [storedTheme]);
 
   // Handle theme changes dynamically
-  const effectiveTheme = React.useMemo(() => {
-    if (storedTheme === 'system') {
-      return prefersDarkMode ? 'dark' : 'light';
-    }
-    return storedTheme;
-  }, [storedTheme, prefersDarkMode]);
+  const effectiveTheme = React.useMemo(
+    () => (isDarkMode ? 'dark' : 'light'),
+    [isDarkMode]
+  );
 
   // a callback to let us set the theme mode easily
   const handleSelectTheme = React.useCallback(
     (event, newTheme) => {
-      if (newTheme != null) {
+      if (newTheme) {
         setStoredTheme(newTheme);
+        if (newTheme === 'system') {
+          const mq = window.matchMedia('(prefers-color-scheme: dark)');
+          setIsDarkMode(mq.matches);
+        } else {
+          setIsDarkMode(newTheme === 'dark');
+        }
       }
     },
     [setStoredTheme]
