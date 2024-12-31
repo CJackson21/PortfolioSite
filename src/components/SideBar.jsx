@@ -47,138 +47,145 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
         padding: theme.spacing(2),
       }}
     >
-      <Stack spacing={2}>
-        {/* Profile Picture */}
-        <Typography sx={{ alignSelf: 'center' }}>
-          <img
-            src='/img/Jackson_Caleb_1-2.jpg'
-            alt='Caleb Jackson'
-            style={{
-              borderRadius: '50%',
-              width: '10rem',
-              height: 'auto',
-            }}
-          />
-        </Typography>
-        {/* Navigation Links */}
-        <Typography
-          component={Link}
-          to='/'
-          sx={linkStyles}
-          onClick={onLinkClick}
-        >
-          Home
-        </Typography>
-        <Divider />
-        {/* Projects link */}
-        <Typography
-          component={Link}
-          to='/projects'
-          sx={linkStyles}
-          onClick={onLinkClick}
-        >
-          Projects
-        </Typography>
-        <Divider />
-        {/* Github link */}
-        <Typography
-          component='a'
-          href='https://github.com/CJackson21'
-          target='_blank'
-          rel='noopener noreferrer'
-          sx={linkStyles}
-          onClick={onLinkClick}
-        >
-          GitHub
-        </Typography>
-        <Divider />
-        <Resume color={color} isMobile={isMobile} />
-        <Divider />
-        <Typography
-          component={Link}
-          to='/about'
-          sx={linkStyles}
-          onClick={onLinkClick}
-        >
-          About Me
-        </Typography>
-        <Divider />
-      </Stack>
-      {/* Contact Me Section */}
-      <Stack
+      <Box
         sx={{
-          padding: `${theme.spacing(
-            2
-          )} env(safe-area-inset-bottom) ${theme.spacing(1)}`,
-          gap: theme.spacing(1),
+          flex: 1,
+          overflowY: 'auto',
         }}
       >
-        <ThemeSwitcher />
-        <Divider />
-        <Box
+        <Stack spacing={2}>
+          {/* Profile Picture */}
+          <Typography sx={{ alignSelf: 'center' }}>
+            <img
+              src='/img/Jackson_Caleb_1-2.jpg'
+              alt='Caleb Jackson'
+              style={{
+                borderRadius: '50%',
+                width: '10rem',
+                height: 'auto',
+              }}
+            />
+          </Typography>
+          {/* Navigation Links */}
+          <Typography
+            component={Link}
+            to='/'
+            sx={linkStyles}
+            onClick={onLinkClick}
+          >
+            Home
+          </Typography>
+          <Divider />
+          {/* Projects link */}
+          <Typography
+            component={Link}
+            to='/projects'
+            sx={linkStyles}
+            onClick={onLinkClick}
+          >
+            Projects
+          </Typography>
+          <Divider />
+          {/* Github link */}
+          <Typography
+            component='a'
+            href='https://github.com/CJackson21'
+            target='_blank'
+            rel='noopener noreferrer'
+            sx={linkStyles}
+            onClick={onLinkClick}
+          >
+            GitHub
+          </Typography>
+          <Divider />
+          <Resume color={color} isMobile={isMobile} />
+          <Divider />
+          <Typography
+            component={Link}
+            to='/about'
+            sx={linkStyles}
+            onClick={onLinkClick}
+          >
+            About Me
+          </Typography>
+          <Divider />
+        </Stack>
+        {/* Contact Me Section */}
+        <Stack
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            padding: `${theme.spacing(
+              2
+            )} env(safe-area-inset-bottom) ${theme.spacing(1)}`,
             gap: theme.spacing(1),
-            paddingBottom: 'env(safe-area-inset-bottom)',
           }}
         >
-          <Typography
-            variant='h6'
-            fontWeight='bold'
+          <ThemeSwitcher />
+          <Divider />
+          <Box
             sx={{
-              marginBottom: 1,
-              color:
-                theme.palette.mode === 'dark'
-                  ? theme.palette.primary.dark
-                  : theme.palette.primary.main,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: theme.spacing(1),
+              paddingBottom: 'env(safe-area-inset-bottom)',
             }}
           >
-            Contact Me
-          </Typography>
-          <Stack direction='row' spacing={2} alignItems='center'>
-            {/* Email */}
             <Typography
-              component='a'
-              href='mailto:calebj@tzmedical.com'
+              variant='h6'
+              fontWeight='bold'
               sx={{
-                textDecoration: 'none',
-                color: color(),
-                '&:hover': { color: theme.palette.primary.dark },
+                marginBottom: 1,
+                color:
+                  theme.palette.mode === 'dark'
+                    ? theme.palette.primary.dark
+                    : theme.palette.primary.main,
               }}
             >
-              <EmailIcon fontSize='large' />
+              Contact Me
             </Typography>
-            <Typography
-              component='a'
-              href='https://instagram.com/cjjackson.15'
-              target='_blank'
-              rel='noopener noreferrer'
-              sx={{
-                textDecoration: 'none',
-                color: color(),
-                '&:hover': { color: theme.palette.primary.dark },
-              }}
-            >
-              <InstagramIcon fontSize='large' />
-            </Typography>
-            <Typography
-              component='a'
-              href='https://www.linkedin.com/in/caleb-jackson-b08660264'
-              target='_blank'
-              rel='noopener noreferrer'
-              sx={{
-                textDecoration: 'none',
-                color: color(),
-                '&:hover': { color: theme.palette.primary.dark },
-              }}
-            >
-              <LinkedInIcon fontSize='large' />
-            </Typography>
-          </Stack>
-        </Box>
-      </Stack>
+            <Stack direction='row' spacing={2} alignItems='center'>
+              {/* Email */}
+              <Typography
+                component='a'
+                href='mailto:calebj@tzmedical.com'
+                sx={{
+                  textDecoration: 'none',
+                  color: color(),
+                  '&:hover': { color: theme.palette.primary.dark },
+                }}
+              >
+                <EmailIcon fontSize='large' />
+              </Typography>
+              <Typography
+                component='a'
+                href='https://instagram.com/cjjackson.15'
+                target='_blank'
+                rel='noopener noreferrer'
+                sx={{
+                  textDecoration: 'none',
+                  color: color(),
+                  '&:hover': { color: theme.palette.primary.dark },
+                }}
+              >
+                <InstagramIcon fontSize='large' />
+              </Typography>
+              <Typography
+                component='a'
+                href='https://www.linkedin.com/in/caleb-jackson-b08660264'
+                target='_blank'
+                rel='noopener noreferrer'
+                sx={{
+                  textDecoration: 'none',
+                  color: color(),
+                  '&:hover': { color: theme.palette.primary.dark },
+                }}
+              >
+                <LinkedInIcon fontSize='large' />
+              </Typography>
+            </Stack>
+          </Box>
+        </Stack>
+      </Box>
     </Box>
   );
 };
