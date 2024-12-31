@@ -135,9 +135,28 @@ function Projects({ isMobile }) {
           maxWidth='sm'
           fullWidth
         >
-          <DialogTitle>{openProject.title}</DialogTitle>
+          <DialogTitle
+            sx={{
+              color:
+                theme.palette.mode === "dark"
+                  ? theme.palette.text.primary
+                  : theme.palette.text.secondary,
+            }}
+          >
+            {openProject.title}
+          </DialogTitle>
           <DialogContent>
-            <Typography variant='body1'>{openProject.description}</Typography>
+            <Typography
+              variant='body1'
+              sx={{
+                color:
+                  theme.palette.mode === "dark"
+                    ? theme.palette.text.primary
+                    : theme.palette.text.secondary,
+              }}
+            >
+              {openProject.description}
+            </Typography>
           </DialogContent>
         </Dialog>
       )}
