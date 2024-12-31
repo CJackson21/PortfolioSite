@@ -10,7 +10,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
-const Sidebar = ({ onLinkClick }) => {
+const Sidebar = ({ onLinkClick, isMobile }) => {
   const theme = useTheme();
 
   const color = React.useCallback(() => {
@@ -92,7 +92,7 @@ const Sidebar = ({ onLinkClick }) => {
           GitHub
         </Typography>
         <Divider />
-        <Resume color={color} />
+        <Resume color={color} isMobile={isMobile} />
         <Divider />
         <Typography
           component={Link}
@@ -167,6 +167,7 @@ const Sidebar = ({ onLinkClick }) => {
 
 Sidebar.propTypes = {
   onLinkClick: PropTypes.func.isRequired,
+  isMobile: PropTypes.bool.isRequired,
 };
 
 export default Sidebar;

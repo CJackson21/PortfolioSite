@@ -37,7 +37,7 @@ const Layout = ({ children, isMobile }) => {
         }}
       >
         <Toolbar />
-        <Sidebar onLinkClick={closeSidebarOnMobile} />
+        <Sidebar onLinkClick={closeSidebarOnMobile} isMobile={isMobile} />
       </Drawer>
       <Box
         sx={{
