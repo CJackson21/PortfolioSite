@@ -24,10 +24,10 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
     textDecoration: 'none',
     color: getLinkColor(),
     fontWeight: 500,
-    fontSize: isMobile ? '1.2rem' : '1.5rem', // Responsive font size
+    fontSize: isMobile ? '1.2rem' : '1.5rem',
     display: 'block',
     cursor: 'pointer',
-    paddingY: isMobile ? 0.5 : 1, // Responsive vertical padding
+    paddingY: isMobile ? 0.5 : 1,
     '&:hover': {
       color: theme.palette.primary.dark,
     },
@@ -56,9 +56,12 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
           overflowY: 'auto', // Enable vertical scrolling
           paddingX: theme.spacing(2),
           paddingY: theme.spacing(2),
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100%', // Ensure it takes full height for Flexbox
         }}
       >
-        <Stack spacing={2}>
+        <Stack spacing={2} sx={{ flexGrow: 1 }}>
           {/* Profile Picture */}
           <Box sx={{ alignSelf: 'center' }}>
             <img
@@ -66,7 +69,7 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
               alt='Caleb Jackson'
               style={{
                 borderRadius: '50%',
-                width: isMobile ? '8rem' : '10rem', // Responsive image size
+                width: isMobile ? '8rem' : '10rem',
                 height: 'auto',
               }}
             />
@@ -114,84 +117,83 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
           </Typography>
           <Divider />
         </Stack>
-      </Box>
-
-      {/* Footer Section */}
-      <Box
-        sx={{
-          paddingX: theme.spacing(2),
-          paddingY: theme.spacing(2),
-          ...(!isMobile && { marginTop: 'auto' }), // Push to bottom on desktop
-        }}
-      >
-        <Stack spacing={1}>
-          <ThemeSwitcher />
-          <Divider sx={{ marginY: theme.spacing(2) }} />
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: theme.spacing(1),
-            }}
-          >
-            <Typography
-              variant='h6'
-              fontWeight='bold'
+        {/* Footer Section */}
+        <Box
+          sx={{
+            paddingX: theme.spacing(2),
+            paddingY: theme.spacing(2),
+            ...(isMobile ? {} : { marginTop: 'auto' }), // Push to bottom on non-mobile
+          }}
+        >
+          <Stack spacing={1}>
+            <ThemeSwitcher />
+            <Divider sx={{ marginY: theme.spacing(2) }} />
+            <Box
               sx={{
-                marginBottom: 1,
-                color:
-                  theme.palette.mode === 'dark'
-                    ? theme.palette.primary.dark
-                    : theme.palette.primary.main,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: theme.spacing(1),
               }}
             >
-              Contact Me
-            </Typography>
-            <Stack direction='row' spacing={2} alignItems='center'>
               <Typography
-                component='a'
-                href='mailto:calebj@tzmedical.com'
-                aria-label='Send Email'
+                variant='h6'
+                fontWeight='bold'
                 sx={{
-                  textDecoration: 'none',
-                  color: getLinkColor(),
-                  '&:hover': { color: theme.palette.primary.dark },
+                  marginBottom: 1,
+                  color:
+                    theme.palette.mode === 'dark'
+                      ? theme.palette.primary.dark
+                      : theme.palette.primary.main,
                 }}
               >
-                <EmailIcon fontSize='large' />
+                Contact Me
               </Typography>
-              <Typography
-                component='a'
-                href='https://instagram.com/cjjackson.15'
-                target='_blank'
-                rel='noopener noreferrer'
-                aria-label='Visit Instagram'
-                sx={{
-                  textDecoration: 'none',
-                  color: getLinkColor(),
-                  '&:hover': { color: theme.palette.primary.dark },
-                }}
-              >
-                <InstagramIcon fontSize='large' />
-              </Typography>
-              <Typography
-                component='a'
-                href='https://www.linkedin.com/in/caleb-jackson-b08660264'
-                target='_blank'
-                rel='noopener noreferrer'
-                aria-label='Visit LinkedIn'
-                sx={{
-                  textDecoration: 'none',
-                  color: getLinkColor(),
-                  '&:hover': { color: theme.palette.primary.dark },
-                }}
-              >
-                <LinkedInIcon fontSize='large' />
-              </Typography>
-            </Stack>
-          </Box>
-        </Stack>
+              <Stack direction='row' spacing={2} alignItems='center'>
+                <Typography
+                  component='a'
+                  href='mailto:calebj@tzmedical.com'
+                  aria-label='Send Email'
+                  sx={{
+                    textDecoration: 'none',
+                    color: getLinkColor(),
+                    '&:hover': { color: theme.palette.primary.dark },
+                  }}
+                >
+                  <EmailIcon fontSize='large' />
+                </Typography>
+                <Typography
+                  component='a'
+                  href='https://instagram.com/cjjackson.15'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  aria-label='Visit Instagram'
+                  sx={{
+                    textDecoration: 'none',
+                    color: getLinkColor(),
+                    '&:hover': { color: theme.palette.primary.dark },
+                  }}
+                >
+                  <InstagramIcon fontSize='large' />
+                </Typography>
+                <Typography
+                  component='a'
+                  href='https://www.linkedin.com/in/caleb-jackson-b08660264'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  aria-label='Visit LinkedIn'
+                  sx={{
+                    textDecoration: 'none',
+                    color: getLinkColor(),
+                    '&:hover': { color: theme.palette.primary.dark },
+                  }}
+                >
+                  <LinkedInIcon fontSize='large' />
+                </Typography>
+              </Stack>
+            </Box>
+          </Stack>
+        </Box>
       </Box>
     </Box>
   );
