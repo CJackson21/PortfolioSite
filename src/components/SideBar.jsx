@@ -12,6 +12,21 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 const Sidebar = ({ onLinkClick, isMobile }) => {
   const theme = useTheme();
+  const [sidebarHeight, setSidebarHeight] = useState(window.innerHeight);
+
+  // Dynamically adjust the height of the sidebar
+  useEffect(() => {
+    const handleResize = () => {
+      setSidebarHeight(window.innerHeight);
+    };
+
+    // Listen for window resize events
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const color = React.useCallback(() => {
     return theme.palette.mode === 'dark'
@@ -35,13 +50,15 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
     <Box
       sx={{
         width: '100%',
-        height: '100vh', // Full viewport height
+        height: `${sidebarHeight}px`, // Dynamically adjust height
         backgroundColor: theme.palette.background.paper,
-        boxShadow: `0 ${theme.spacing(0.5)} ${theme.spacing(2.5)} rgba(0, 0, 0, 0.5)`,
-        overflowY: 'auto', // Add scrollbar for the entire sidebar when content overflows
+        boxShadow: `0 ${theme.spacing(0.5)} ${theme.spacing(
+          2.5
+        )} rgba(0, 0, 0, 0.5)`,
+        overflowY: 'auto', // Ensure the entire sidebar is scrollable
         display: 'flex',
         flexDirection: 'column',
-        paddingBottom: 'env(safe-area-inset-bottom)', // Account for bottom UI elements
+        paddingBottom: 'calc(env(safe-area-inset-bottom, 16px))', // Dynamic and fallback padding
       }}
     >
       <Stack spacing={2} sx={{ padding: theme.spacing(2) }}>
@@ -124,7 +141,6 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
             Contact Me
           </Typography>
           <Stack direction='row' spacing={2} alignItems='center'>
-            {/* Email */}
             <Typography
               component='a'
               href='mailto:calebj@tzmedical.com'
