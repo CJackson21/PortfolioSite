@@ -10,7 +10,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
-const Sidebar = ({ onLinkClick, isMobile }) => {
+const Sidebar = ({ onLinkClick }) => {
   const theme = useTheme();
 
   // Use MUI's breakpoint hooks to adjust styles based on screen size
@@ -39,8 +39,7 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
     <Box
       sx={{
         width: '100%',
-        // Avoid using fixed height; allow the sidebar to adjust naturally
-        minHeight: `calc(100vh - env(safe-area-inset-top, 0px))`,
+        height: 'calc(var(--vh, 1vh) * 100 - env(safe-area-inset-top, 0px))', // Use CSS variable for viewport height
         backgroundColor: theme.palette.background.paper,
         boxShadow: `0 ${theme.spacing(0.5)} ${theme.spacing(
           2.5
@@ -129,7 +128,7 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
       >
         <Stack spacing={isSmallScreen ? 1 : 2}>
           <ThemeSwitcher />
-          {!isSmallScreen && <Divider />} =
+          {!isSmallScreen && <Divider />}
           <Box
             sx={{
               display: 'flex',
@@ -160,6 +159,7 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
               <Typography
                 component='a'
                 href='mailto:calebj@tzmedical.com'
+                aria-label='Send Email'
                 sx={{
                   textDecoration: 'none',
                   color: color(),
@@ -173,6 +173,7 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
                 href='https://instagram.com/cjjackson.15'
                 target='_blank'
                 rel='noopener noreferrer'
+                aria-label='Visit Instagram'
                 sx={{
                   textDecoration: 'none',
                   color: color(),
@@ -186,6 +187,7 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
                 href='https://www.linkedin.com/in/caleb-jackson-b08660264'
                 target='_blank'
                 rel='noopener noreferrer'
+                aria-label='Visit LinkedIn'
                 sx={{
                   textDecoration: 'none',
                   color: color(),
@@ -204,7 +206,6 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
 
 Sidebar.propTypes = {
   onLinkClick: PropTypes.func.isRequired,
-  isMobile: PropTypes.bool.isRequired,
 };
 
 export default Sidebar;
