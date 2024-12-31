@@ -62,11 +62,10 @@ const Layout = ({ children, isMobile }) => {
           {children}
           <Box
             sx={{
-              position: "absolute",
-              bottom: 16,
-              left: 16,
+              position: "fixed",
+              bottom: 12,
+              left: 12,
               zIndex: 30,
-              backgroundColor: "rgba(0, 0, 0, 0.7)",
               color: "white",
               borderRadius: "8px",
               padding: "0.2rem 0.5rem",
