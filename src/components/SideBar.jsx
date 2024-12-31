@@ -50,15 +50,15 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
     <Box
       sx={{
         width: '100%',
-        height: `${sidebarHeight}px`, // Dynamically adjust height
+        height: `calc(100vh - env(safe-area-inset-top, 0px))`,
         backgroundColor: theme.palette.background.paper,
         boxShadow: `0 ${theme.spacing(0.5)} ${theme.spacing(
           2.5
         )} rgba(0, 0, 0, 0.5)`,
-        overflowY: 'auto', // Ensure the entire sidebar is scrollable
+        overflowY: 'auto',
         display: 'flex',
         flexDirection: 'column',
-        paddingBottom: 'calc(env(safe-area-inset-bottom, 16px))', // Dynamic and fallback padding
+        paddingBottom: 'calc(env(safe-area-inset-bottom, 16px))',
       }}
     >
       <Stack spacing={2} sx={{ padding: theme.spacing(2) }}>
