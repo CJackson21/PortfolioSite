@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Stack, Typography, Divider, useMediaQuery } from '@mui/material';
+import { Box, Stack, Typography, Divider } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -10,11 +10,8 @@ import EmailIcon from '@mui/icons-material/Email';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
-const Sidebar = ({ onLinkClick }) => {
+const Sidebar = ({ onLinkClick, isMobile }) => {
   const theme = useTheme();
-
-  // Use MUI's breakpoint hooks to adjust styles based on screen size
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const color = React.useCallback(() => {
     return theme.palette.mode === 'dark'
@@ -26,10 +23,9 @@ const Sidebar = ({ onLinkClick }) => {
     textDecoration: 'none',
     color: color(),
     fontWeight: 500,
-    fontSize: isSmallScreen ? '1.2rem' : '1.5rem',
+    fontSize: '1.5rem',
     display: 'block',
     cursor: 'pointer',
-    paddingY: isSmallScreen ? 0.5 : 1, // Reduce vertical padding on mobile
     '&:hover': {
       color: theme.palette.primary.dark,
     },
@@ -39,7 +35,7 @@ const Sidebar = ({ onLinkClick }) => {
     <Box
       sx={{
         width: '100%',
-        height: 'calc(var(--vh, 1vh) * 100 - env(safe-area-inset-top, 0px))', // Use CSS variable for viewport height
+        height: '100vh', // Use 100vh for full height
         backgroundColor: theme.palette.background.paper,
         boxShadow: `0 ${theme.spacing(0.5)} ${theme.spacing(
           2.5
@@ -48,21 +44,19 @@ const Sidebar = ({ onLinkClick }) => {
         flexDirection: 'column',
         paddingTop: 'env(safe-area-inset-top, 0px)',
         paddingBottom: 'env(safe-area-inset-bottom, 16px)',
-        boxSizing: 'border-box',
+        boxSizing: 'border-box', // Ensure padding is included in height
       }}
     >
-      {/* Main Content */}
+      {/* Make the main content scrollable if it exceeds the viewport */}
       <Box
         sx={{
-          flex: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between', // Space between content and footer
-          paddingX: isSmallScreen ? theme.spacing(1.5) : theme.spacing(2),
-          paddingY: isSmallScreen ? theme.spacing(1) : theme.spacing(2),
+          flex: 1, // Take up remaining space
+          overflowY: 'auto',
+          paddingX: theme.spacing(2),
+          paddingY: theme.spacing(2),
         }}
       >
-        <Stack spacing={isSmallScreen ? 1.5 : 2}>
+        <Stack spacing={2}>
           {/* Profile Picture */}
           <Box sx={{ alignSelf: 'center' }}>
             <img
@@ -70,7 +64,7 @@ const Sidebar = ({ onLinkClick }) => {
               alt='Caleb Jackson'
               style={{
                 borderRadius: '50%',
-                width: isSmallScreen ? '8rem' : '10rem', // Smaller image on mobile
+                width: '10rem',
                 height: 'auto',
               }}
             />
@@ -84,7 +78,7 @@ const Sidebar = ({ onLinkClick }) => {
           >
             Home
           </Typography>
-          {!isSmallScreen && <Divider />} {/* Hide Divider on mobile */}
+          <Divider />
           <Typography
             component={Link}
             to='/projects'
@@ -93,7 +87,7 @@ const Sidebar = ({ onLinkClick }) => {
           >
             Projects
           </Typography>
-          {!isSmallScreen && <Divider />}
+          <Divider />
           <Typography
             component='a'
             href='https://github.com/CJackson21'
@@ -104,9 +98,9 @@ const Sidebar = ({ onLinkClick }) => {
           >
             GitHub
           </Typography>
-          {!isSmallScreen && <Divider />}
-          <Resume color={color} isMobile={isSmallScreen} />
-          {!isSmallScreen && <Divider />}
+          <Divider />
+          <Resume color={color} isMobile={isMobile} />
+          <Divider />
           <Typography
             component={Link}
             to='/about'
@@ -115,86 +109,78 @@ const Sidebar = ({ onLinkClick }) => {
           >
             About Me
           </Typography>
-          {!isSmallScreen && <Divider />}
+          <Divider />
         </Stack>
       </Box>
 
       {/* Footer Section */}
       <Box
         sx={{
-          paddingX: isSmallScreen ? theme.spacing(1.5) : theme.spacing(2),
-          paddingY: isSmallScreen ? theme.spacing(1) : theme.spacing(2),
+          paddingX: theme.spacing(2),
+          paddingY: theme.spacing(2),
         }}
       >
-        <Stack spacing={isSmallScreen ? 1 : 2}>
+        <Stack spacing={1}>
           <ThemeSwitcher />
-          {!isSmallScreen && <Divider />}
+          <Divider sx={{ marginY: theme.spacing(2) }} />
           <Box
             sx={{
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              gap: isSmallScreen ? theme.spacing(0.5) : theme.spacing(1),
+              gap: theme.spacing(1),
             }}
           >
             <Typography
               variant='h6'
               fontWeight='bold'
               sx={{
-                marginBottom: isSmallScreen ? 0.5 : 1,
+                marginBottom: 1,
                 color:
                   theme.palette.mode === 'dark'
                     ? theme.palette.primary.dark
                     : theme.palette.primary.main,
-                fontSize: isSmallScreen ? '1rem' : '1.25rem',
               }}
             >
               Contact Me
             </Typography>
-            <Stack
-              direction='row'
-              spacing={isSmallScreen ? 1 : 2}
-              alignItems='center'
-            >
+            <Stack direction='row' spacing={2} alignItems='center'>
               <Typography
                 component='a'
                 href='mailto:calebj@tzmedical.com'
-                aria-label='Send Email'
                 sx={{
                   textDecoration: 'none',
                   color: color(),
                   '&:hover': { color: theme.palette.primary.dark },
                 }}
               >
-                <EmailIcon fontSize={isSmallScreen ? 'medium' : 'large'} />
+                <EmailIcon fontSize='large' />
               </Typography>
               <Typography
                 component='a'
                 href='https://instagram.com/cjjackson.15'
                 target='_blank'
                 rel='noopener noreferrer'
-                aria-label='Visit Instagram'
                 sx={{
                   textDecoration: 'none',
                   color: color(),
                   '&:hover': { color: theme.palette.primary.dark },
                 }}
               >
-                <InstagramIcon fontSize={isSmallScreen ? 'medium' : 'large'} />
+                <InstagramIcon fontSize='large' />
               </Typography>
               <Typography
                 component='a'
                 href='https://www.linkedin.com/in/caleb-jackson-b08660264'
                 target='_blank'
                 rel='noopener noreferrer'
-                aria-label='Visit LinkedIn'
                 sx={{
                   textDecoration: 'none',
                   color: color(),
                   '&:hover': { color: theme.palette.primary.dark },
                 }}
               >
-                <LinkedInIcon fontSize={isSmallScreen ? 'medium' : 'large'} />
+                <LinkedInIcon fontSize='large' />
               </Typography>
             </Stack>
           </Box>
@@ -206,6 +192,7 @@ const Sidebar = ({ onLinkClick }) => {
 
 Sidebar.propTypes = {
   onLinkClick: PropTypes.func.isRequired,
+  isMobile: PropTypes.bool.isRequired,
 };
 
 export default Sidebar;

@@ -33,7 +33,7 @@ function Projects({ isMobile }) {
         flexGrow: 1,
         padding: '5vh',
         textAlign: 'center',
-        margin: '0 auto', // Center the container
+        margin: '0 auto',
       }}
     >
       <Typography
