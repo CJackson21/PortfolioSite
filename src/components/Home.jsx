@@ -4,10 +4,10 @@ import '../index.css';
 
 function Home() {
   return (
-    <Box sx={{ position: 'relative', height: '100vh' }}>
+    <Box sx={{ position: 'relative', height: '100vh', overflow: 'none' }}>
       <Box
         sx={{
-          height: '100vh',
+          height: '100%',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
