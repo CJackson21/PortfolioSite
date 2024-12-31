@@ -154,7 +154,7 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
                   font: '1.2rem',
                   color:
                     theme.palette.mode === 'dark'
-                      ? theme.palette.primary.dark
+                      ? theme.palette.text.primary
                       : theme.palette.primary.main,
                 }}
               >
