@@ -19,7 +19,7 @@ function Resume({ color, isMobile }) {
     <>
       <Typography
         sx={{
-          fontSize: "1.5rem",
+          fontSize: isMobile ? '1.2rem' : '1.5rem',
           textDecoration: "none",
           cursor: "pointer",
           color,
