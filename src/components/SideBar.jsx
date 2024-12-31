@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Box, Stack, Typography, Divider } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
@@ -12,21 +12,6 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 const Sidebar = ({ onLinkClick, isMobile }) => {
   const theme = useTheme();
-  const [sidebarHeight, setSidebarHeight] = useState(window.innerHeight);
-
-  // Dynamically adjust the height of the sidebar
-  useEffect(() => {
-    const handleResize = () => {
-      setSidebarHeight(window.innerHeight);
-    };
-
-    // Listen for window resize events
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
 
   const color = React.useCallback(() => {
     return theme.palette.mode === 'dark'
