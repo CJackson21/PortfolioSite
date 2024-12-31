@@ -2,16 +2,18 @@ import React from "react";
 import { Box, Stack, Typography } from "@mui/material";
 
 function About() {
+  // simple about me section (TODO: add more to this later)
   return (
     <Box
       sx={{
         position: "relative",
-        alignContent: "center",
-        minHeight: "100vh",
-        overflow: "auto",
+        justifySelf: "center",
+        width: "fit-content",
+        height: "100%",
+        backgroundColor: "rgba(0, 0, 0, 0.85)",
+        zIndex: -1,
       }}
     >
-      {/* Main Content */}
       <Box
         sx={{
           height: "100%",
@@ -25,14 +27,13 @@ function About() {
         <Stack
           spacing={3}
           sx={{
-            padding: "5vh", // Padding for spacing around content
-            maxWidth: "50vw", // Constrain the width for better readability
+            padding: "5vh",
+            maxWidth: { xs: "90vw", sm: "35vw" },
             textAlign: "center",
           }}
         >
-          {/* Title */}
           <Typography
-            variant='h3'
+            variant='h4'
             fontWeight='bold'
             sx={{
               letterSpacing: "0.2vw",
@@ -46,7 +47,8 @@ function About() {
             variant='h6'
             sx={{
               color: "text.primary",
-              lineHeight: "1.8",
+              lineHeight: 1.8,
+              fontSize: { xs: "1rem", sm: "1.25rem" },
             }}
           >
             I am currently studying Computer Science at George Fox University,
@@ -55,8 +57,6 @@ function About() {
             workings of hardware and software. This curiosity grew into a
             passion for software and web development.
           </Typography>
-
-          {/* Variety of Programming Languages */}
           <Typography
             variant='h6'
             sx={{
@@ -70,8 +70,6 @@ function About() {
             and frameworks that can help me build innovative solutions to
             challenging problems.
           </Typography>
-
-          {/* Hobbies */}
           <Typography
             variant='h6'
             sx={{

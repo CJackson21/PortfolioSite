@@ -1,35 +1,34 @@
+import React, { useState } from "react";
 import {
   Box,
-  Grid,
-  Typography,
   Card,
   CardContent,
-  CardActions,
+  Typography,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
+import { useTheme } from "@mui/material/styles";
+import projects from "../data/projectsData";
 
-const projects = [
-  {
-    title: "Spotify Discord Bot",
-    description:
-      "A custom Discord bot designed to bring collaborative music playback to voice channels. The bot integrates the Spotify API to fetch playlist details and the YouTube API to stream songs, overcoming Spotify's playback limitations. Users can contribute to a shared Spotify playlist directly from their phones, and the bot automatically syncs the updates, playing tracks by fetching them from YouTube. Built using Node.js, discord.js, and ffmpeg, the bot supports commands like !play, !skip, and !queue, providing users with full control over the music experience. This project demonstrates advanced API integration, real-time updates, and seamless user interaction within Discord.",
-    link: "#",
-    image: "/img/spotify.png",
-  },
-  {
-    title: "Portfolio Website (v2)",
-    description:
-      "This very website is version 2 of my portfolio, designed to showcase my projects, skills, and creativity. Built with React and Material-UI for a modern, responsive user interface, it also integrates Three.js for interactive 3D elements (this site's background). This iteration incorporates cool tools and techniques to enhance user experience, such as smooth animations, modular component design, and advanced styling. It's a demonstration of my ability to build engaging and functional web applications while continuously improving on past work.",
-    link: "#",
-    image: "/img/react.png",
-  },
-];
+import PropTypes from "prop-types";
 
-function Projects() {
+function Projects({ isMobile }) {
+  const theme = useTheme();
+  const [openProject, setOpenProject] = useState(null);
+
+  const handleOpen = (project) => setOpenProject(project);
+  const handleClose = () => setOpenProject(null);
+
   return (
-    <Box
+    <Grid
+      container
+      direction='column'
+      spacing={4}
+      justifySelf='center'
       sx={{
-        display: "flex",
-        flexDirection: "column",
         maxWidth: "80vw",
         flexGrow: 1,
         padding: "5vh",
@@ -40,19 +39,18 @@ function Projects() {
         variant='h3'
         fontWeight='bold'
         sx={{
+          color: theme.palette.text.primary,
           marginBottom: "3vh",
           letterSpacing: "0.2vw",
         }}
       >
         My Projects
       </Typography>
-
-      <Grid container spacing={4} justifyContent='center'>
+      <Grid container spacing={4}>
         {projects.map((project, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
             <Card
               sx={{
-                // Let the card height adjust to text length
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
@@ -62,7 +60,7 @@ function Projects() {
               <CardContent>
                 <Box
                   sx={{
-                    height: "10rem",
+                    height: { xs: "8rem", sm: "10rem" },
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -74,34 +72,81 @@ function Projects() {
                     alt={`${project.title} Logo`}
                     style={{
                       maxHeight: "100%",
+                      maxWidth: "100%",
                       objectFit: "contain",
                     }}
                   />
                 </Box>
-                <Typography variant='h5' fontWeight='bold' gutterBottom>
-                  {project.title}
-                </Typography>
                 <Typography
-                  variant='body2'
-                  color='text.primary'
+                  variant='h4'
+                  gutterBottom
                   sx={{
-                    // Allow text to wrap properly
-                    whiteSpace: "normal",
-                    wordWrap: "break-word",
+                    color:
+                      theme.palette.mode === "dark"
+                        ? theme.palette.text.primary
+                        : theme.palette.text.secondary,
+                    fontWeight: theme.typography.fontWeightBold,
+                    fontSize: { xs: "1.25rem", sm: "1.5rem" },
                   }}
                 >
-                  {project.description}
+                  {project.title}
                 </Typography>
+                {isMobile ? (
+                  <Button
+                    variant='contained'
+                    sx={{
+                      backgroundColor: theme.palette.threejsback.default,
+                      borderRadius: "20px",
+                      padding: "0.5rem 1.5rem",
+                      fontSize: "0.875rem",
+                      textTransform: "none",
+                      "&:hover": {
+                        backgroundColor: theme.palette.primary.dark,
+                      },
+                    }}
+                    onClick={() => handleOpen(project)}
+                  >
+                    View Details
+                  </Button>
+                ) : (
+                  <Typography
+                    variant='body2'
+                    sx={{
+                      color:
+                        theme.palette.mode === "dark"
+                          ? theme.palette.text.primary
+                          : theme.palette.text.secondary,
+                      fontSize: { xs: "0.875rem", sm: "1rem" },
+                    }}
+                  >
+                    {project.description}
+                  </Typography>
+                )}
               </CardContent>
-              <CardActions sx={{ justifyContent: "center" }}>
-                {/* Add buttons or links here if needed */}
-              </CardActions>
             </Card>
           </Grid>
         ))}
       </Grid>
-    </Box>
+
+      {openProject && (
+        <Dialog
+          open={!!openProject}
+          onClose={handleClose}
+          maxWidth='sm'
+          fullWidth
+        >
+          <DialogTitle>{openProject.title}</DialogTitle>
+          <DialogContent>
+            <Typography variant='body1'>{openProject.description}</Typography>
+          </DialogContent>
+        </Dialog>
+      )}
+    </Grid>
   );
 }
 
-export default Projects;
+Projects.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+};
+
+export default React.memo(Projects);

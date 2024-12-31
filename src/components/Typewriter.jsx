@@ -6,7 +6,7 @@ const TypingEffect = () => {
   const [displayedText, setDisplayedText] = React.useState("");
   const [showCursor, setShowCursor] = React.useState(true);
 
-  // Precompute the text using useMemo
+  // precompute the text using useMemo
   const fullText = React.useMemo(
     () =>
       "I am currently a Senior studying Computer Science.\nFeel free to take a look around at some of my work.",
@@ -16,7 +16,7 @@ const TypingEffect = () => {
   // Memoized typing logic
   const typeWriter = React.useCallback(() => {
     let i = 0;
-    const speed = 30;
+    const speed = 70;
 
     const type = () => {
       if (i < fullText.length) {
@@ -29,16 +29,17 @@ const TypingEffect = () => {
     type();
   }, [fullText]);
 
-  // Run typeWriter and cursor blinking effects
+  // run typeWriter and cursor blinking effects
   React.useEffect(() => {
     typeWriter();
 
-    // Cursor blinking effect
+    // cursor blinking effect
     const cursorInterval = setInterval(() => {
       setShowCursor((prev) => !prev);
     }, 500);
 
-    return () => clearInterval(cursorInterval); // Cleanup on unmount
+    // cleanup on unmount
+    return () => clearInterval(cursorInterval);
   }, [typeWriter]);
 
   return (

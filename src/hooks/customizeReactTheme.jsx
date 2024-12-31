@@ -4,12 +4,16 @@ import { blue, blueGrey } from "@mui/material/colors";
 import { useMediaQuery } from "@mui/material";
 import useLocalStorage from "react-use-localstorage";
 
-// Customize these colors to your liking:
+// some of these colors are the same
+// splitting up for simplicities sake
+const TEXT_DARK = "#000000";
+const TEXT_LIGHT = "#ffffff";
+
 const PRIMARY_LIGHT = "#004c8b";
 const PRIMARY_MAIN = "#8b56e8";
-const PRIMARY_DARK = "#b48bfc";
+const PRIMARY_DARK = "#8b56e8";
 
-const SECONDARY_LIGHT = "#0077c2";
+const SECONDARY_LIGHT = "#8b56e8";
 const SECONDARY_MAIN = "#8b56e8";
 const SECONDARY_DARK = "#b48bfc";
 
@@ -18,21 +22,16 @@ const TERTIARY_MAIN = blueGrey[800];
 const TERTIARY_DARK = "#b48bfc";
 
 export default function useCustomTheme() {
-  //---------------------------------------------------------------------------
-  // 1) Read from localStorage and check OS preference
-  //---------------------------------------------------------------------------
+  // check prefs in local storage
   const [storedTheme, setStoredTheme] = useLocalStorage(
     "my-app-selected-theme",
     "system"
   );
-  // `system`, `light`, or `dark`
 
-  // Check if the OS-level setting is in dark mode:
+  // check if the OS-level setting is in dark mode:
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
-  //---------------------------------------------------------------------------
-  // 2) A callback to let us set the theme mode easily
-  //---------------------------------------------------------------------------
+  // a callback to let us set the theme mode easily
   const handleSelectTheme = React.useCallback(
     (event, newTheme) => {
       if (newTheme != null) {
@@ -42,29 +41,23 @@ export default function useCustomTheme() {
     [setStoredTheme]
   );
 
-  //---------------------------------------------------------------------------
-  // 3) Decide if we should be in dark mode
-  //---------------------------------------------------------------------------
+  // decide if we should be in dark mode
   const isDarkMode = React.useMemo(
     () =>
       storedTheme === "dark" || (storedTheme === "system" && prefersDarkMode),
     [prefersDarkMode, storedTheme]
   );
 
-  //---------------------------------------------------------------------------
-  // 4) Create a Material-UI theme that adapts to the dark or light mode
-  //---------------------------------------------------------------------------
+  // create a Material-UI theme that adapts to the dark or light mode
   const theme = React.useMemo(() => {
     return createTheme({
-      // We can attach extra info to the theme if we want:
-      handleSelectTheme, // so components can call it if needed
+      handleSelectTheme,
       selectedTheme: storedTheme,
-
       palette: {
         mode: isDarkMode ? "dark" : "light",
         text: {
-          primary: "#ffffff",
-          secondary: "#cccccc",
+          primary: TEXT_LIGHT,
+          secondary: TEXT_DARK,
         },
         primary: {
           light: PRIMARY_LIGHT,
@@ -93,28 +86,24 @@ export default function useCustomTheme() {
         info: {
           main: blue[400],
         },
-        // Adjust background if you want
         background: {
           default: isDarkMode ? "#121212" : "#f5f5f5",
-          paper: isDarkMode ? "#1e1e1e" : "#ffffff",
+          paper: isDarkMode ? "#1e1e1e" : "#f2f4f7",
         },
-        // MUI advanced settings:
+        threejsback: {
+          default: isDarkMode ? "#0b0d17" : "#412d5c",
+        },
         contrastThreshold: 3,
         tonalOffset: 0.2,
       },
-
-      // Set typography
       typography: {
-        h5: {
+        h4: {
           fontWeight: 500,
         },
       },
     });
   }, [handleSelectTheme, storedTheme, isDarkMode]);
 
-  //---------------------------------------------------------------------------
-  // 5) Return the theme and also an easy way to switch theme
-  //---------------------------------------------------------------------------
   return {
     theme,
     storedTheme,

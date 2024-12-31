@@ -10,15 +10,15 @@ const StarfieldBackground = () => {
 
   // Determine the current theme color
   const currTheme = React.useMemo(
-    () => (theme.palette.mode === "dark" ? "#0b0d17" : "#412d5c"),
+    () => theme.palette.threejsback.default,
     [theme]
   );
 
-  // First useEffect: Initialize the starfield (runs only once)
+  // actually initialize the background
   React.useEffect(() => {
     const canvas = canvasRef.current;
     const renderer = new THREE.WebGLRenderer({ canvas });
-    rendererRef.current = renderer; // Store renderer for later updates
+    rendererRef.current = renderer;
     renderer.setClearColor(new THREE.Color(currTheme));
 
     const scene = new THREE.Scene();
@@ -30,7 +30,7 @@ const StarfieldBackground = () => {
     scene.add(light);
 
     // Camera setup
-    const fov = 75;
+    const fov = 55;
     const aspect = canvas.clientWidth / canvas.clientHeight;
     const near = 1.5;
     const far = 5;

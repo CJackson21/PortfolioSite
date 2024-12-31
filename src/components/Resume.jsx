@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Dialog, DialogTitle, DialogContent, Typography } from "@mui/material";
 
-function ResumePopup({ color }) {
+function Resume({ color }) {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -22,7 +22,6 @@ function ResumePopup({ color }) {
         View Resume
       </Typography>
 
-      {/* Modal with <iframe> for your PDF */}
       <Dialog
         open={open}
         onClose={() => setOpen(false)}
@@ -49,8 +48,8 @@ function ResumePopup({ color }) {
   );
 }
 
-ResumePopup.propTypes = {
-  color: PropTypes.string.isRequired,
+Resume.propTypes = {
+  color: PropTypes.func.isRequired,
 };
 
-export default ResumePopup;
+export default Resume;
