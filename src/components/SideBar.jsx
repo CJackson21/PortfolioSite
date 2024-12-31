@@ -27,7 +27,7 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
   // Function to determine link color based on theme
   const getLinkColor = () => {
     return theme.palette.mode === 'dark'
-      ? theme.palette.primary.dark
+      ? theme.palette.text.dark
       : theme.palette.primary.main;
   };
 
@@ -152,6 +152,10 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
                   padding: 0,
                   width: '100%',
                   font: '1.2rem',
+                  color:
+                    theme.palette.mode === 'dark'
+                      ? theme.palette.primary.dark
+                      : theme.palette.primary.main,
                 }}
               >
                 Contact Me
@@ -187,10 +191,6 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
                   fontWeight='bold'
                   sx={{
                     marginBottom: 1,
-                    color:
-                      theme.palette.mode === 'dark'
-                        ? theme.palette.primary.dark
-                        : theme.palette.primary.main,
                   }}
                 >
                   Contact Me
@@ -252,7 +252,17 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
           fullWidth
           maxWidth='xs'
         >
-          <DialogTitle id='contact-dialog-title'>Contact Me</DialogTitle>
+          <DialogTitle
+            id='contact-dialog-title'
+            sx={{
+              color:
+                theme.palette.mode === 'dark'
+                  ? theme.palette.text.dark
+                  : theme.palette.primary.main,
+            }}
+          >
+            Contact Me
+          </DialogTitle>
           <DialogContent dividers>
             <Stack spacing={2} alignItems='center'>
               <Typography
@@ -260,12 +270,12 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
                 sx={{
                   color:
                     theme.palette.mode === 'dark'
-                      ? theme.palette.primary.dark
+                      ? theme.palette.text.dark
                       : theme.palette.primary.main,
                 }}
               >
-                I'd love to hear from you! Reach out through any of the
-                platforms below.
+                {`I'd love to hear from you! Reach out through any of the
+                platforms below.`}
               </Typography>
               <Stack direction='row' spacing={2} alignItems='center'>
                 <Typography
