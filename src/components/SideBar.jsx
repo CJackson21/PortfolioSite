@@ -1,4 +1,15 @@
-import { Box, Stack, Typography, Divider } from '@mui/material';
+import React from 'react';
+import {
+  Box,
+  Stack,
+  Typography,
+  Divider,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+} from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -11,6 +22,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 const Sidebar = ({ onLinkClick, isMobile }) => {
   const theme = useTheme();
+  const [isContactOpen, setIsContactOpen] = React.useState(false);
 
   // Function to determine link color based on theme
   const getLinkColor = () => {
@@ -31,6 +43,16 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
     '&:hover': {
       color: theme.palette.primary.dark,
     },
+  };
+
+  // Handlers to open and close the contact modal
+  const handleContactOpen = () => {
+    setIsContactOpen(true);
+    // Removed onLinkClick to prevent sidebar from closing
+  };
+
+  const handleContactClose = () => {
+    setIsContactOpen(false);
   };
 
   return (
@@ -116,38 +138,134 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
             About Me
           </Typography>
           <Divider />
-        </Stack>
-        {/* Footer Section */}
-        <Box
-          sx={{
-            paddingX: theme.spacing(2),
-            paddingY: theme.spacing(2),
-            ...(isMobile ? {} : { marginTop: 'auto' }), // Push to bottom on non-mobile
-          }}
-        >
-          <Stack spacing={1}>
-            <ThemeSwitcher />
-            <Divider sx={{ marginY: theme.spacing(2) }} />
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: theme.spacing(1),
-              }}
-            >
+          {/* Conditionally render "Contact Me" link on mobile */}
+          {isMobile && (
+            <>
               <Typography
-                variant='h6'
-                fontWeight='bold'
+                component='button'
+                onClick={handleContactOpen}
                 sx={{
-                  marginBottom: 1,
+                  ...linkStyles,
+                  background: 'none',
+                  border: 'none',
+                  textAlign: 'left',
+                  padding: 0,
+                  width: '100%',
+                  font: '1.2rem',
+                }}
+              >
+                Contact Me
+              </Typography>
+              <Divider />
+              <ThemeSwitcher />
+            </>
+          )}
+        </Stack>
+
+        {/* Footer Section - Visible only on non-mobile */}
+        {!isMobile && (
+          <Box
+            sx={{
+              paddingX: theme.spacing(2),
+              paddingY: theme.spacing(2),
+              marginTop: 'auto', // Push to bottom on non-mobile
+            }}
+          >
+            <Stack spacing={1}>
+              <ThemeSwitcher />
+              <Divider sx={{ marginY: theme.spacing(2) }} />
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: theme.spacing(1),
+                }}
+              >
+                <Typography
+                  variant='h6'
+                  fontWeight='bold'
+                  sx={{
+                    marginBottom: 1,
+                    color:
+                      theme.palette.mode === 'dark'
+                        ? theme.palette.primary.dark
+                        : theme.palette.primary.main,
+                  }}
+                >
+                  Contact Me
+                </Typography>
+                <Stack direction='row' spacing={2} alignItems='center'>
+                  <Typography
+                    component='a'
+                    href='mailto:calebj@tzmedical.com'
+                    aria-label='Send Email'
+                    sx={{
+                      textDecoration: 'none',
+                      color: getLinkColor(),
+                      '&:hover': { color: theme.palette.primary.dark },
+                    }}
+                  >
+                    <EmailIcon fontSize='large' />
+                  </Typography>
+                  <Typography
+                    component='a'
+                    href='https://instagram.com/cjjackson.15'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    aria-label='Visit Instagram'
+                    sx={{
+                      textDecoration: 'none',
+                      color: getLinkColor(),
+                      '&:hover': { color: theme.palette.primary.dark },
+                    }}
+                  >
+                    <InstagramIcon fontSize='large' />
+                  </Typography>
+                  <Typography
+                    component='a'
+                    href='https://www.linkedin.com/in/caleb-jackson-b08660264'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    aria-label='Visit LinkedIn'
+                    sx={{
+                      textDecoration: 'none',
+                      color: getLinkColor(),
+                      '&:hover': { color: theme.palette.primary.dark },
+                    }}
+                  >
+                    <LinkedInIcon fontSize='large' />
+                  </Typography>
+                </Stack>
+              </Box>
+            </Stack>
+          </Box>
+        )}
+      </Box>
+
+      {/* Contact Me Modal - Visible only on mobile */}
+      {isMobile && (
+        <Dialog
+          open={isContactOpen}
+          onClose={handleContactClose}
+          aria-labelledby='contact-dialog-title'
+          fullWidth
+          maxWidth='xs'
+        >
+          <DialogTitle id='contact-dialog-title'>Contact Me</DialogTitle>
+          <DialogContent dividers>
+            <Stack spacing={2} alignItems='center'>
+              <Typography
+                variant='body1'
+                sx={{
                   color:
                     theme.palette.mode === 'dark'
                       ? theme.palette.primary.dark
                       : theme.palette.primary.main,
                 }}
               >
-                Contact Me
+                I'd love to hear from you! Reach out through any of the
+                platforms below.
               </Typography>
               <Stack direction='row' spacing={2} alignItems='center'>
                 <Typography
@@ -191,10 +309,15 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
                   <LinkedInIcon fontSize='large' />
                 </Typography>
               </Stack>
-            </Box>
-          </Stack>
-        </Box>
-      </Box>
+            </Stack>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleContactClose} color='primary'>
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
+      )}
     </Box>
   );
 };
