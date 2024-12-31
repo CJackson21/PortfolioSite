@@ -1,34 +1,32 @@
 import React from "react";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Grid, Stack, Typography } from "@mui/material";
 
 function About() {
   // simple about me section (TODO: add more to this later)
   return (
-    <Box
+    <Grid
+      container
       sx={{
-        position: "relative",
-        justifySelf: "center",
-        width: "fit-content",
-        height: "100%",
-        backgroundColor: "rgba(0, 0, 0, 0.85)",
-        zIndex: -1,
+        minHeight: "100vh",
+        display: "grid",
+        placeItems: "center",
       }}
     >
       <Box
         sx={{
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          textAlign: "center",
+          width: { xs: "90vw", sm: "fit-content" },
+          maxWidth: "90vw",
+          backgroundColor: "rgba(0, 0, 0, 0.85)",
+          borderRadius: "8px",
+          padding: { xs: "4vw", sm: "3vh" },
+          boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.5)",
         }}
       >
         <Stack
           spacing={3}
           sx={{
             padding: "5vh",
-            maxWidth: { xs: "90vw", sm: "35vw" },
+            maxWidth: { xs: "100%", sm: "35vw" },
             textAlign: "center",
           }}
         >
@@ -37,6 +35,7 @@ function About() {
             fontWeight='bold'
             sx={{
               letterSpacing: "0.2vw",
+              fontSize: { xs: "1.5rem", sm: "2rem" },
             }}
           >
             About Me
@@ -83,7 +82,7 @@ function About() {
           </Typography>
         </Stack>
       </Box>
-    </Box>
+    </Grid>
   );
 }
 
