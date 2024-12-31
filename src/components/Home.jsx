@@ -1,25 +1,25 @@
-import { Box, Stack, Typography } from "@mui/material";
-import TypingEffect from "./Typewriter";
-import "../index.css";
+import { Box, Stack, Typography } from '@mui/material';
+import TypingEffect from './Typewriter';
+import '../index.css';
 
 function Home() {
   return (
-    <Box sx={{ position: "relative", height: "100vh" }}>
+    <Box sx={{ position: 'relative', height: '100vh' }}>
       <Box
         sx={{
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          textAlign: "center",
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
           px: 2,
         }}
       >
         <Stack spacing={2} alignItems='center'>
           <Typography
             sx={{
-              fontSize: { xs: "1.5rem", sm: "2.5rem" },
+              fontSize: { xs: '1.5rem', sm: '2.5rem' },
             }}
           >
             {"Hey there, I'm"}
@@ -28,14 +28,14 @@ function Home() {
             id='name'
             fontWeight='bold'
             sx={{
-              fontSize: { xs: "3rem", sm: "5rem" },
+              fontSize: { xs: '3rem', sm: '5rem' },
             }}
           >
             Caleb Jackson
           </Typography>
           <Typography
             sx={{
-              fontSize: { xs: "1.5rem", sm: "2.5rem" },
+              fontSize: { xs: '1.5rem', sm: '2.5rem' },
             }}
           >
             Full Stack Developer

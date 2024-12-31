@@ -1,33 +1,33 @@
-import React from "react";
-import { Box, Stack, Typography, Divider } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
+import React from 'react';
+import { Box, Stack, Typography, Divider } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-import Resume from "./Resume";
-import ThemeSwitcher from "./ThemeSwitcher";
-import EmailIcon from "@mui/icons-material/Email";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import Resume from './Resume';
+import ThemeSwitcher from './ThemeSwitcher';
+import EmailIcon from '@mui/icons-material/Email';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 const Sidebar = ({ onLinkClick, isMobile }) => {
   const theme = useTheme();
 
   const color = React.useCallback(() => {
-    return theme.palette.mode === "dark"
+    return theme.palette.mode === 'dark'
       ? theme.palette.primary.dark
       : theme.palette.primary.main;
   }, [theme]);
 
   // add nicer styling for the links
   const linkStyles = {
-    textDecoration: "none",
+    textDecoration: 'none',
     color,
     fontWeight: 500,
-    fontSize: "1.5rem",
-    display: "block",
-    cursor: "pointer",
-    "&:hover": {
+    fontSize: '1.5rem',
+    display: 'block',
+    cursor: 'pointer',
+    '&:hover': {
       color: theme.palette.primary.dark,
     },
   };
@@ -35,28 +35,28 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
   return (
     <Box
       sx={{
-        width: "100%",
-        height: "100%",
+        width: '100%',
+        height: '100vh',
         backgroundColor: theme.palette.background.paper,
         boxShadow: `0 ${theme.spacing(0.5)} ${theme.spacing(
           2.5
         )} rgba(0, 0, 0, 0.5)`,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
         padding: theme.spacing(2),
       }}
     >
       <Stack spacing={2}>
         {/* Profile Picture */}
-        <Typography sx={{ alignSelf: "center" }}>
+        <Typography sx={{ alignSelf: 'center' }}>
           <img
             src='/img/Jackson_Caleb_1-2.jpg'
             alt='Caleb Jackson'
             style={{
-              borderRadius: "50%",
-              width: "10rem",
-              height: "auto",
+              borderRadius: '50%',
+              width: '10rem',
+              height: 'auto',
             }}
           />
         </Typography>
@@ -105,18 +105,36 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
         <Divider />
       </Stack>
       {/* Contact Me Section */}
-      <Stack sx={{ padding: theme.spacing(2), gap: theme.spacing(1) }}>
+      <Stack
+        sx={{
+          padding: `${theme.spacing(
+            2
+          )} env(safe-area-inset-bottom) ${theme.spacing(1)}`,
+          gap: theme.spacing(1),
+        }}
+      >
         <ThemeSwitcher />
         <Divider />
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
             gap: theme.spacing(1),
+            paddingBottom: 'env(safe-area-inset-bottom)',
           }}
         >
-          <Typography variant='h6' fontWeight='bold' sx={{ marginBottom: 1 }}>
+          <Typography
+            variant='h6'
+            fontWeight='bold'
+            sx={{
+              marginBottom: 1,
+              color:
+                theme.palette.mode === 'dark'
+                  ? theme.palette.primary.dark
+                  : theme.palette.primary.main,
+            }}
+          >
             Contact Me
           </Typography>
           <Stack direction='row' spacing={2} alignItems='center'>
@@ -125,9 +143,9 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
               component='a'
               href='mailto:calebj@tzmedical.com'
               sx={{
-                textDecoration: "none",
+                textDecoration: 'none',
                 color: color(),
-                "&:hover": { color: theme.palette.primary.dark },
+                '&:hover': { color: theme.palette.primary.dark },
               }}
             >
               <EmailIcon fontSize='large' />
@@ -138,9 +156,9 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
               target='_blank'
               rel='noopener noreferrer'
               sx={{
-                textDecoration: "none",
+                textDecoration: 'none',
                 color: color(),
-                "&:hover": { color: theme.palette.primary.dark },
+                '&:hover': { color: theme.palette.primary.dark },
               }}
             >
               <InstagramIcon fontSize='large' />
@@ -151,9 +169,9 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
               target='_blank'
               rel='noopener noreferrer'
               sx={{
-                textDecoration: "none",
+                textDecoration: 'none',
                 color: color(),
-                "&:hover": { color: theme.palette.primary.dark },
+                '&:hover': { color: theme.palette.primary.dark },
               }}
             >
               <LinkedInIcon fontSize='large' />

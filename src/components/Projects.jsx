@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Box,
   Card,
@@ -8,12 +8,12 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-} from "@mui/material";
-import Grid from "@mui/material/Grid2";
-import { useTheme } from "@mui/material/styles";
-import projects from "../data/projectsData";
+} from '@mui/material';
+import Grid from '@mui/material/Grid2';
+import { useTheme } from '@mui/material/styles';
+import projects from '../data/projectsData';
 
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 function Projects({ isMobile }) {
   const theme = useTheme();
@@ -29,10 +29,10 @@ function Projects({ isMobile }) {
       spacing={4}
       justifySelf='center'
       sx={{
-        maxWidth: "80vw",
+        maxWidth: '80vw',
         flexGrow: 1,
-        padding: "5vh",
-        textAlign: "center",
+        padding: '5vh',
+        textAlign: 'center',
       }}
     >
       <Typography
@@ -40,8 +40,8 @@ function Projects({ isMobile }) {
         fontWeight='bold'
         sx={{
           color: theme.palette.text.primary,
-          marginBottom: "3vh",
-          letterSpacing: "0.2vw",
+          marginBottom: '3vh',
+          letterSpacing: '0.2vw',
         }}
       >
         My Projects
@@ -51,29 +51,29 @@ function Projects({ isMobile }) {
           <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
             <Card
               sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                height: "100%",
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                height: '100%',
               }}
             >
               <CardContent>
                 <Box
                   sx={{
-                    height: { xs: "8rem", sm: "10rem" },
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginBottom: "1rem",
+                    height: { xs: '8rem', sm: '10rem' },
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: '1rem',
                   }}
                 >
                   <img
                     src={project.image}
                     alt={`${project.title} Logo`}
                     style={{
-                      maxHeight: "100%",
-                      maxWidth: "100%",
-                      objectFit: "contain",
+                      maxHeight: '100%',
+                      maxWidth: '100%',
+                      objectFit: 'contain',
                     }}
                   />
                 </Box>
@@ -82,11 +82,11 @@ function Projects({ isMobile }) {
                   gutterBottom
                   sx={{
                     color:
-                      theme.palette.mode === "dark"
+                      theme.palette.mode === 'dark'
                         ? theme.palette.text.primary
                         : theme.palette.text.secondary,
                     fontWeight: theme.typography.fontWeightBold,
-                    fontSize: { xs: "1.25rem", sm: "1.5rem" },
+                    fontSize: { xs: '1.25rem', sm: '1.5rem' },
                   }}
                 >
                   {project.title}
@@ -96,11 +96,11 @@ function Projects({ isMobile }) {
                     variant='contained'
                     sx={{
                       backgroundColor: theme.palette.threejsback.default,
-                      borderRadius: "20px",
-                      padding: "0.5rem 1.5rem",
-                      fontSize: "0.875rem",
-                      textTransform: "none",
-                      "&:hover": {
+                      borderRadius: '20px',
+                      padding: '0.5rem 1.5rem',
+                      fontSize: '0.875rem',
+                      textTransform: 'none',
+                      '&:hover': {
                         backgroundColor: theme.palette.primary.dark,
                       },
                     }}
@@ -113,10 +113,10 @@ function Projects({ isMobile }) {
                     variant='body2'
                     sx={{
                       color:
-                        theme.palette.mode === "dark"
+                        theme.palette.mode === 'dark'
                           ? theme.palette.text.primary
                           : theme.palette.text.secondary,
-                      fontSize: { xs: "0.875rem", sm: "1rem" },
+                      fontSize: { xs: '0.875rem', sm: '1rem' },
                     }}
                   >
                     {project.description}
@@ -138,7 +138,7 @@ function Projects({ isMobile }) {
           <DialogTitle
             sx={{
               color:
-                theme.palette.mode === "dark"
+                theme.palette.mode === 'dark'
                   ? theme.palette.text.primary
                   : theme.palette.text.secondary,
             }}
@@ -150,7 +150,7 @@ function Projects({ isMobile }) {
               variant='body1'
               sx={{
                 color:
-                  theme.palette.mode === "dark"
+                  theme.palette.mode === 'dark'
                     ? theme.palette.text.primary
                     : theme.palette.text.secondary,
               }}

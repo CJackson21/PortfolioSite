@@ -1,10 +1,10 @@
-import React from "react";
-import { Box, Drawer, Toolbar } from "@mui/material";
-import PropTypes from "prop-types";
+import React from 'react';
+import { Box, Drawer } from '@mui/material';
+import PropTypes from 'prop-types';
 
-import Sidebar from "./SideBar";
-import HamburgerButton from "./HamburgerButton";
-import Background from "./Background";
+import Sidebar from './SideBar';
+import HamburgerButton from './HamburgerButton';
+import Background from './Background';
 
 const DRAWER_WIDTH = 240;
 
@@ -23,34 +23,33 @@ const Layout = ({ children, isMobile }) => {
   }, [isMobile]);
 
   return (
-    <Box sx={{ display: "flex", height: "100vh" }}>
+    <Box sx={{ display: 'flex', minHeight: '100vh' }}>
       <Drawer
-        variant={isMobile ? "temporary" : "persistent"}
+        variant={isMobile ? 'temporary' : 'persistent'}
         open={isSidebarOpen}
         onClose={closeSidebarOnMobile}
         sx={{
-          "& .MuiDrawer-paper": {
-            width: isMobile ? "100vw" : `${DRAWER_WIDTH}px`,
-            height: "100vh",
-            boxSizing: "border-box",
+          '& .MuiDrawer-paper': {
+            width: isMobile ? '100vw' : `${DRAWER_WIDTH}px`,
+            minHeight: '100vh',
+            boxSizing: 'border-box',
           },
         }}
       >
-        <Toolbar />
         <Sidebar onLinkClick={closeSidebarOnMobile} isMobile={isMobile} />
       </Drawer>
       <Box
         sx={{
           flexGrow: 1,
           marginLeft: isMobile ? 0 : isSidebarOpen ? `${DRAWER_WIDTH}px` : 0,
-          transition: "margin-left 0.3s ease",
-          position: "relative",
+          transition: 'margin-left 0.3s ease',
+          position: 'relative',
         }}
       >
         <Background />
         <Box
           sx={{
-            position: "absolute",
+            position: 'absolute',
             top: 16,
             left: 16,
             zIndex: 30,
@@ -58,19 +57,19 @@ const Layout = ({ children, isMobile }) => {
         >
           <HamburgerButton onClick={toggleSidebar} isOpen={isSidebarOpen} />
         </Box>
-        <Box component='main' sx={{ padding: 3 }}>
+        <Box component='main'>
           {children}
           <Box
             sx={{
-              position: "fixed",
+              position: 'fixed',
               bottom: 12,
               left: 12,
               zIndex: 30,
-              color: "white",
-              borderRadius: "8px",
-              padding: "0.2rem 0.5rem",
-              fontWeight: "bold",
-              fontSize: "0.90rem",
+              color: 'white',
+              borderRadius: '8px',
+              padding: '0.2rem 0.5rem',
+              fontWeight: 'bold',
+              fontSize: '0.90rem',
             }}
           >
             v2
