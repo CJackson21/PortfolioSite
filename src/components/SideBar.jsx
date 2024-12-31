@@ -191,6 +191,10 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
                   fontWeight='bold'
                   sx={{
                     marginBottom: 1,
+                    color:
+                      theme.palette.mode === 'dark'
+                        ? theme.palette.text.primary
+                        : theme.palette.primary.main,
                   }}
                 >
                   Contact Me

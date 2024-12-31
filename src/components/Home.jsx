@@ -4,7 +4,7 @@ import '../index.css';
 
 function Home() {
   return (
-    <Box sx={{ position: 'relative', height: '100vh', overflow: 'none' }}>
+    <Box sx={{ position: 'relative', height: '100vh' }}>
       <Box
         sx={{
           height: '100%',
