@@ -4,11 +4,13 @@ import DarkModeIcon from '@mui/icons-material/DarkModeOutlined';
 import LightModeIcon from '@mui/icons-material/WbSunny';
 
 function ThemeSwitcher() {
+  // We'll read our custom fields (selectedTheme, handleSelectTheme)
+  // from the theme (make sure you attach them in your createTheme config).
   const theme = useTheme();
-  const { handleSelectTheme } = theme;
+  const { selectedTheme, handleSelectTheme } = theme;
 
   // Determine if we're currently in dark mode
-  const isDark = theme.palette.mode === 'dark';
+  const isDark = selectedTheme === 'dark';
 
   // Handler to toggle between dark and light
   const toggleThemeMode = () => {
@@ -35,6 +37,7 @@ function ThemeSwitcher() {
         whiteSpace: 'nowrap',
       }}
     >
+      {/* Toggle button text based on the current theme mode */}
       {isDark ? 'Switch to Light' : 'Switch to Dark'}
     </Button>
   );
