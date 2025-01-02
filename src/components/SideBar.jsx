@@ -170,19 +170,19 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
         {!isMobile && (
           <Box
             sx={{
-              paddingX: theme.spacing(2),
+              paddingRight: theme.spacing(2),
               paddingY: theme.spacing(2),
-              marginTop: 'auto', // Push to bottom on non-mobile
+              marginTop: 'auto',
             }}
           >
             <Stack spacing={1}>
               <ThemeSwitcher />
-              <Divider sx={{ marginY: theme.spacing(2) }} />
+              <Divider sx={{ width: '85%' }} />
               <Box
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
-                  alignItems: 'center',
+                  alignItems: 'left',
                   gap: theme.spacing(1),
                 }}
               >

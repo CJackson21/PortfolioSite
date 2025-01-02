@@ -1,16 +1,18 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Dialog, DialogTitle, DialogContent, Typography } from "@mui/material";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { useTheme } from '@mui/material/styles';
+import { Dialog, DialogTitle, DialogContent, Typography } from '@mui/material';
 
 function Resume({ color, isMobile }) {
   const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
 
   const handleViewResume = () => {
     if (isMobile) {
-      // Redirect to the PDF link on mobile
-      window.open("/CalebJackson_SoftwareEngineer.pdf", "_blank");
+      // redirect to the PDF link on mobile
+      window.open('/CalebJackson_SoftwareEngineer.pdf', '_blank');
     } else {
-      // Open the dialog on desktop
+      // open the dialog on desktop
       setOpen(true);
     }
   };
@@ -20,12 +22,12 @@ function Resume({ color, isMobile }) {
       <Typography
         sx={{
           fontSize: isMobile ? '1.2rem' : '1.5rem',
-          textDecoration: "none",
-          cursor: "pointer",
+          textDecoration: 'none',
+          cursor: 'pointer',
           color,
           fontWeight: 500,
-          "&:hover": { color: "primary.dark" },
-          "&:visited": { color: "primary.main" },
+          '&:hover': { color: 'primary.dark' },
+          '&:visited': { color: 'primary.main' },
         }}
         onClick={handleViewResume}
       >
@@ -39,14 +41,23 @@ function Resume({ color, isMobile }) {
           fullWidth
           maxWidth='lg'
         >
-          <DialogTitle>My Resume</DialogTitle>
+          <DialogTitle
+            sx={{
+              color:
+                theme.palette.mode === 'dark'
+                  ? theme.palette.text.primary
+                  : theme.palette.text.secondary,
+            }}
+          >
+            My Resume
+          </DialogTitle>
           <DialogContent dividers>
             <iframe
               src='/CalebJackson_SoftwareEngineer.pdf#toolbar=0&navpanes=0&scrollbar=0'
               width='100%'
               style={{
-                height: "80vh",
-                border: "none",
+                height: '80vh',
+                border: 'none',
               }}
               title='My Embedded Resume'
             />
