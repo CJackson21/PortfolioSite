@@ -8,7 +8,6 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions,
   Button,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
@@ -20,11 +19,10 @@ function Projects({ isMobile }) {
   const [openProject, setOpenProject] = useState(null);
 
   // Determine text color based on theme
-  const textColor = React.useMemo(() => {
-    return theme.palette.mode === 'dark'
+  const textColor =
+    theme.palette.mode === 'dark'
       ? theme.palette.text.primary
       : theme.palette.text.secondary;
-  }, [theme]);
 
   // Handlers to open and close the project dialog
   const handleOpen = (project) => setOpenProject(project);
@@ -37,13 +35,15 @@ function Projects({ isMobile }) {
         minHeight: '100vh',
         display: 'flex',
         justifyContent: 'center',
-        padding: 5,
+        padding: { xs: 2, sm: 5 },
+        position: 'relative',
+        overflow: 'hidden', // Prevent overflow from scaling
+        backgroundColor: theme.palette.background.default,
       }}
     >
       <Box
         sx={{
-          width: { xs: '90vw', sm: 'fit-content' },
-          maxWidth: '90vw',
+          width: { xs: '100%', sm: '90vw', md: '80vw' },
           backgroundColor: theme.palette.background.paper,
           borderRadius: '16px',
           padding: { xs: '5vw', sm: '4vh' },
@@ -58,8 +58,7 @@ function Projects({ isMobile }) {
         <Stack
           spacing={4}
           sx={{
-            padding: '5vh',
-            maxWidth: { xs: '100%', sm: '80vw' },
+            maxWidth: '100%',
             textAlign: 'center',
             alignItems: 'center',
           }}
@@ -78,7 +77,7 @@ function Projects({ isMobile }) {
           </Typography>
           <Divider
             sx={{
-              width: '50%',
+              width: { xs: '60%', sm: '50%' },
               borderColor: theme.palette.primary.light,
             }}
           />
@@ -95,26 +94,54 @@ function Projects({ isMobile }) {
             {projects.map((project, index) => (
               <Grid item xs={12} sm={6} md={4} key={index}>
                 <Box
+                  onClick={() => !isMobile && handleOpen(project)}
                   sx={{
+                    position: 'relative', // Corrected typo from 'reablative' to 'relative'
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
                     backgroundColor: theme.palette.background.default,
                     borderRadius: '12px',
                     boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.2)',
-                    padding: '2rem',
+                    padding: '1.5rem',
                     height: '100%',
+                    transition:
+                      'transform 0.3s ease, box-shadow 0.3s ease, z-index 0.3s ease',
+                    cursor: 'pointer',
+                    zIndex: 1,
+                    // Hover effects only on desktop
+                    ...(!isMobile && {
+                      ':hover': {
+                        transform: 'scale(1.05)',
+                        boxShadow: '0px 12px 24px rgba(0, 0, 0, 0.3)',
+                        zIndex: 10,
+                      },
+                      // Show the description box on hover
+                      '&:hover .description': {
+                        opacity: 1,
+                        transform: 'translateY(0)',
+                        pointerEvents: 'auto',
+                      },
+                    }),
+                  }}
+                  tabIndex={0}
+                  role='button'
+                  aria-labelledby={`project-title-${index}`}
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter' && !isMobile) {
+                      handleOpen(project);
+                    }
                   }}
                 >
                   {/* Project Image */}
                   <Box
                     sx={{
                       width: '100%',
-                      height: { xs: '8rem', sm: '10rem' },
+                      height: { xs: '6rem', sm: '8rem' },
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      marginBottom: '1rem',
+                      marginBottom: '0.5rem',
                     }}
                   >
                     <img
@@ -125,36 +152,76 @@ function Projects({ isMobile }) {
                         maxWidth: '100%',
                         objectFit: 'contain',
                       }}
+                      loading='lazy' // Optimize image loading
                     />
                   </Box>
 
                   {/* Project Title */}
                   <Typography
-                    variant='h4'
+                    variant='h5'
                     gutterBottom
                     sx={{
                       color: theme.palette.primary.main,
                       fontWeight: 'bold',
-                      fontSize: { xs: '1.25rem', sm: '1.5rem' },
+                      fontSize: { xs: '1rem', sm: '1.25rem' },
                       textAlign: 'center',
                     }}
                   >
                     {project.title}
                   </Typography>
+
+                  {/* Description and Button on Hover (Desktop Only) */}
                   {!isMobile && (
-                    <Typography
-                      variant='body1'
+                    <Box
+                      className='description'
                       sx={{
-                        color: textColor,
-                        textAlign: 'center',
-                        fontSize: { xs: '1rem', sm: '1.2rem' },
-                        flexGrow: 1,
+                        position: 'absolute',
+                        transform: 'translate(0%, 20px)', // Start slightly below
+                        width: '90%',
+                        bgcolor: theme.palette.background.paper,
+                        borderRadius: '12px',
+                        boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.3)',
+                        padding: '1rem',
+                        opacity: 0,
+                        transition: 'opacity 0.3s ease, transform 0.3s ease',
+                        pointerEvents: 'none',
                       }}
                     >
-                      {project.description}
-                    </Typography>
+                      <Typography
+                        variant='body1'
+                        sx={{
+                          color: textColor,
+                          textAlign: 'center',
+                          fontSize: { xs: '0.875rem', sm: '1rem' },
+                        }}
+                      >
+                        {project.description}
+                      </Typography>
+                      <Button
+                        variant='contained'
+                        onClick={(e) => {
+                          e.stopPropagation(); // Prevent triggering the card's onClick
+                          handleOpen(project);
+                        }}
+                        sx={{
+                          marginTop: '1rem',
+                          backgroundColor: theme.palette.primary.main,
+                          color: theme.palette.background.paper,
+                          borderRadius: '20px',
+                          padding: '0.5rem 1.5rem',
+                          fontSize: '0.875rem',
+                          textTransform: 'none',
+                          '&:hover': {
+                            backgroundColor: theme.palette.primary.dark,
+                          },
+                        }}
+                      >
+                        View Details
+                      </Button>
+                    </Box>
                   )}
-                  {/* View Details Button */}
+
+                  {/* View Details Button for Mobile */}
                   {isMobile && (
                     <Button
                       variant='contained'
@@ -189,8 +256,11 @@ function Projects({ isMobile }) {
           onClose={handleClose}
           maxWidth='sm'
           fullWidth
+          aria-labelledby='project-dialog-title'
+          aria-describedby='project-dialog-description'
         >
           <DialogTitle
+            id='project-dialog-title'
             sx={{
               color: theme.palette.primary.main,
               fontWeight: 'bold',
@@ -201,6 +271,7 @@ function Projects({ isMobile }) {
           <DialogContent>
             <Typography
               variant='body1'
+              id='project-dialog-description'
               sx={{
                 color: textColor,
                 lineHeight: 1.8,
@@ -210,22 +281,6 @@ function Projects({ isMobile }) {
               {openProject.description}
             </Typography>
           </DialogContent>
-          <DialogActions>
-            <Button
-              onClick={handleClose}
-              variant='outlined'
-              sx={{
-                textTransform: 'none',
-                color: theme.palette.primary.main,
-                borderColor: theme.palette.primary.main,
-                '&:hover': {
-                  backgroundColor: theme.palette.primary.light,
-                },
-              }}
-            >
-              Close
-            </Button>
-          </DialogActions>
         </Dialog>
       )}
     </Grid>
