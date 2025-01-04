@@ -1,24 +1,24 @@
-import React from 'react';
+import React from "react";
 import {
   Box,
-  Stack,
-  Typography,
+  Button,
   Divider,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
-  Button,
-} from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+  Stack,
+  Typography,
+} from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
-import Resume from './Resume';
-import ThemeSwitcher from './ThemeSwitcher';
-import EmailIcon from '@mui/icons-material/Email';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import Resume from "./Resume";
+import ThemeSwitcher from "./ThemeSwitcher";
+import EmailIcon from "@mui/icons-material/Email";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
 const Sidebar = ({ onLinkClick, isMobile }) => {
   const theme = useTheme();
@@ -26,21 +26,21 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
 
   // Function to determine link color based on theme
   const getLinkColor = () => {
-    return theme.palette.mode === 'dark'
+    return theme.palette.mode === "dark"
       ? theme.palette.text.dark
       : theme.palette.primary.main;
   };
 
   // Define styles for navigation links
   const linkStyles = {
-    textDecoration: 'none',
+    textDecoration: "none",
     color: getLinkColor(),
     fontWeight: 500,
-    fontSize: isMobile ? '1.2rem' : '1.5rem',
-    display: 'block',
-    cursor: 'pointer',
+    fontSize: isMobile ? "1.2rem" : "1.5rem",
+    display: "block",
+    cursor: "pointer",
     paddingY: isMobile ? 0.5 : 1,
-    '&:hover': {
+    "&:hover": {
       color: theme.palette.primary.dark,
     },
   };
@@ -58,41 +58,41 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
   return (
     <Box
       sx={{
-        width: '100%',
-        height: '100vh', // Full viewport height
+        width: "100%",
+        height: "100vh", // Full viewport height
         backgroundColor: theme.palette.background.paper,
         boxShadow: `0 ${theme.spacing(0.5)} ${theme.spacing(
           2.5
         )} rgba(0, 0, 0, 0.5)`,
-        display: 'flex',
-        flexDirection: 'column',
-        paddingTop: 'env(safe-area-inset-top, 0px)', // Respect top safe area
-        paddingBottom: 'env(safe-area-inset-bottom, 16px)', // Respect bottom safe area
-        boxSizing: 'border-box', // Include padding in height
+        display: "flex",
+        flexDirection: "column",
+        paddingTop: "env(safe-area-inset-top, 0px)", // Respect top safe area
+        paddingBottom: "env(safe-area-inset-bottom, 16px)", // Respect bottom safe area
+        boxSizing: "border-box", // Include padding in height
       }}
     >
       {/* Scrollable Main Content */}
       <Box
         sx={{
           flex: 1, // Take up remaining space
-          overflowY: 'auto', // Enable vertical scrolling
+          overflowY: "auto", // Enable vertical scrolling
           paddingX: theme.spacing(2),
           paddingY: theme.spacing(2),
-          display: 'flex',
-          flexDirection: 'column',
-          height: '100%', // Ensure it takes full height for Flexbox
+          display: "flex",
+          flexDirection: "column",
+          height: "100%", // Ensure it takes full height for Flexbox
         }}
       >
         <Stack spacing={2} sx={{ flexGrow: 1 }}>
           {/* Profile Picture */}
-          <Box sx={{ alignSelf: 'center' }}>
+          <Box sx={{ alignSelf: "center" }}>
             <img
               src='/img/Jackson_Caleb_1-2.jpg'
               alt='Caleb Jackson'
               style={{
-                borderRadius: '50%',
-                width: isMobile ? '8rem' : '10rem',
-                height: 'auto',
+                borderRadius: "50%",
+                width: isMobile ? "8rem" : "10rem",
+                height: "auto",
               }}
             />
           </Box>
@@ -146,14 +146,14 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
                 onClick={handleContactOpen}
                 sx={{
                   ...linkStyles,
-                  background: 'none',
-                  border: 'none',
-                  textAlign: 'left',
+                  background: "none",
+                  border: "none",
+                  textAlign: "left",
                   padding: 0,
-                  width: '100%',
-                  font: '1.2rem',
+                  width: "100%",
+                  font: "1.2rem",
                   color:
-                    theme.palette.mode === 'dark'
+                    theme.palette.mode === "dark"
                       ? theme.palette.text.primary
                       : theme.palette.primary.main,
                 }}
@@ -172,17 +172,17 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
             sx={{
               paddingRight: theme.spacing(2),
               paddingY: theme.spacing(2),
-              marginTop: 'auto',
+              marginTop: "auto",
             }}
           >
             <Stack spacing={1}>
               <ThemeSwitcher />
-              <Divider sx={{ width: '85%' }} />
+              <Divider sx={{ width: "85%" }} />
               <Box
                 sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'left',
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "left",
                   gap: theme.spacing(1),
                 }}
               >
@@ -192,7 +192,7 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
                   sx={{
                     marginBottom: 1,
                     color:
-                      theme.palette.mode === 'dark'
+                      theme.palette.mode === "dark"
                         ? theme.palette.text.primary
                         : theme.palette.primary.main,
                   }}
@@ -205,9 +205,9 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
                     href='mailto:calebj@tzmedical.com'
                     aria-label='Send Email'
                     sx={{
-                      textDecoration: 'none',
+                      textDecoration: "none",
                       color: getLinkColor(),
-                      '&:hover': { color: theme.palette.primary.dark },
+                      "&:hover": { color: theme.palette.primary.dark },
                     }}
                   >
                     <EmailIcon fontSize='large' />
@@ -219,9 +219,9 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
                     rel='noopener noreferrer'
                     aria-label='Visit Instagram'
                     sx={{
-                      textDecoration: 'none',
+                      textDecoration: "none",
                       color: getLinkColor(),
-                      '&:hover': { color: theme.palette.primary.dark },
+                      "&:hover": { color: theme.palette.primary.dark },
                     }}
                   >
                     <InstagramIcon fontSize='large' />
@@ -233,9 +233,9 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
                     rel='noopener noreferrer'
                     aria-label='Visit LinkedIn'
                     sx={{
-                      textDecoration: 'none',
+                      textDecoration: "none",
                       color: getLinkColor(),
-                      '&:hover': { color: theme.palette.primary.dark },
+                      "&:hover": { color: theme.palette.primary.dark },
                     }}
                   >
                     <LinkedInIcon fontSize='large' />
@@ -260,7 +260,7 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
             id='contact-dialog-title'
             sx={{
               color:
-                theme.palette.mode === 'dark'
+                theme.palette.mode === "dark"
                   ? theme.palette.text.dark
                   : theme.palette.primary.main,
             }}
@@ -273,7 +273,7 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
                 variant='body1'
                 sx={{
                   color:
-                    theme.palette.mode === 'dark'
+                    theme.palette.mode === "dark"
                       ? theme.palette.text.dark
                       : theme.palette.primary.main,
                 }}
@@ -287,9 +287,9 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
                   href='mailto:calebj@tzmedical.com'
                   aria-label='Send Email'
                   sx={{
-                    textDecoration: 'none',
+                    textDecoration: "none",
                     color: getLinkColor(),
-                    '&:hover': { color: theme.palette.primary.dark },
+                    "&:hover": { color: theme.palette.primary.dark },
                   }}
                 >
                   <EmailIcon fontSize='large' />
@@ -301,9 +301,9 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
                   rel='noopener noreferrer'
                   aria-label='Visit Instagram'
                   sx={{
-                    textDecoration: 'none',
+                    textDecoration: "none",
                     color: getLinkColor(),
-                    '&:hover': { color: theme.palette.primary.dark },
+                    "&:hover": { color: theme.palette.primary.dark },
                   }}
                 >
                   <InstagramIcon fontSize='large' />
@@ -315,9 +315,9 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
                   rel='noopener noreferrer'
                   aria-label='Visit LinkedIn'
                   sx={{
-                    textDecoration: 'none',
+                    textDecoration: "none",
                     color: getLinkColor(),
-                    '&:hover': { color: theme.palette.primary.dark },
+                    "&:hover": { color: theme.palette.primary.dark },
                   }}
                 >
                   <LinkedInIcon fontSize='large' />
