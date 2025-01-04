@@ -11,10 +11,12 @@ const DRAWER_WIDTH = 240;
 const Layout = ({ children, isMobile }) => {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(!isMobile);
 
+  // sets the sidebar to open
   const handleOpenSidebar = React.useCallback(() => {
     setIsSidebarOpen(true);
   }, []);
 
+  // sets the sidebar to closed
   const handleCloseSidebar = React.useCallback(() => {
     setIsSidebarOpen(false);
   }, []);

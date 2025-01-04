@@ -90,7 +90,6 @@ export default function useCustomTheme() {
         },
         background: {
           default: isDarkMode ? "#121212" : "#f5f5f5",
-          hamburger: isDarkMode ? "#f5f5f5" : "#121212",
           paper: isDarkMode ? "#1e1e1e" : "#f2f4f7",
         },
         threejsback: {

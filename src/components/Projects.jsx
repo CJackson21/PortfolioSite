@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   Box,
-  Grid,
   Stack,
   Typography,
   Divider,
@@ -11,18 +10,20 @@ import {
   Button,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import Grid from "@mui/material/Grid2";
 import projects from "../data/projectsData";
 import PropTypes from "prop-types";
 
 function Projects({ isMobile }) {
   const theme = useTheme();
 
-  // Desktop hover: which card is hovered
+  // Desktop hover: which card is hovered?
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  // Mobile click: which card is open in Dialog
+
+  // Mobile click: which card is open in Dialog?
   const [openProject, setOpenProject] = useState(null);
 
-  // Text color for both modes
+  // Color for body text in either light/dark mode
   const textColor =
     theme.palette.mode === "dark"
       ? theme.palette.text.primary
@@ -35,17 +36,19 @@ function Projects({ isMobile }) {
   return (
     <Grid
       container
+      spacing={{ xs: 2, sm: 3, md: 4, lg: 5 }}
       sx={{
         display: "flex",
         justifyContent: "center",
-        padding: { xs: 2, sm: 5 },
+        p: { xs: 2, sm: 4, md: 5 },
         position: "relative",
       }}
     >
+      {/* Outer Box with the "card container" styling */}
       <Box
         sx={{
           margin: { xs: 3.5, sm: 0 },
-          width: { xs: "90%", sm: "90vw", md: "80vw" },
+          width: { xs: "90%", sm: "90vw", md: "80vw", lg: "70vw" },
           backgroundColor: theme.palette.background.paper,
           borderRadius: "1rem",
           padding: { xs: "5vw", sm: "4vh" },
@@ -86,41 +89,41 @@ function Projects({ isMobile }) {
           {/* Projects Grid */}
           <Grid
             container
-            spacing={4}
+            spacing={{ xs: 2, sm: 3, md: 4 }}
             justifyContent='center'
             alignItems='stretch'
-            sx={{
-              width: "100%",
-            }}
           >
             {projects.map((project, index) => (
               <Grid
-                item
                 xs={12}
                 sm={6}
                 md={4}
+                lg={3}
                 key={index}
                 sx={{
-                  margin: isMobile ? 3 : 1,
                   position: "relative",
-                  overflow: "visible",
+                  display: "flex",
+                  alignItems: "stretch",
                 }}
               >
                 <Box
                   sx={{
+                    width: isMobile ? "50vw" : "20vw",
                     visibility: "hidden",
                     pointerEvents: "none",
                     borderRadius: "0.75rem",
                     boxShadow: "0 0.25rem 0.75rem rgba(0, 0, 0, 0.1)",
                     padding: "1.5rem",
+                    minHeight: { xs: "16rem", sm: "100%" },
                   }}
                 >
+                  {/* Ghost space for the image */}
                   <Box
                     sx={{
-                      width: "80%",
                       height: { xs: "6rem", sm: "8rem" },
                     }}
                   />
+                  {/* Ghost space for the title */}
                   <Typography
                     variant='h5'
                     gutterBottom
@@ -131,8 +134,6 @@ function Projects({ isMobile }) {
                     {project.title}
                   </Typography>
                 </Box>
-
-                {/* 2) The real card, absolutely positioned */}
                 <Box
                   onMouseEnter={() => !isMobile && setHoveredIndex(index)}
                   onMouseLeave={() => !isMobile && setHoveredIndex(null)}
@@ -151,6 +152,7 @@ function Projects({ isMobile }) {
                     top: 0,
                     left: 0,
                     width: "100%",
+                    height: hoveredIndex === index ? "auto" : "100%",
                     borderRadius: "0.75rem",
                     boxShadow: "0 0.25rem 0.75rem rgba(0, 0, 0, 0.1)",
                     padding: "1.5rem",
@@ -164,7 +166,7 @@ function Projects({ isMobile }) {
                         boxShadow: "0 0.5rem 1rem rgba(0,0,0,0.3)",
                       }),
                     },
-                    // Spin + scale if hovered
+                    // spin + scale if hovered (but no resizing besides height auto)
                     ...(hoveredIndex === index && {
                       transform: "rotateY(360deg) scale(1.1)",
                     }),
@@ -195,6 +197,7 @@ function Projects({ isMobile }) {
                       loading='lazy'
                     />
                   </Box>
+
                   {/* Project Title */}
                   <Typography
                     id={`project-title-${index}`}
@@ -206,7 +209,7 @@ function Projects({ isMobile }) {
                       fontSize: { xs: "1rem", sm: "1.25rem" },
                       textAlign: "center",
                       marginBottom: hoveredIndex === index ? "0.75rem" : 0,
-                      pointerEvents: "none", // Prevent hover loss when hovering over text
+                      pointerEvents: "none",
                     }}
                   >
                     {project.title}
@@ -220,7 +223,15 @@ function Projects({ isMobile }) {
                         textAlign: "center",
                         fontSize: { xs: "0.875rem", sm: "1rem" },
                         lineHeight: 1.6,
-                        pointerEvents: "none", // Prevent hover loss when hovering over text
+                        maxHeight: "18vh",
+                        overflowY: "auto",
+                        "&::-webkit-scrollbar": {
+                          width: "0.4rem",
+                        },
+                        "&::-webkit-scrollbar-thumb": {
+                          backgroundColor: theme.palette.divider,
+                          borderRadius: "1rem",
+                        },
                       }}
                     >
                       {project.description}
@@ -253,7 +264,6 @@ function Projects({ isMobile }) {
           </Grid>
         </Stack>
       </Box>
-
       {/* Dialog for Mobile */}
       {isMobile && openProject !== null && (
         <Dialog
