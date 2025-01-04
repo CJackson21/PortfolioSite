@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   Stack,
@@ -18,10 +18,10 @@ function Projects({ isMobile }) {
   const theme = useTheme();
 
   // Desktop hover: which card is hovered?
-  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [hoveredIndex, setHoveredIndex] = React.useState(null);
 
   // Mobile click: which card is open in Dialog?
-  const [openProject, setOpenProject] = useState(null);
+  const [openProject, setOpenProject] = React.useState(null);
 
   // Color for body text in either light/dark mode
   const textColor =
@@ -159,7 +159,7 @@ function Projects({ isMobile }) {
                     backgroundColor: theme.palette.background.default,
                     zIndex: hoveredIndex === index ? 999 : 1,
                     cursor: "pointer",
-                    transition: "transform 0.6s ease, box-shadow 0.3s ease",
+                    transition: "transform 1s ease, box-shadow 0.4s ease",
                     transformOrigin: "center center",
                     "&:hover": {
                       ...(!isMobile && {
