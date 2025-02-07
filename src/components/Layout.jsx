@@ -18,8 +18,21 @@ const Layout = ({ children, isMobile }) => {
 
   // sets the sidebar to closed
   const handleCloseSidebar = React.useCallback(() => {
-    setIsSidebarOpen(false);
-  }, []);
+    if (isMobile) {
+      setIsSidebarOpen(false);
+    }
+  }, [isMobile]);
+
+  // pulled out because the nested ternary inside the return looked messy
+  const width = React.useMemo(
+    () =>
+      isMobile
+        ? "100%"
+        : isSidebarOpen
+        ? `calc(100% - ${DRAWER_WIDTH}px)`
+        : "100%",
+    [isMobile, isSidebarOpen]
+  );
 
   return (
     <Box sx={{ display: "flex", minHeight: "100vh" }}>
@@ -44,11 +57,7 @@ const Layout = ({ children, isMobile }) => {
         sx={{
           flexGrow: 1,
           transition: "all 0.3s ease",
-          width: isMobile
-            ? "100%"
-            : isSidebarOpen
-            ? `calc(100% - ${DRAWER_WIDTH}px)`
-            : "100%",
+          width,
           marginLeft: isMobile ? 0 : isSidebarOpen ? `${DRAWER_WIDTH}px` : 0,
           position: "relative",
         }}
@@ -75,7 +84,7 @@ const Layout = ({ children, isMobile }) => {
             </IconButton>
           </Box>
         )}
-        {/* Content */}
+        {/* Main content area where the page-specific components are rendered */}
         <Box component='main'>{children}</Box>
         <Box
           sx={{
@@ -103,4 +112,4 @@ Layout.propTypes = {
   isMobile: PropTypes.bool.isRequired,
 };
 
-export default Layout;
+export default React.memo(Layout);

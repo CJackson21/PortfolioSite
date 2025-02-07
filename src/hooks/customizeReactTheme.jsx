@@ -31,8 +31,6 @@ export default function useCustomTheme() {
   // check if the OS-level setting is in dark mode:
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
-  console.log(prefersDarkMode);
-
   // a callback to let us set the theme mode easily
   const handleSelectTheme = React.useCallback(
     (event, newTheme) => {

@@ -2,16 +2,16 @@ import React from "react";
 import { Box, Grid, Stack, Typography, Divider } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
+// Simple about me page
 function About() {
   const theme = useTheme();
 
+  // Change the color of the text based on the selected theme
   const textColor = React.useMemo(() => {
     return theme.palette.mode === "dark"
       ? theme.palette.text.primary
       : theme.palette.text.secondary;
   }, [theme]);
-
-  console.log(textColor);
 
   return (
     <Grid

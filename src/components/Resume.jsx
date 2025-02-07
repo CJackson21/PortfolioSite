@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { useTheme } from '@mui/material/styles';
-import { Dialog, DialogTitle, DialogContent, Typography } from '@mui/material';
+import React from "react";
+import PropTypes from "prop-types";
+import { useTheme } from "@mui/material/styles";
+import { Dialog, DialogTitle, DialogContent, Typography } from "@mui/material";
 
 function Resume({ color, isMobile }) {
   const [open, setOpen] = React.useState(false);
@@ -10,7 +10,7 @@ function Resume({ color, isMobile }) {
   const handleViewResume = () => {
     if (isMobile) {
       // redirect to the PDF link on mobile
-      window.open('/CalebJackson_SoftwareEngineer.pdf', '_blank');
+      window.open("/CalebJackson_SoftwareEngineer.pdf", "_blank");
     } else {
       // open the dialog on desktop
       setOpen(true);
@@ -21,13 +21,13 @@ function Resume({ color, isMobile }) {
     <>
       <Typography
         sx={{
-          fontSize: isMobile ? '1.2rem' : '1.5rem',
-          textDecoration: 'none',
-          cursor: 'pointer',
+          fontSize: isMobile ? "1.2rem" : "1.5rem",
+          textDecoration: "none",
+          cursor: "pointer",
           color,
           fontWeight: 500,
-          '&:hover': { color: 'primary.dark' },
-          '&:visited': { color: 'primary.main' },
+          "&:hover": { color: "primary.dark" },
+          "&:visited": { color: "primary.main" },
         }}
         onClick={handleViewResume}
       >
@@ -44,7 +44,7 @@ function Resume({ color, isMobile }) {
           <DialogTitle
             sx={{
               color:
-                theme.palette.mode === 'dark'
+                theme.palette.mode === "dark"
                   ? theme.palette.text.primary
                   : theme.palette.text.secondary,
             }}
@@ -56,8 +56,8 @@ function Resume({ color, isMobile }) {
               src='/CalebJackson_SoftwareEngineer.pdf#toolbar=0&navpanes=0&scrollbar=0'
               width='100%'
               style={{
-                height: '80vh',
-                border: 'none',
+                height: "80vh",
+                border: "none",
               }}
               title='My Embedded Resume'
             />
@@ -73,4 +73,4 @@ Resume.propTypes = {
   isMobile: PropTypes.bool.isRequired,
 };
 
-export default Resume;
+export default React.memo(Resume);

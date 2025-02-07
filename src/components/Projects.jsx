@@ -16,22 +16,35 @@ import PropTypes from "prop-types";
 
 function Projects({ isMobile }) {
   const theme = useTheme();
+  const {
+    palette: { mode, primary, background, text, divider },
+  } = theme;
 
-  // Desktop hover: which card is hovered?
+  // State for which project card is hovered (desktop) or open (mobile)
   const [hoveredIndex, setHoveredIndex] = React.useState(null);
-
-  // Mobile click: which card is open in Dialog?
   const [openProject, setOpenProject] = React.useState(null);
 
-  // Color for body text in either light/dark mode
-  const textColor =
-    theme.palette.mode === "dark"
-      ? theme.palette.text.primary
-      : theme.palette.text.secondary;
+  // Choose body text color based on the theme mode
+  const textColor = mode === "dark" ? text.primary : text.secondary;
 
   // Handlers for mobile dialog
   const handleOpenDialog = (index) => setOpenProject(index);
   const handleCloseDialog = () => setOpenProject(null);
+
+  // Consolidated button style
+  const buttonStyle = {
+    mt: "1rem",
+    backgroundColor: primary.main,
+    color: background.paper,
+    borderRadius: "1.25rem",
+    py: "0.5rem",
+    px: "1.5rem",
+    fontSize: "0.875rem",
+    textTransform: "none",
+    "&:hover": {
+      backgroundColor: primary.dark,
+    },
+  };
 
   return (
     <Grid
@@ -44,14 +57,13 @@ function Projects({ isMobile }) {
         position: "relative",
       }}
     >
-      {/* Outer Box with the "card container" styling */}
       <Box
         sx={{
-          margin: { xs: 3.5, sm: 0 },
+          m: { xs: 3.5, sm: 0 },
           width: { xs: "90%", sm: "90vw", md: "80vw", lg: "70vw" },
-          backgroundColor: theme.palette.background.paper,
+          backgroundColor: background.paper,
           borderRadius: "1rem",
-          padding: { xs: "5vw", sm: "4vh" },
+          p: { xs: "5vw", sm: "4vh" },
           boxShadow: "0 0.5rem 1.5rem rgba(0, 0, 0, 0.1)",
           animation: "fadeIn 1s ease",
           "@keyframes fadeIn": {
@@ -62,11 +74,7 @@ function Projects({ isMobile }) {
       >
         <Stack
           spacing={4}
-          sx={{
-            maxWidth: "100%",
-            textAlign: "center",
-            alignItems: "center",
-          }}
+          sx={{ maxWidth: "100%", textAlign: "center", alignItems: "center" }}
         >
           {/* Title */}
           <Typography
@@ -75,7 +83,7 @@ function Projects({ isMobile }) {
             sx={{
               letterSpacing: "0.15em",
               fontSize: { xs: "1.8rem", sm: "2.4rem" },
-              color: theme.palette.primary.main,
+              color: primary.main,
             }}
           >
             My Projects
@@ -83,7 +91,7 @@ function Projects({ isMobile }) {
           <Divider
             sx={{
               width: { xs: "60%", sm: "50%" },
-              borderColor: theme.palette.primary.light,
+              borderColor: primary.light,
             }}
           />
           {/* Projects Grid */}
@@ -95,17 +103,18 @@ function Projects({ isMobile }) {
           >
             {projects.map((project, index) => (
               <Grid
+                key={index}
                 xs={12}
                 sm={6}
                 md={4}
                 lg={3}
-                key={index}
                 sx={{
                   position: "relative",
                   display: "flex",
                   alignItems: "stretch",
                 }}
               >
+                {/* Ghost Box to preserve layout */}
                 <Box
                   sx={{
                     width: isMobile ? "50vw" : "20vw",
@@ -113,23 +122,15 @@ function Projects({ isMobile }) {
                     pointerEvents: "none",
                     borderRadius: "0.75rem",
                     boxShadow: "0 0.25rem 0.75rem rgba(0, 0, 0, 0.1)",
-                    padding: "1.5rem",
+                    p: "1.5rem",
                     minHeight: { xs: "16rem", sm: "100%" },
                   }}
                 >
-                  {/* Ghost space for the image */}
-                  <Box
-                    sx={{
-                      height: { xs: "6rem", sm: "8rem" },
-                    }}
-                  />
-                  {/* Ghost space for the title */}
+                  <Box sx={{ height: { xs: "6rem", sm: "8rem" } }} />
                   <Typography
                     variant='h5'
                     gutterBottom
-                    sx={{
-                      fontSize: { xs: "1rem", sm: "1.25rem" },
-                    }}
+                    sx={{ fontSize: { xs: "1rem", sm: "1.25rem" } }}
                   >
                     {project.title}
                   </Typography>
@@ -143,9 +144,7 @@ function Projects({ isMobile }) {
                   role='button'
                   aria-labelledby={`project-title-${index}`}
                   onKeyPress={(e) => {
-                    if (e.key === "Enter" && !isMobile) {
-                      setHoveredIndex(index);
-                    }
+                    if (e.key === "Enter" && !isMobile) setHoveredIndex(index);
                   }}
                   sx={{
                     position: "absolute",
@@ -154,24 +153,21 @@ function Projects({ isMobile }) {
                     width: "100%",
                     height: hoveredIndex === index ? "auto" : "100%",
                     borderRadius: "0.75rem",
-                    boxShadow: "0 0.25rem 0.75rem rgba(0, 0, 0, 0.1)",
-                    padding: "1.5rem",
-                    backgroundColor: theme.palette.background.default,
+                    boxShadow:
+                      hoveredIndex === index
+                        ? "0 0.5rem 1rem rgba(0, 0, 0, 0.3)"
+                        : "0 0.25rem 0.75rem rgba(0, 0, 0, 0.1)",
+                    p: "1.5rem",
+                    backgroundColor: background.default,
                     zIndex: hoveredIndex === index ? 999 : 1,
                     cursor: "pointer",
-                    transition: "transform 1s ease, box-shadow 0.4s ease",
-                    transformOrigin: "center center",
-                    "&:hover": {
-                      ...(!isMobile && {
-                        boxShadow: "0 0.5rem 1rem rgba(0,0,0,0.3)",
-                      }),
-                    },
-                    // spin + scale if hovered (but no resizing besides height auto)
-                    ...(hoveredIndex === index && {
-                      transform: "rotateY(360deg) scale(1.1)",
-                    }),
+                    transition:
+                      "transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1), box-shadow 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)",
+                    transformOrigin: "center",
+                    transform:
+                      hoveredIndex === index ? "scale(1.05)" : "scale(1)",
                     "&:focus": {
-                      outline: `0.125rem solid ${theme.palette.primary.main}`,
+                      outline: `0.125rem solid ${primary.main}`,
                     },
                   }}
                 >
@@ -183,7 +179,7 @@ function Projects({ isMobile }) {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      marginBottom: "0.5rem",
+                      mb: "0.5rem",
                     }}
                   >
                     <img
@@ -197,24 +193,23 @@ function Projects({ isMobile }) {
                       loading='lazy'
                     />
                   </Box>
-
                   {/* Project Title */}
                   <Typography
                     id={`project-title-${index}`}
                     variant='h5'
                     gutterBottom
                     sx={{
-                      color: theme.palette.primary.main,
+                      color: primary.main,
                       fontWeight: "bold",
                       fontSize: { xs: "1rem", sm: "1.25rem" },
                       textAlign: "center",
-                      marginBottom: hoveredIndex === index ? "0.75rem" : 0,
+                      mb: hoveredIndex === index ? "0.75rem" : 0,
                       pointerEvents: "none",
                     }}
                   >
                     {project.title}
                   </Typography>
-                  {/* Desktop: show description if hovered */}
+                  {/* Desktop: Show description on hover */}
                   {!isMobile && hoveredIndex === index && (
                     <Typography
                       variant='body1'
@@ -225,11 +220,9 @@ function Projects({ isMobile }) {
                         lineHeight: 1.6,
                         maxHeight: "18vh",
                         overflowY: "auto",
-                        "&::-webkit-scrollbar": {
-                          width: "0.4rem",
-                        },
+                        "&::-webkit-scrollbar": { width: "0.4rem" },
                         "&::-webkit-scrollbar-thumb": {
-                          backgroundColor: theme.palette.divider,
+                          backgroundColor: divider,
                           borderRadius: "1rem",
                         },
                       }}
@@ -237,23 +230,13 @@ function Projects({ isMobile }) {
                       {project.description}
                     </Typography>
                   )}
-                  {/* Mobile: button to open dialog */}
+
+                  {/* Mobile: Button to open dialog */}
                   {isMobile && (
                     <Button
                       onClick={() => handleOpenDialog(index)}
                       variant='contained'
-                      sx={{
-                        marginTop: "1rem",
-                        backgroundColor: theme.palette.primary.main,
-                        color: theme.palette.background.paper,
-                        borderRadius: "1.25rem",
-                        padding: "0.5rem 1.5rem",
-                        fontSize: "0.875rem",
-                        textTransform: "none",
-                        "&:hover": {
-                          backgroundColor: theme.palette.primary.dark,
-                        },
-                      }}
+                      sx={buttonStyle}
                     >
                       View Details
                     </Button>
@@ -264,7 +247,7 @@ function Projects({ isMobile }) {
           </Grid>
         </Stack>
       </Box>
-      {/* Dialog for Mobile */}
+      {/* Mobile Dialog */}
       {isMobile && openProject !== null && (
         <Dialog
           open={openProject !== null}
@@ -276,7 +259,7 @@ function Projects({ isMobile }) {
         >
           <DialogTitle
             id='project-dialog-title'
-            sx={{ color: theme.palette.primary.main, fontWeight: "bold" }}
+            sx={{ color: primary.main, fontWeight: "bold" }}
           >
             {projects[openProject].title}
           </DialogTitle>
@@ -292,21 +275,11 @@ function Projects({ isMobile }) {
             >
               {projects[openProject].description}
             </Typography>
-            <Box sx={{ textAlign: "center", marginTop: "1.5rem" }}>
+            <Box sx={{ textAlign: "center", mt: "1.5rem" }}>
               <Button
                 onClick={handleCloseDialog}
                 variant='contained'
-                sx={{
-                  backgroundColor: theme.palette.primary.main,
-                  color: theme.palette.background.paper,
-                  borderRadius: "1.25rem",
-                  padding: "0.5rem 1.5rem",
-                  fontSize: "0.875rem",
-                  textTransform: "none",
-                  "&:hover": {
-                    backgroundColor: theme.palette.primary.dark,
-                  },
-                }}
+                sx={buttonStyle}
               >
                 Close
               </Button>

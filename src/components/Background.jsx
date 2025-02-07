@@ -2,6 +2,7 @@ import React from "react";
 import * as THREE from "three";
 import { useTheme } from "@mui/material/styles";
 
+// Background that looks like the night sky with stars
 const StarfieldBackground = () => {
   const theme = useTheme();
   const canvasRef = React.useRef();
@@ -22,7 +23,8 @@ const StarfieldBackground = () => {
     renderer.setClearColor(new THREE.Color(currTheme));
 
     const scene = new THREE.Scene();
-    sceneRef.current = scene; // Store scene reference
+    // Store scene reference
+    sceneRef.current = scene;
 
     // Light setup
     const light = new THREE.DirectionalLight(0xffffff, 1);
@@ -38,7 +40,7 @@ const StarfieldBackground = () => {
     camera.position.z = 2;
 
     // Function to generate random star positions
-    const getRandomParticelPos = (particleCount) => {
+    const getRandomParticlePos = (particleCount) => {
       const arr = new Float32Array(particleCount * 3);
       for (let i = 0; i < particleCount * 3; i++) {
         arr[i] = (Math.random() - 0.5) * 10;
@@ -50,13 +52,13 @@ const StarfieldBackground = () => {
     const geometry1 = new THREE.BufferGeometry();
     geometry1.setAttribute(
       "position",
-      new THREE.BufferAttribute(getRandomParticelPos(350), 3)
+      new THREE.BufferAttribute(getRandomParticlePos(350), 3)
     );
 
     const geometry2 = new THREE.BufferGeometry();
     geometry2.setAttribute(
       "position",
-      new THREE.BufferAttribute(getRandomParticelPos(1500), 3)
+      new THREE.BufferAttribute(getRandomParticlePos(1500), 3)
     );
 
     const loader = new THREE.TextureLoader();
@@ -129,7 +131,8 @@ const StarfieldBackground = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Second useEffect: Update the background color dynamically when the theme changes
+  // second useEffect: update the background color dynamically when the theme changes
+  // this ensures the star placement doesn't rerender unnecessarily on theme change
   React.useEffect(() => {
     if (rendererRef.current) {
       rendererRef.current.setClearColor(new THREE.Color(currTheme));

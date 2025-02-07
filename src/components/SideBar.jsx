@@ -48,7 +48,6 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
   // Handlers to open and close the contact modal
   const handleContactOpen = () => {
     setIsContactOpen(true);
-    // Removed onLinkClick to prevent sidebar from closing
   };
 
   const handleContactClose = () => {
