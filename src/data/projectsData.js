@@ -34,6 +34,13 @@ const projects = [
     link: "#",
     image: "/img/gomascot.png",
   },
+  {
+    title: "Discord Game Recommendation Bot",
+    description:
+      "A work in progress Discord bot built in Rust to provide intelligent game recommendations based on user preferences and play history. Leveraging machine learning techniques and external APIs such as Steam, this bot fetches relevant game data, suggests similar titles, and notifies users of deals or new releases. It also allows users to track their gaming habits and receive curated recommendations directly within Discord. This project showcases my experience with Rust, API integrations, and building efficient, real-time recommendation systems for an interactive user experience.",
+    link: "https://github.com/CJackson21/game-recommender-bot",
+    image: "/img/rust-logo.png",
+  },
 ];
 
 export default projects;
