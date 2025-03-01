@@ -20,18 +20,18 @@ function Projects({ isMobile }) {
     palette: { mode, primary, background, text, divider },
   } = theme;
 
-  // State for which project card is hovered (desktop) or open (mobile)
+  // Track which project card is hovered on desktop, or open in mobile dialog
   const [hoveredIndex, setHoveredIndex] = React.useState(null);
   const [openProject, setOpenProject] = React.useState(null);
 
-  // Choose body text color based on the theme mode
+  // Choose text color based on the theme mode
   const textColor = mode === "dark" ? text.primary : text.secondary;
 
   // Handlers for mobile dialog
   const handleOpenDialog = (index) => setOpenProject(index);
   const handleCloseDialog = () => setOpenProject(null);
 
-  // Consolidated button style
+  // Reusable button style
   const buttonStyle = {
     mt: "1rem",
     backgroundColor: primary.main,
@@ -76,7 +76,7 @@ function Projects({ isMobile }) {
           spacing={4}
           sx={{ maxWidth: "100%", textAlign: "center", alignItems: "center" }}
         >
-          {/* Title */}
+          {/* Section Title */}
           <Typography
             variant='h3'
             fontWeight='bold'
@@ -144,7 +144,9 @@ function Projects({ isMobile }) {
                   role='button'
                   aria-labelledby={`project-title-${index}`}
                   onKeyPress={(e) => {
-                    if (e.key === "Enter" && !isMobile) setHoveredIndex(index);
+                    if (e.key === "Enter" && !isMobile) {
+                      setHoveredIndex(index);
+                    }
                   }}
                   sx={{
                     position: "absolute",
@@ -193,6 +195,7 @@ function Projects({ isMobile }) {
                       loading='lazy'
                     />
                   </Box>
+
                   {/* Project Title */}
                   <Typography
                     id={`project-title-${index}`}
@@ -209,26 +212,55 @@ function Projects({ isMobile }) {
                   >
                     {project.title}
                   </Typography>
-                  {/* Desktop: Show description on hover */}
+
+                  {/* Desktop: Show description and GitHub button on hover */}
                   {!isMobile && hoveredIndex === index && (
-                    <Typography
-                      variant='body1'
-                      sx={{
-                        color: textColor,
-                        textAlign: "center",
-                        fontSize: { xs: "0.875rem", sm: "1rem" },
-                        lineHeight: 1.6,
-                        maxHeight: "18vh",
-                        overflowY: "auto",
-                        "&::-webkit-scrollbar": { width: "0.4rem" },
-                        "&::-webkit-scrollbar-thumb": {
-                          backgroundColor: divider,
-                          borderRadius: "1rem",
-                        },
-                      }}
-                    >
-                      {project.description}
-                    </Typography>
+                    <>
+                      <Typography
+                        variant='body1'
+                        sx={{
+                          color: textColor,
+                          textAlign: "center",
+                          fontSize: { xs: "0.875rem", sm: "1rem" },
+                          lineHeight: 1.6,
+                          maxHeight: "18vh",
+                          overflowY: "auto",
+                          "&::-webkit-scrollbar": { width: "0.4rem" },
+                          "&::-webkit-scrollbar-thumb": {
+                            backgroundColor: divider,
+                            borderRadius: "1rem",
+                          },
+                        }}
+                      >
+                        {project.description}
+                      </Typography>
+
+                      {/* If a repo is available, show GitHub button */}
+                      {project.repo && (
+                        <Button
+                          component='a'
+                          href={project.repo}
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          variant='outlined'
+                          sx={{
+                            mt: "0.75rem",
+                            borderRadius: "1.25rem",
+                            py: "0.4rem",
+                            px: "1rem",
+                            fontSize: "0.875rem",
+                            textTransform: "none",
+                            borderColor: primary.main,
+                            color: primary.main,
+                            "&:hover": {
+                              backgroundColor: primary.light,
+                            },
+                          }}
+                        >
+                          View Repository
+                        </Button>
+                      )}
+                    </>
                   )}
 
                   {/* Mobile: Button to open dialog */}
@@ -247,6 +279,7 @@ function Projects({ isMobile }) {
           </Grid>
         </Stack>
       </Box>
+
       {/* Mobile Dialog */}
       {isMobile && openProject !== null && (
         <Dialog
@@ -275,6 +308,35 @@ function Projects({ isMobile }) {
             >
               {projects[openProject].description}
             </Typography>
+
+            {/* If a repo is available, show GitHub button in dialog */}
+            {projects[openProject].repo && (
+              <Box sx={{ textAlign: "center", mt: "1.5rem" }}>
+                <Button
+                  component='a'
+                  href={projects[openProject].repo}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  variant='outlined'
+                  sx={{
+                    mb: "1rem",
+                    borderRadius: "1.25rem",
+                    py: "0.4rem",
+                    px: "1rem",
+                    fontSize: "0.875rem",
+                    textTransform: "none",
+                    borderColor: primary.main,
+                    color: primary.main,
+                    "&:hover": {
+                      backgroundColor: primary.light,
+                    },
+                  }}
+                >
+                  View on GitHub
+                </Button>
+              </Box>
+            )}
+
             <Box sx={{ textAlign: "center", mt: "1.5rem" }}>
               <Button
                 onClick={handleCloseDialog}
