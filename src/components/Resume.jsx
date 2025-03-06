@@ -10,7 +10,7 @@ function Resume({ color, isMobile }) {
   const handleViewResume = () => {
     if (isMobile) {
       // redirect to the PDF link on mobile
-      window.open("/CalebJackson_SoftwareEngineer.pdf", "_blank");
+      window.open("/calebjackson_softwareengineer.pdf", "_blank");
     } else {
       // open the dialog on desktop
       setOpen(true);
@@ -53,7 +53,7 @@ function Resume({ color, isMobile }) {
           </DialogTitle>
           <DialogContent dividers>
             <iframe
-              src='/CalebJackson_SoftwareEngineer.pdf#toolbar=0&navpanes=0&scrollbar=0'
+              src='/calebjackson_softwareengineer.pdf#toolbar=0&navpanes=0&scrollbar=0'
               width='100%'
               style={{
                 height: "80vh",
