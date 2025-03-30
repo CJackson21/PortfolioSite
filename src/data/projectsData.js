@@ -41,7 +41,7 @@ const projects = [
   {
     title: "Discord Game Recommendation Bot",
     description:
-      "A work in progress Discord bot built in Rust to provide intelligent game recommendations based on user preferences and play history. Leveraging machine learning techniques and external APIs such as Steam, this bot fetches relevant game data, suggests similar titles, and notifies users of deals or new releases. It also allows users to track their gaming habits and receive curated recommendations directly within Discord. This project showcases my experience with Rust, API integrations, and building efficient, real-time recommendation systems for an interactive user experience.",
+      "A work in progress Discord bot built in Rust to provide intelligent game recommendations based on user preferences and play history. Leveraging machine learning techniques and external APIs such as Steam, this bot fetches relevant game data, suggests similar titles, and helps users discover new games. It also allows users to track their gaming habits and receive curated recommendations directly within Discord. The project utilizes Docker for containerization and deployment, along with a persistent database to store user profiles, game metadata, and usage statistics. This showcases my experience with Rust, Docker, API integrations, and building efficient, real-time recommendation systems backed by reliable data storage.",
     link: "#",
     image: "/img/rust-logo.png",
     repo: "https://github.com/CJackson21/game-recommender-bot",
