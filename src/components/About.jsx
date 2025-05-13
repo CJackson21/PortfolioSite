@@ -17,6 +17,7 @@ function About() {
     <Grid
       container
       sx={{
+        my: 5,
         minHeight: "100vh",
         display: "grid",
         placeItems: "center",
@@ -48,8 +49,8 @@ function About() {
         >
           {/* Title */}
           <Typography
-            variant='h3'
-            fontWeight='bold'
+            variant="h3"
+            fontWeight="bold"
             sx={{
               letterSpacing: "0.15em",
               fontSize: { xs: "1.8rem", sm: "2.4rem" },
@@ -64,7 +65,7 @@ function About() {
 
           {/* Introduction */}
           <Typography
-            variant='body1'
+            variant="body1"
             sx={{
               color: textColor,
               lineHeight: 1.8,
@@ -80,7 +81,7 @@ function About() {
 
           {/* Section: Professional Interests */}
           <Typography
-            variant='body1'
+            variant="body1"
             sx={{
               color: textColor,
               lineHeight: 1.8,
@@ -96,7 +97,7 @@ function About() {
 
           {/* Section: Personal Touch */}
           <Typography
-            variant='body1'
+            variant="body1"
             sx={{
               color: textColor,
               lineHeight: 1.8,
@@ -112,7 +113,7 @@ function About() {
 
           {/* Closing Statement */}
           <Typography
-            variant='body1'
+            variant="body1"
             sx={{
               color: textColor,
               lineHeight: 1.8,
