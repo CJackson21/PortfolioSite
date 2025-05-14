@@ -13,7 +13,7 @@ const TypingEffect = () => {
 
   const typeWriter = React.useCallback(() => {
     let i = 0;
-    const speed = 10;
+    const speed = 15;
 
     const type = () => {
       if (i < fullText.length) {
@@ -60,7 +60,7 @@ const TypingEffect = () => {
           },
           maxWidth: "100%",
           position: "relative",
-          minHeight: "150px", // Prevents layout shift
+          minHeight: "150px",
         }}
       >
         {/* Hidden text for layout */}
@@ -95,12 +95,12 @@ const TypingEffect = () => {
           <Box
             component="span"
             sx={{
-              display: "inline-block",
+              display: "inline-flex",
               visibility: showCursor ? "visible" : "hidden",
               width: "1ch",
               backgroundColor: "inherit",
               height: "1.2em",
-              verticalAlign: "text-top",
+              verticalAlign: "center",
             }}
           >
             |

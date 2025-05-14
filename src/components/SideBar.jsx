@@ -201,7 +201,7 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
                 <Stack direction="row" spacing={2} alignItems="center">
                   <Typography
                     component="a"
-                    href="mailto:calebj@tzmedical.com"
+                    href="mailto:calebjackson2002@gmail.com"
                     aria-label="Send Email"
                     sx={{
                       textDecoration: "none",
@@ -283,7 +283,7 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
               <Stack direction="row" spacing={2} alignItems="center">
                 <Typography
                   component="a"
-                  href="mailto:calebj@tzmedical.com"
+                  href="mailto:calebjackson2002@gmail.com"
                   aria-label="Send Email"
                   sx={{
                     textDecoration: "none",
