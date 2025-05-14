@@ -9,7 +9,6 @@ import Layout from "./components/Layout";
 const App = () => {
   const { theme } = useCustomTheme();
   const isMobile = useMediaQuery("(max-width:899px)", { noSsr: true });
-  console.log(isMobile);
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
