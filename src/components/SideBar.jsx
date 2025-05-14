@@ -86,8 +86,8 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
           {/* Profile Picture */}
           <Box sx={{ alignSelf: "center" }}>
             <img
-              src='/img/Jackson_Caleb_1-2.jpg'
-              alt='Caleb Jackson'
+              src="/img/Jackson_Caleb_1-2.jpg"
+              alt="Caleb Jackson"
               style={{
                 borderRadius: "50%",
                 width: isMobile ? "8rem" : "10rem",
@@ -99,7 +99,7 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
           {/* Navigation Links */}
           <Typography
             component={Link}
-            to='/'
+            to="/"
             sx={linkStyles}
             onClick={onLinkClick}
           >
@@ -108,7 +108,7 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
           <Divider />
           <Typography
             component={Link}
-            to='/projects'
+            to="/projects"
             sx={linkStyles}
             onClick={onLinkClick}
           >
@@ -116,10 +116,10 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
           </Typography>
           <Divider />
           <Typography
-            component='a'
-            href='https://github.com/CJackson21'
-            target='_blank'
-            rel='noopener noreferrer'
+            component="a"
+            href="https://github.com/CJackson21"
+            target="_blank"
+            rel="noopener noreferrer"
             sx={linkStyles}
             onClick={onLinkClick}
           >
@@ -130,7 +130,7 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
           <Divider />
           <Typography
             component={Link}
-            to='/about'
+            to="/about"
             sx={linkStyles}
             onClick={onLinkClick}
           >
@@ -141,7 +141,7 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
           {isMobile && (
             <>
               <Typography
-                component='button'
+                component="button"
                 onClick={handleContactOpen}
                 sx={{
                   ...linkStyles,
@@ -186,8 +186,8 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
                 }}
               >
                 <Typography
-                  variant='h6'
-                  fontWeight='bold'
+                  variant="h6"
+                  fontWeight="bold"
                   sx={{
                     marginBottom: 1,
                     color:
@@ -198,46 +198,46 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
                 >
                   Contact Me
                 </Typography>
-                <Stack direction='row' spacing={2} alignItems='center'>
+                <Stack direction="row" spacing={2} alignItems="center">
                   <Typography
-                    component='a'
-                    href='mailto:calebj@tzmedical.com'
-                    aria-label='Send Email'
+                    component="a"
+                    href="mailto:calebj@tzmedical.com"
+                    aria-label="Send Email"
                     sx={{
                       textDecoration: "none",
                       color: getLinkColor(),
                       "&:hover": { color: theme.palette.primary.dark },
                     }}
                   >
-                    <EmailIcon fontSize='large' />
+                    <EmailIcon fontSize="large" />
                   </Typography>
                   <Typography
-                    component='a'
-                    href='https://instagram.com/cjjackson.15'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    aria-label='Visit Instagram'
+                    component="a"
+                    href="https://instagram.com/cjjackson.15"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Visit Instagram"
                     sx={{
                       textDecoration: "none",
                       color: getLinkColor(),
                       "&:hover": { color: theme.palette.primary.dark },
                     }}
                   >
-                    <InstagramIcon fontSize='large' />
+                    <InstagramIcon fontSize="large" />
                   </Typography>
                   <Typography
-                    component='a'
-                    href='https://www.linkedin.com/in/caleb-jackson-b08660264'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    aria-label='Visit LinkedIn'
+                    component="a"
+                    href="https://www.linkedin.com/in/caleb-jackson-b08660264"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Visit LinkedIn"
                     sx={{
                       textDecoration: "none",
                       color: getLinkColor(),
                       "&:hover": { color: theme.palette.primary.dark },
                     }}
                   >
-                    <LinkedInIcon fontSize='large' />
+                    <LinkedInIcon fontSize="large" />
                   </Typography>
                 </Stack>
               </Box>
@@ -251,12 +251,12 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
         <Dialog
           open={isContactOpen}
           onClose={handleContactClose}
-          aria-labelledby='contact-dialog-title'
+          aria-labelledby="contact-dialog-title"
           fullWidth
-          maxWidth='xs'
+          maxWidth="xs"
         >
           <DialogTitle
-            id='contact-dialog-title'
+            id="contact-dialog-title"
             sx={{
               color:
                 theme.palette.mode === "dark"
@@ -267,9 +267,9 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
             Contact Me
           </DialogTitle>
           <DialogContent dividers>
-            <Stack spacing={2} alignItems='center'>
+            <Stack spacing={2} alignItems="center">
               <Typography
-                variant='body1'
+                variant="body1"
                 sx={{
                   color:
                     theme.palette.mode === "dark"
@@ -280,52 +280,52 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
                 {`I'd love to hear from you! Reach out through any of the
                 platforms below.`}
               </Typography>
-              <Stack direction='row' spacing={2} alignItems='center'>
+              <Stack direction="row" spacing={2} alignItems="center">
                 <Typography
-                  component='a'
-                  href='mailto:calebj@tzmedical.com'
-                  aria-label='Send Email'
+                  component="a"
+                  href="mailto:calebj@tzmedical.com"
+                  aria-label="Send Email"
                   sx={{
                     textDecoration: "none",
                     color: getLinkColor(),
                     "&:hover": { color: theme.palette.primary.dark },
                   }}
                 >
-                  <EmailIcon fontSize='large' />
+                  <EmailIcon fontSize="large" />
                 </Typography>
                 <Typography
-                  component='a'
-                  href='https://instagram.com/cjjackson.15'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  aria-label='Visit Instagram'
+                  component="a"
+                  href="https://instagram.com/cjjackson.15"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Visit Instagram"
                   sx={{
                     textDecoration: "none",
                     color: getLinkColor(),
                     "&:hover": { color: theme.palette.primary.dark },
                   }}
                 >
-                  <InstagramIcon fontSize='large' />
+                  <InstagramIcon fontSize="large" />
                 </Typography>
                 <Typography
-                  component='a'
-                  href='https://www.linkedin.com/in/caleb-jackson-b08660264'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  aria-label='Visit LinkedIn'
+                  component="a"
+                  href="https://www.linkedin.com/in/caleb-jackson-b08660264"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Visit LinkedIn"
                   sx={{
                     textDecoration: "none",
                     color: getLinkColor(),
                     "&:hover": { color: theme.palette.primary.dark },
                   }}
                 >
-                  <LinkedInIcon fontSize='large' />
+                  <LinkedInIcon fontSize="large" />
                 </Typography>
               </Stack>
             </Stack>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleContactClose} color='primary'>
+            <Button onClick={handleContactClose} color="primary">
               Close
             </Button>
           </DialogActions>

@@ -16,10 +16,10 @@ const App = () => {
       <Router>
         <Layout isMobile={isMobile}>
           <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/about' element={<About />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
             <Route
-              path='/projects'
+              path="/projects"
               element={<Projects isMobile={isMobile} />}
             />
           </Routes>

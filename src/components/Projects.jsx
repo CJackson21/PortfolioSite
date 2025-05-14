@@ -78,8 +78,8 @@ function Projects({ isMobile }) {
         >
           {/* Section Title */}
           <Typography
-            variant='h3'
-            fontWeight='bold'
+            variant="h3"
+            fontWeight="bold"
             sx={{
               letterSpacing: "0.15em",
               fontSize: { xs: "1.8rem", sm: "2.4rem" },
@@ -98,8 +98,8 @@ function Projects({ isMobile }) {
           <Grid
             container
             spacing={{ xs: 2, sm: 3, md: 4 }}
-            justifyContent='center'
-            alignItems='stretch'
+            justifyContent="center"
+            alignItems="stretch"
           >
             {projects.map((project, index) => (
               <Grid
@@ -128,7 +128,7 @@ function Projects({ isMobile }) {
                 >
                   <Box sx={{ height: { xs: "6rem", sm: "8rem" } }} />
                   <Typography
-                    variant='h5'
+                    variant="h5"
                     gutterBottom
                     sx={{ fontSize: { xs: "1rem", sm: "1.25rem" } }}
                   >
@@ -141,7 +141,7 @@ function Projects({ isMobile }) {
                   onFocus={() => !isMobile && setHoveredIndex(index)}
                   onBlur={() => !isMobile && setHoveredIndex(null)}
                   tabIndex={0}
-                  role='button'
+                  role="button"
                   aria-labelledby={`project-title-${index}`}
                   onKeyPress={(e) => {
                     if (e.key === "Enter" && !isMobile) {
@@ -192,14 +192,14 @@ function Projects({ isMobile }) {
                         maxWidth: "100%",
                         objectFit: "contain",
                       }}
-                      loading='lazy'
+                      loading="lazy"
                     />
                   </Box>
 
                   {/* Project Title */}
                   <Typography
                     id={`project-title-${index}`}
-                    variant='h5'
+                    variant="h5"
                     gutterBottom
                     sx={{
                       color: primary.main,
@@ -217,7 +217,7 @@ function Projects({ isMobile }) {
                   {!isMobile && hoveredIndex === index && (
                     <>
                       <Typography
-                        variant='body1'
+                        variant="body1"
                         sx={{
                           color: textColor,
                           textAlign: "center",
@@ -238,11 +238,11 @@ function Projects({ isMobile }) {
                       {/* If a repo is available, show GitHub button */}
                       {project.repo && (
                         <Button
-                          component='a'
+                          component="a"
                           href={project.repo}
-                          target='_blank'
-                          rel='noopener noreferrer'
-                          variant='outlined'
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          variant="outlined"
                           sx={{
                             mt: "0.75rem",
                             borderRadius: "1.25rem",
@@ -267,7 +267,7 @@ function Projects({ isMobile }) {
                   {isMobile && (
                     <Button
                       onClick={() => handleOpenDialog(index)}
-                      variant='contained'
+                      variant="contained"
                       sx={buttonStyle}
                     >
                       View Details
@@ -286,20 +286,20 @@ function Projects({ isMobile }) {
           open={openProject !== null}
           onClose={handleCloseDialog}
           fullWidth
-          maxWidth='sm'
-          aria-labelledby='project-dialog-title'
-          aria-describedby='project-dialog-description'
+          maxWidth="sm"
+          aria-labelledby="project-dialog-title"
+          aria-describedby="project-dialog-description"
         >
           <DialogTitle
-            id='project-dialog-title'
+            id="project-dialog-title"
             sx={{ color: primary.main, fontWeight: "bold" }}
           >
             {projects[openProject].title}
           </DialogTitle>
           <DialogContent>
             <Typography
-              variant='body1'
-              id='project-dialog-description'
+              variant="body1"
+              id="project-dialog-description"
               sx={{
                 color: textColor,
                 lineHeight: 1.8,
@@ -313,11 +313,11 @@ function Projects({ isMobile }) {
             {projects[openProject].repo && (
               <Box sx={{ textAlign: "center", mt: "1.5rem" }}>
                 <Button
-                  component='a'
+                  component="a"
                   href={projects[openProject].repo}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  variant='outlined'
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variant="outlined"
                   sx={{
                     mb: "1rem",
                     borderRadius: "1.25rem",
@@ -340,7 +340,7 @@ function Projects({ isMobile }) {
             <Box sx={{ textAlign: "center", mt: "1.5rem" }}>
               <Button
                 onClick={handleCloseDialog}
-                variant='contained'
+                variant="contained"
                 sx={buttonStyle}
               >
                 Close

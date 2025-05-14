@@ -15,13 +15,13 @@ function Home() {
           px: 2,
         }}
       >
-        <Stack spacing={2} alignItems='center'>
+        <Stack spacing={2} alignItems="center">
           <Typography sx={{ fontSize: { xs: "1.5rem", sm: "2.5rem" } }}>
             {"Hey there, I'm"}
           </Typography>
           <Typography
-            id='name'
-            fontWeight='bold'
+            id="name"
+            fontWeight="bold"
             sx={{ fontSize: { xs: "3rem", sm: "5rem" } }}
           >
             Caleb Jackson

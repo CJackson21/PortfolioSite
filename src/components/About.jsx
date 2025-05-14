@@ -1,5 +1,6 @@
 import React from "react";
-import { Box, Grid, Stack, Typography, Divider } from "@mui/material";
+import { Box, Stack, Typography, Divider } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import { useTheme } from "@mui/material/styles";
 
 // Simple about me page

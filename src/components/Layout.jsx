@@ -85,7 +85,7 @@ const Layout = ({ children, isMobile }) => {
           </Box>
         )}
         {/* Main content area where the page-specific components are rendered */}
-        <Box component='main'>{children}</Box>
+        <Box component="main">{children}</Box>
         <Box
           sx={{
             position: "fixed",
