@@ -1,12 +1,14 @@
+import React from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import TypingEffect from "./Typewriter";
-import "../index.css";
 
 // Main home introductory page
-function Home() {
+const Home = React.forwardRef((props, ref) => {
   return (
-    <Box sx={{ position: "relative", height: "100vh", overflowY: "hidden" }}>
+    <Box sx={{ position: "relative", height: "100vh" }}>
       <Box
+        ref={ref}
+        id="home"
         sx={{
           height: "100%",
           display: "flex",
@@ -15,12 +17,12 @@ function Home() {
           px: 2,
         }}
       >
+        {/* Content of the Home section */}
         <Stack spacing={2} alignItems="center">
           <Typography sx={{ fontSize: { xs: "1.5rem", sm: "2.5rem" } }}>
             {"Hey there, I'm"}
           </Typography>
           <Typography
-            id="name"
             fontWeight="bold"
             sx={{ fontSize: { xs: "3rem", sm: "5rem" } }}
           >
@@ -34,6 +36,6 @@ function Home() {
       </Box>
     </Box>
   );
-}
+});
 
-export default Home;
+export default React.memo(Home);

@@ -1,103 +1,134 @@
 import React from "react";
-import { Box, IconButton, SwipeableDrawer } from "@mui/material";
+import { Box, IconButton, SwipeableDrawer, useTheme } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import PropTypes from "prop-types";
 
-import Sidebar from "./SideBar";
+import Sidebar from "./Sidebar";
 import Background from "./Background";
 
 const DRAWER_WIDTH = 240;
 
-const Layout = ({ children, isMobile }) => {
+const Layout = ({ isMobile, sections }) => {
+  const theme = useTheme();
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(!isMobile);
 
-  // sets the sidebar to open
+  // Update sidebar open state if isMobile changes
+  React.useEffect(() => {
+    setIsSidebarOpen(!isMobile);
+  }, [isMobile]);
+
   const handleOpenSidebar = React.useCallback(() => {
     setIsSidebarOpen(true);
   }, []);
 
-  // sets the sidebar to closed
   const handleCloseSidebar = React.useCallback(() => {
     if (isMobile) {
       setIsSidebarOpen(false);
     }
   }, [isMobile]);
 
-  // pulled out because the nested ternary inside the return looked messy
-  const width = React.useMemo(
-    () =>
-      isMobile
-        ? "100%"
-        : isSidebarOpen
-        ? `calc(100% - ${DRAWER_WIDTH}px)`
-        : "100%",
-    [isMobile, isSidebarOpen]
-  );
+  // Calculate main content width based on sidebar state (for desktop)
+  const mainContentWidth = React.useMemo(() => {
+    if (isMobile) return "100%";
+    return isSidebarOpen ? `calc(100% - ${DRAWER_WIDTH}px)` : "100%";
+  }, [isMobile, isSidebarOpen]);
+
+  // Calculate margin for main content (for desktop)
+  const mainContentMarginLeft = React.useMemo(() => {
+    if (isMobile) return "0px";
+    return isSidebarOpen ? `${DRAWER_WIDTH}px` : "0px";
+  }, [isMobile, isSidebarOpen]);
 
   return (
-    <Box sx={{ display: "flex", minHeight: "100vh" }}>
+    <Box sx={{ display: "flex", minHeight: "100vh", position: "relative" }}>
+      {/* Drawer for the Sidebar */}
       <SwipeableDrawer
-        disableSwipeToOpen={false}
+        disableSwipeToOpen={!isMobile}
         variant={isMobile ? "temporary" : "persistent"}
-        open={!isMobile || isSidebarOpen}
+        open={isSidebarOpen}
         onOpen={handleOpenSidebar}
         onClose={handleCloseSidebar}
+        ModalProps={{
+          keepMounted: true,
+        }}
         sx={{
+          width: isMobile ? "80vw" : DRAWER_WIDTH,
+          flexShrink: 0,
           "& .MuiDrawer-paper": {
-            width: isMobile ? "100vw" : DRAWER_WIDTH,
+            width: isMobile ? "80vw" : DRAWER_WIDTH,
             boxSizing: "border-box",
           },
         }}
       >
-        <Sidebar onLinkClick={handleCloseSidebar} isMobile={isMobile} />
+        {/* Sidebar component receives sections for link generation */}
+        <Sidebar
+          onLinkClick={handleCloseSidebar}
+          isMobile={isMobile}
+          sections={sections}
+        />
       </SwipeableDrawer>
 
-      {/* Main Content Area */}
+      {/* Main Content Area where sections are rendered */}
       <Box
+        component="main"
         sx={{
           flexGrow: 1,
-          transition: "all 0.3s ease",
-          width,
-          marginLeft: isMobile ? 0 : isSidebarOpen ? `${DRAWER_WIDTH}px` : 0,
+          transition: theme.transitions.create(["margin", "width"], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+          }),
+          width: mainContentWidth,
+          marginLeft: mainContentMarginLeft,
           position: "relative",
+          height: "100vh",
+          overflowY: "auto",
         }}
       >
         <Background />
-        {/* Hamburger Button */}
-        {isMobile && (
+        {/* Hamburger Button for Mobile - Show only if sidebar is closed on mobile */}
+        {isMobile && !isSidebarOpen && (
           <Box
             sx={{
               position: "fixed",
-              top: 12,
-              left: 12,
-              zIndex: 30,
+              top: 16,
+              left: 16,
+              zIndex: theme.zIndex.drawer + 1,
             }}
           >
-            <IconButton onClick={handleOpenSidebar} sx={{ color: "white" }}>
-              <MenuIcon
-                sx={{
-                  fontSize: 32,
-                  transform: isSidebarOpen ? "rotate(90deg)" : "rotate(0deg)",
-                  transition: "transform 0.3s ease",
-                }}
-              />
+            <IconButton
+              onClick={handleOpenSidebar}
+              sx={{
+                color: "white",
+                backgroundColor: "rgba(0,0,0,0.3)",
+                "&:hover": { backgroundColor: "rgba(0,0,0,0.5)" },
+              }}
+              aria-label="open drawer"
+            >
+              <MenuIcon sx={{ fontSize: 32 }} />
             </IconButton>
           </Box>
         )}
-        {/* Main content area where the page-specific components are rendered */}
-        <Box component="main">{children}</Box>
+        {/* Render all the section components passed from App.js */}
+        {sections.map((sectionInfo) =>
+          React.cloneElement(sectionInfo.component, { key: sectionInfo.id })
+        )}
+        {/* Version number display */}
         <Box
           sx={{
             position: "fixed",
             bottom: 12,
-            left: isMobile || !isSidebarOpen ? 12 : `${DRAWER_WIDTH + 12}px`,
-            zIndex: 30,
+            left: isMobile ? 12 : isSidebarOpen ? `${DRAWER_WIDTH + 12}px` : 12,
+            zIndex: theme.zIndex.tooltip,
             color: "white",
+            backgroundColor: "rgba(0,0,0,0.6)",
             borderRadius: "8px",
-            padding: "0.2rem 0.5rem",
+            padding: "0.3rem 0.6rem",
             fontWeight: "bold",
-            fontSize: "0.90rem",
-            transition: "left 0.3s ease",
+            fontSize: "0.85rem",
+            transition: theme.transitions.create("left", {
+              easing: theme.transitions.easing.sharp,
+              duration: theme.transitions.duration.leavingScreen,
+            }),
           }}
         >
           v2
@@ -108,8 +139,15 @@ const Layout = ({ children, isMobile }) => {
 };
 
 Layout.propTypes = {
-  children: PropTypes.node.isRequired,
   isMobile: PropTypes.bool.isRequired,
+  sections: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+      ref: PropTypes.object.isRequired, // Ref is needed by App.js, not directly by Layout
+      component: PropTypes.element.isRequired, // Layout renders this component
+    })
+  ).isRequired,
 };
 
-export default React.memo(Layout);
+export default React.memo(Layout); // Memoize Layout for performance

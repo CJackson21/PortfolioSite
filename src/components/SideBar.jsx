@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import {
   Box,
   Button,
@@ -11,8 +11,8 @@ import {
   Typography,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import { useNavigate, useLocation } from "react-router-dom"; // <<<<<< IMPORT useLocation
 
 import Resume from "./Resume";
 import ThemeSwitcher from "./ThemeSwitcher";
@@ -20,171 +20,156 @@ import EmailIcon from "@mui/icons-material/Email";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
-const Sidebar = ({ onLinkClick, isMobile }) => {
+const Sidebar = ({ onLinkClick, isMobile, sections }) => {
   const theme = useTheme();
-  const [isContactOpen, setIsContactOpen] = React.useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation(); // <<<<<< GET THE CURRENT LOCATION
 
-  // Function to determine link color based on theme
   const getLinkColor = () => {
     return theme.palette.mode === "dark"
-      ? theme.palette.text.dark
+      ? theme.palette.text.primary
       : theme.palette.primary.main;
   };
 
-  // Define styles for navigation links
-  const linkStyles = {
+  const navItemStyles = {
+    // ... (styles remain the same)
     textDecoration: "none",
-    color: getLinkColor(),
     fontWeight: 500,
     fontSize: isMobile ? "1.2rem" : "1.5rem",
     display: "block",
     cursor: "pointer",
-    paddingY: isMobile ? 0.5 : 1,
+    width: "100%",
+    paddingY: isMobile ? 0.75 : 1.25,
+    color: getLinkColor(),
+    background: "none",
+    border: "none",
+    textAlign: "left",
+    fontFamily: theme.typography.fontFamily,
+    paddingLeft: 0,
+    paddingRight: 0,
     "&:hover": {
       color: theme.palette.primary.dark,
     },
   };
 
-  // Handlers to open and close the contact modal
   const handleContactOpen = () => {
     setIsContactOpen(true);
+    if (isMobile && onLinkClick) {
+      onLinkClick();
+    }
   };
 
   const handleContactClose = () => {
     setIsContactOpen(false);
   };
 
+  const navigateToSection = useCallback(
+    (sectionId) => {
+      navigate({ pathname: location.pathname, hash: sectionId });
+
+      if (onLinkClick) {
+        onLinkClick();
+      }
+    },
+    [navigate, location.pathname, onLinkClick]
+  );
+
   return (
     <Box
       sx={{
         width: "100%",
-        height: "100vh", // Full viewport height
+        height: "100vh",
         backgroundColor: theme.palette.background.paper,
-        boxShadow: `0 ${theme.spacing(0.5)} ${theme.spacing(
-          2.5
-        )} rgba(0, 0, 0, 0.5)`,
+        boxShadow: theme.shadows[5],
         display: "flex",
         flexDirection: "column",
-        paddingTop: "env(safe-area-inset-top, 0px)", // Respect top safe area
-        paddingBottom: "env(safe-area-inset-bottom, 16px)", // Respect bottom safe area
-        boxSizing: "border-box", // Include padding in height
+        paddingTop: "env(safe-area-inset-top, 0px)",
+        paddingBottom: "env(safe-area-inset-bottom, 16px)",
+        boxSizing: "border-box",
       }}
     >
-      {/* Scrollable Main Content */}
       <Box
         sx={{
-          flex: 1, // Take up remaining space
-          overflowY: "auto", // Enable vertical scrolling
-          paddingX: theme.spacing(2),
+          flex: 1,
+          overflowY: "auto",
+          paddingX: theme.spacing(2.5),
           paddingY: theme.spacing(2),
           display: "flex",
           flexDirection: "column",
-          height: "100%", // Ensure it takes full height for Flexbox
         }}
       >
-        <Stack spacing={2} sx={{ flexGrow: 1 }}>
-          {/* Profile Picture */}
-          <Box sx={{ alignSelf: "center" }}>
+        <Stack spacing={isMobile ? 0.5 : 1} sx={{ flexGrow: 1 }}>
+          <Box sx={{ alignSelf: "center", my: 2, textAlign: "center" }}>
             <img
               src="/img/Jackson_Caleb_1-2.jpg"
               alt="Caleb Jackson"
               style={{
                 borderRadius: "50%",
-                width: isMobile ? "8rem" : "10rem",
+                width: isMobile ? "6.5rem" : "9rem",
                 height: "auto",
+                border: `3px solid ${theme.palette.primary.main}`,
+                objectFit: "cover",
               }}
             />
           </Box>
 
-          {/* Navigation Links */}
-          <Typography
-            component={Link}
-            to="/"
-            sx={linkStyles}
-            onClick={onLinkClick}
-          >
-            Home
-          </Typography>
-          <Divider />
-          <Typography
-            component={Link}
-            to="/projects"
-            sx={linkStyles}
-            onClick={onLinkClick}
-          >
-            Projects
-          </Typography>
-          <Divider />
+          {sections.map((section) => (
+            <React.Fragment key={section.id}>
+              <Typography
+                component="button"
+                onClick={() => navigateToSection(section.id)}
+                sx={navItemStyles}
+              >
+                {section.label}
+              </Typography>
+              <Divider />
+            </React.Fragment>
+          ))}
+
           <Typography
             component="a"
             href="https://github.com/CJackson21"
             target="_blank"
             rel="noopener noreferrer"
-            sx={linkStyles}
+            sx={navItemStyles}
             onClick={onLinkClick}
           >
             GitHub
           </Typography>
           <Divider />
-          <Resume color={getLinkColor()} isMobile={isMobile} />
-          <Divider />
-          <Typography
-            component={Link}
-            to="/about"
-            sx={linkStyles}
+
+          <Resume
+            color={getLinkColor()}
+            isMobile={isMobile}
+            sx={navItemStyles}
             onClick={onLinkClick}
-          >
-            About Me
-          </Typography>
+          />
           <Divider />
-          {/* Conditionally render "Contact Me" link on mobile */}
+
           {isMobile && (
             <>
               <Typography
                 component="button"
                 onClick={handleContactOpen}
-                sx={{
-                  ...linkStyles,
-                  background: "none",
-                  border: "none",
-                  textAlign: "left",
-                  padding: 0,
-                  width: "100%",
-                  font: "1.2rem",
-                  color:
-                    theme.palette.mode === "dark"
-                      ? theme.palette.text.primary
-                      : theme.palette.primary.main,
-                }}
+                sx={navItemStyles}
               >
                 Contact Me
               </Typography>
               <Divider />
-              <ThemeSwitcher />
+              <Box sx={{ pt: 1 }}>
+                <ThemeSwitcher />
+              </Box>
             </>
           )}
         </Stack>
 
-        {/* Footer Section - Visible only on non-mobile */}
         {!isMobile && (
-          <Box
-            sx={{
-              paddingRight: theme.spacing(2),
-              paddingY: theme.spacing(2),
-              marginTop: "auto",
-            }}
-          >
-            <Stack spacing={1}>
+          <Box sx={{ paddingY: theme.spacing(2), marginTop: "auto" }}>
+            <Stack spacing={1.5}>
               <ThemeSwitcher />
-              <Divider sx={{ width: "85%" }} />
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "left",
-                  gap: theme.spacing(1),
-                }}
-              >
+              <Divider sx={{ width: "100%", my: 1 }} />
+              <Box>
                 <Typography
                   variant="h6"
                   fontWeight="bold"
@@ -198,14 +183,14 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
                 >
                   Contact Me
                 </Typography>
-                <Stack direction="row" spacing={2} alignItems="center">
+                <Stack direction="row" spacing={2.5} alignItems="center">
                   <Typography
                     component="a"
                     href="mailto:calebjackson2002@gmail.com"
                     aria-label="Send Email"
                     sx={{
-                      textDecoration: "none",
-                      color: getLinkColor(),
+                      ...navItemStyles,
+                      paddingY: 0,
                       "&:hover": { color: theme.palette.primary.dark },
                     }}
                   >
@@ -218,8 +203,8 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
                     rel="noopener noreferrer"
                     aria-label="Visit Instagram"
                     sx={{
-                      textDecoration: "none",
-                      color: getLinkColor(),
+                      ...navItemStyles,
+                      paddingY: 0,
                       "&:hover": { color: theme.palette.primary.dark },
                     }}
                   >
@@ -232,8 +217,8 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
                     rel="noopener noreferrer"
                     aria-label="Visit LinkedIn"
                     sx={{
-                      textDecoration: "none",
-                      color: getLinkColor(),
+                      ...navItemStyles,
+                      paddingY: 0,
                       "&:hover": { color: theme.palette.primary.dark },
                     }}
                   >
@@ -246,52 +231,46 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
         )}
       </Box>
 
-      {/* Contact Me Modal - Visible only on mobile */}
       {isMobile && (
-        <Dialog
-          open={isContactOpen}
-          onClose={handleContactClose}
-          aria-labelledby="contact-dialog-title"
-          fullWidth
-          maxWidth="xs"
-        >
+        <Dialog open={isContactOpen} onClose={handleContactClose}>
           <DialogTitle
             id="contact-dialog-title"
             sx={{
               color:
                 theme.palette.mode === "dark"
-                  ? theme.palette.text.dark
+                  ? theme.palette.text.primary
                   : theme.palette.primary.main,
+              textAlign: "center",
             }}
           >
             Contact Me
           </DialogTitle>
           <DialogContent dividers>
-            <Stack spacing={2} alignItems="center">
+            <Stack spacing={2.5} alignItems="center" sx={{ py: 2 }}>
               <Typography
                 variant="body1"
-                sx={{
-                  color:
-                    theme.palette.mode === "dark"
-                      ? theme.palette.text.dark
-                      : theme.palette.primary.main,
-                }}
+                textAlign="center"
+                color="text.secondary"
               >
-                {`I'd love to hear from you! Reach out through any of the
-                platforms below.`}
+                {`I'd love to hear from you! Reach out via email or social media.`}
               </Typography>
-              <Stack direction="row" spacing={2} alignItems="center">
+              <Stack
+                direction="row"
+                spacing={3.5}
+                alignItems="center"
+                justifyContent="center"
+              >
                 <Typography
                   component="a"
                   href="mailto:calebjackson2002@gmail.com"
                   aria-label="Send Email"
                   sx={{
-                    textDecoration: "none",
-                    color: getLinkColor(),
+                    ...navItemStyles,
+                    paddingY: 0,
                     "&:hover": { color: theme.palette.primary.dark },
                   }}
                 >
-                  <EmailIcon fontSize="large" />
+                  <EmailIcon sx={{ fontSize: "2.8rem" }} />
                 </Typography>
                 <Typography
                   component="a"
@@ -300,12 +279,12 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
                   rel="noopener noreferrer"
                   aria-label="Visit Instagram"
                   sx={{
-                    textDecoration: "none",
-                    color: getLinkColor(),
+                    ...navItemStyles,
+                    paddingY: 0,
                     "&:hover": { color: theme.palette.primary.dark },
                   }}
                 >
-                  <InstagramIcon fontSize="large" />
+                  <InstagramIcon sx={{ fontSize: "2.8rem" }} />
                 </Typography>
                 <Typography
                   component="a"
@@ -314,18 +293,22 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
                   rel="noopener noreferrer"
                   aria-label="Visit LinkedIn"
                   sx={{
-                    textDecoration: "none",
-                    color: getLinkColor(),
+                    ...navItemStyles,
+                    paddingY: 0,
                     "&:hover": { color: theme.palette.primary.dark },
                   }}
                 >
-                  <LinkedInIcon fontSize="large" />
+                  <LinkedInIcon sx={{ fontSize: "2.8rem" }} />
                 </Typography>
               </Stack>
             </Stack>
           </DialogContent>
-          <DialogActions>
-            <Button onClick={handleContactClose} color="primary">
+          <DialogActions sx={{ justifyContent: "center", pb: 2 }}>
+            <Button
+              onClick={handleContactClose}
+              variant="outlined"
+              color="primary"
+            >
               Close
             </Button>
           </DialogActions>
@@ -338,6 +321,12 @@ const Sidebar = ({ onLinkClick, isMobile }) => {
 Sidebar.propTypes = {
   onLinkClick: PropTypes.func.isRequired,
   isMobile: PropTypes.bool.isRequired,
+  sections: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default Sidebar;

@@ -1,134 +1,65 @@
 import React from "react";
-import { Box, Stack, Typography, Divider } from "@mui/material";
-import Grid from "@mui/material/Grid2";
-import { useTheme } from "@mui/material/styles";
+import { Box, Typography, Container, Avatar, Stack } from "@mui/material"; // <-- ADDED Stack HERE
 
-// Simple about me page
-function About() {
-  const theme = useTheme();
-
-  // Change the color of the text based on the selected theme
-  const textColor = React.useMemo(() => {
-    return theme.palette.mode === "dark"
-      ? theme.palette.text.primary
-      : theme.palette.text.secondary;
-  }, [theme]);
-
+const About = React.forwardRef((props, ref) => {
   return (
-    <Grid
-      container
+    <Box
+      ref={ref}
+      id="about"
       sx={{
-        my: 5,
         minHeight: "100vh",
-        display: "grid",
-        placeItems: "center",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        py: { xs: 6, sm: 8 },
+        px: 2,
       }}
     >
-      <Box
-        sx={{
-          width: { xs: "90vw", sm: "fit-content" },
-          maxWidth: "90vw",
-          backgroundColor: theme.palette.background.paper,
-          borderRadius: "16px",
-          padding: { xs: "5vw", sm: "4vh" },
-          boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.3)",
-          animation: "fadeIn 1s ease",
-          "@keyframes fadeIn": {
-            from: { opacity: 0 },
-            to: { opacity: 1 },
-          },
-        }}
-      >
-        <Stack
-          spacing={4}
-          sx={{
-            padding: "5vh",
-            maxWidth: { xs: "100%", sm: "40vw" },
-            textAlign: "center",
-            alignItems: "center",
-          }}
-        >
-          {/* Title */}
+      <Container maxWidth="md">
+        {/* This Stack was causing the error because Stack was not imported */}
+        <Stack alignItems="center" spacing={4}>
           <Typography
             variant="h3"
+            component="h2"
+            gutterBottom
+            textAlign="center"
             fontWeight="bold"
-            sx={{
-              letterSpacing: "0.15em",
-              fontSize: { xs: "1.8rem", sm: "2.4rem" },
-              color: theme.palette.primary.main,
-            }}
           >
             About Me
           </Typography>
-          <Divider
-            sx={{ width: "50%", borderColor: theme.palette.primary.light }}
+          <Avatar
+            alt="Caleb Jackson"
+            src="/img/Jackson_Caleb_1-2.jpg"
+            sx={{ width: 150, height: 150, mb: 2 }}
           />
-
-          {/* Introduction */}
           <Typography
-            variant="body1"
-            sx={{
-              color: textColor,
-              lineHeight: 1.8,
-              fontSize: { xs: "1rem", sm: "1.2rem" },
-            }}
+            variant="h6"
+            textAlign="center"
+            sx={{ fontStyle: "italic", color: "text.secondary" }}
           >
-            {`Hi, I'm Caleb, a Computer Science student at George Fox University
-            specializing in cybersecurity. My journey into tech began with a
-            childhood curiosity about how hardware and software work together,
-            and it has since evolved into a deep passion for building
-            meaningful, secure, and innovative solutions.`}
+            Passionate Full Stack Developer | Lifelong Learner | Tech Enthusiast
           </Typography>
-
-          {/* Section: Professional Interests */}
-          <Typography
-            variant="body1"
-            sx={{
-              color: textColor,
-              lineHeight: 1.8,
-              fontSize: { xs: "1rem", sm: "1.2rem" },
-            }}
-          >
-            With experience across a broad spectrum of programming languages and
-            frameworks, I enjoy tackling challenging problems. From developing
-            efficient algorithms to creating visually stunning web applications,
-            I thrive on learning new tools and pushing the boundaries of what I
-            can create.
+          <Typography variant="body1" textAlign="left" sx={{ lineHeight: 1.7 }}>
+            Hello! I'm Caleb Jackson, a dedicated Full Stack Developer with a
+            strong foundation in creating dynamic, responsive, and user-friendly
+            web applications. My journey in software development has been driven
+            by a curiosity for how things work and a passion for building
+            solutions that make a difference.
           </Typography>
-
-          {/* Section: Personal Touch */}
-          <Typography
-            variant="body1"
-            sx={{
-              color: textColor,
-              lineHeight: 1.8,
-              fontSize: { xs: "1rem", sm: "1.2rem" },
-            }}
-          >
-            Outside the digital realm, I’m an avid basketball player, a fitness
-            enthusiast who loves lifting weights, and a gamer who enjoys
-            immersing myself in captivating worlds. Whether it’s exploring the
-            great outdoors or diving into a technical challenge, I bring the
-            same passion and energy to everything I do.
-          </Typography>
-
-          {/* Closing Statement */}
-          <Typography
-            variant="body1"
-            sx={{
-              color: textColor,
-              lineHeight: 1.8,
-              fontSize: { xs: "1rem", sm: "1.2rem" },
-              fontStyle: "italic",
-            }}
-          >
-            My ultimate goal? To contribute to impactful projects that make the
-            world a better, safer place, one line of code at a time.
+          <Typography variant="body1" textAlign="left" sx={{ lineHeight: 1.7 }}>
+            I thrive in collaborative environments and enjoy tackling complex
+            challenges, continuously seeking to expand my skillset and stay
+            updated with the latest industry trends. When I'm not coding, I
+            enjoy [mention a hobby or two briefly]. Let's connect and build
+            something amazing together!
           </Typography>
         </Stack>
-      </Box>
-    </Grid>
+      </Container>
+    </Box>
   );
-}
+});
 
-export default React.memo(About);
+About.displayName = "About";
+
+export default About;
