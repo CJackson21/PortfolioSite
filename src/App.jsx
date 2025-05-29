@@ -5,120 +5,63 @@ import useCustomTheme from "./hooks/customizeReactTheme";
 import About from "./components/About";
 import Home from "./components/Home";
 import Projects from "./components/Projects";
-import Layout from "./components/Layout";
-import StarfieldBackground from "./components/StarfieldBackground";
+import Layout from "./components/Layout"; // Your Layout component
 
 const App = () => {
   const { theme } = useCustomTheme();
   const isMobile = useMediaQuery("(max-width:899px)", { noSsr: true });
   const location = useLocation();
 
-  // console.log("Current location:", location); // For debugging
-
-  // Create refs for each section
   const homeRef = React.useRef(null);
   const projectsRef = React.useRef(null);
   const aboutRef = React.useRef(null);
 
-  // Define sections data
+  // Sections data: App owns the structure, refs, and component instances
   const sections = React.useMemo(
     () => [
       {
         id: "home",
-        label: "Home",
+        name: "Home",
         ref: homeRef,
-        component: <Home ref={homeRef} />, // Ensure Home component uses React.forwardRef if it's a functional component
+        component: <Home ref={homeRef} />,
       },
       {
         id: "projects",
-        label: "Projects",
+        name: "Projects",
         ref: projectsRef,
-        component: <Projects ref={projectsRef} isMobile={isMobile} />, // Ensure Projects uses React.forwardRef
+        component: <Projects ref={projectsRef} isMobile={isMobile} />,
       },
       {
         id: "about",
-        label: "About Me",
+        name: "About Me",
         ref: aboutRef,
-        component: <About ref={aboutRef} />, // Ensure About uses React.forwardRef
+        component: <About ref={aboutRef} />,
       },
     ],
-    [isMobile] // isMobile is a dependency for Projects component
+    [isMobile]
   );
 
-  // --- Prepare config and callback for StarfieldBackground ---
-  const interactiveZonesConfig = React.useMemo(
-    () =>
-      sections.map((section) => ({
-        id: section.id,
-        label: section.label,
-      })),
-    [sections]
-  );
-
-  const handleZoneClick = React.useCallback(
-    (sectionId) => {
-      console.log(`App: handleZoneClick called with sectionId: ${sectionId}`);
-      const sectionToScroll = sections.find((s) => s.id === sectionId);
-      if (
-        sectionToScroll &&
-        sectionToScroll.ref &&
-        sectionToScroll.ref.current
-      ) {
-        sectionToScroll.ref.current.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-        // Optionally close mobile sidebar if open, assuming Layout handles sidebar state
-        // This would require passing a function from Layout to App or using context/state management
-      } else {
-        console.warn(
-          `App: Section or ref.current not found for ID: ${sectionId}`
-        );
-      }
-    },
-    [sections]
-  );
-  // --- End Background Config ---
-
-  // Effect for scrolling based on URL hash
+  // Handles scrolling based on URL hash (e.g., for deep linking)
   React.useEffect(() => {
     const currentHash = location.hash.substring(1);
-    // console.log("Current hash:", currentHash); // For debugging
-
     if (currentHash) {
       const sectionToScroll = sections.find((sec) => sec.id === currentHash);
-      // console.log("Section to scroll from hash:", sectionToScroll); // For debugging
-      if (
-        sectionToScroll &&
-        sectionToScroll.ref &&
-        sectionToScroll.ref.current
-      ) {
-        // Timeout to ensure the element is rendered and layout is stable
-        setTimeout(() => {
-          if (sectionToScroll.ref.current) {
-            // Double check ref.current before scrolling
-            sectionToScroll.ref.current.scrollIntoView({
-              behavior: "smooth",
-              block: "start",
-            });
-          }
-        }, 100); // Small delay can help
-      }
-    } else {
-      // Only scroll to top if not already there and no hash is present
-      if (window.scrollY !== 0) {
-        window.scrollTo({ top: 0, behavior: "smooth" });
+      if (sectionToScroll?.ref?.current) {
+        const timer = setTimeout(() => {
+          sectionToScroll.ref.current.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }, 100); // Slight delay for elements to be ready
+        return () => clearTimeout(timer);
       }
     }
-  }, [location.hash, sections]); // sections is a dependency
+  }, [location.hash, sections]);
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <StarfieldBackground
-        interactiveZonesConfig={interactiveZonesConfig}
-        onZoneClick={handleZoneClick}
-      />
+      <Layout sections={sections} />
     </ThemeProvider>
   );
 };
