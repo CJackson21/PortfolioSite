@@ -1,5 +1,6 @@
 import React from "react";
 import { CssBaseline, ThemeProvider, useMediaQuery } from "@mui/material";
+import { Routes, Route, useLocation } from "react-router-dom";
 import useCustomTheme from "./hooks/customizeReactTheme";
 
 import About from "./components/About";
@@ -12,6 +13,7 @@ const App = () => {
   const { theme } = useCustomTheme();
   const isMobile = useMediaQuery("(max-width:899px)", { noSsr: true });
   const [introFinished, setIntroFinished] = React.useState(false);
+  const location = useLocation();
 
   const handleIntroComplete = React.useCallback(() => {
     setIntroFinished(true);
@@ -25,18 +27,21 @@ const App = () => {
     () => [
       {
         id: "home",
+        path: "/",
         name: "Home",
         ref: homeRef,
         component: <Home ref={homeRef} introFinished={introFinished} />,
       },
       {
         id: "projects",
+        path: "/projects",
         name: "Projects",
         ref: projectsRef,
         component: <Projects ref={projectsRef} isMobile={isMobile} />,
       },
       {
         id: "about",
+        path: "/about",
         name: "About Me",
         ref: aboutRef,
         component: <About ref={aboutRef} />,
@@ -48,13 +53,20 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <ScrollHandler sections={sections} />
-      <Layout
-        isMobile={isMobile}
-        sections={sections}
-        introFinished={introFinished}
-        onIntroComplete={handleIntroComplete}
-      />
+      <ScrollHandler sections={sections} currentPath={location.pathname} />
+      <Routes>
+        <Route
+          path="*"
+          element={
+            <Layout
+              isMobile={isMobile}
+              sections={sections}
+              introFinished={introFinished}
+              onIntroComplete={handleIntroComplete}
+            />
+          }
+        />
+      </Routes>
     </ThemeProvider>
   );
 };

@@ -40,7 +40,7 @@ const About = React.forwardRef((props, ref) => {
               maxWidth: 800,
             }}
           >
-            Passionate Full Stack Developer · Lifelong Learner · Tech Enthusiast
+            Passionate Full Stack Developer · Lifelong Learner · Christ Follower
           </Typography>
 
           <Typography variant="body1" sx={{ lineHeight: 1.8, maxWidth: 700 }}>

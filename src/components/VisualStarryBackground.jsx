@@ -29,6 +29,7 @@ const VisualStarryBackground = ({
   const parallaxMousePosRef = React.useRef({ x: 0, y: 0 });
   const rendererRef = React.useRef(null);
   const sceneRef = React.useRef(null);
+  const prevThemeColorRef = React.useRef(null);
 
   const [isIntroAnimating, setIsIntroAnimating] = React.useState(true);
 
@@ -83,21 +84,14 @@ const VisualStarryBackground = ({
     camera.position.z = INITIAL_CAMERA_Z;
     cameraRef.current = camera;
     sceneRef.current.add(camera);
-  }, [currThemeColor]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const createStarLayers = React.useCallback(() => {
     if (!sceneRef.current || !canvasRef.current) {
       return;
     }
     const scene = sceneRef.current;
-
-    backgroundStarLayersRef.current.forEach((layer) => {
-      if (layer.points) {
-        scene.remove(layer.points);
-      }
-      layer.geometry?.dispose();
-      layer.material?.dispose();
-    });
     backgroundStarLayersRef.current = [];
 
     const loader = new THREE.TextureLoader();
@@ -304,6 +298,13 @@ const VisualStarryBackground = ({
     scrollProgress,
     animate,
   ]);
+
+  React.useEffect(() => {
+    if (rendererRef.current && prevThemeColorRef.current !== currThemeColor) {
+      rendererRef.current.setClearColor(new THREE.Color(currThemeColor), 1);
+      prevThemeColorRef.current = currThemeColor;
+    }
+  }, [currThemeColor]);
 
   React.useEffect(() => {
     return () => {

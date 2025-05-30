@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@mui/material";
+import { Box, Fab, Tooltip } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import DarkModeIcon from "@mui/icons-material/DarkModeOutlined";
 import LightModeIcon from "@mui/icons-material/WbSunny";
@@ -7,37 +7,57 @@ import LightModeIcon from "@mui/icons-material/WbSunny";
 function ThemeSwitcher() {
   const theme = useTheme();
   const { handleSelectTheme } = theme;
-
-  // Determine if we're currently in dark mode
   const isDark = theme.palette.mode === "dark";
 
-  // Handler to toggle between dark and light
   const toggleThemeMode = () => {
-    // If we are in dark mode, switch to light; otherwise switch to dark
     const newMode = isDark ? "light" : "dark";
-    // Our original callback expects: handleSelectTheme(event, newValue)
     handleSelectTheme(null, newMode);
   };
 
   return (
-    <Button
-      variant='contained'
-      color='secondary'
-      onClick={toggleThemeMode}
-      startIcon={isDark ? <LightModeIcon /> : <DarkModeIcon />}
+    <Box
       sx={{
-        minWidth: "fit-content",
-        width: "fit-content",
-        padding: "0.5rem 1rem",
-        display: "inline-flex",
-        alignItems: "center",
-        gap: "0.5rem",
-        textTransform: "none",
-        whiteSpace: "nowrap",
+        position: "fixed",
+        bottom: 30,
+        right: 30,
+        zIndex: 1050,
+        padding: "10px",
+        backgroundColor:
+          theme.palette.mode === "dark"
+            ? "rgba(255,255,255,0.1)"
+            : "rgba(0,0,0,0.1)",
+        borderRadius: "30px",
+        backdropFilter: "blur(10px)",
       }}
     >
-      {isDark ? "Switch to Light" : "Switch to Dark"}
-    </Button>
+      <Tooltip title={isDark ? "Switch to light mode" : "Switch to dark mode"}>
+        <Fab
+          color={isDark ? "secondary" : "primary"}
+          aria-label="Toggle theme"
+          onClick={toggleThemeMode}
+          size="medium"
+          sx={{
+            transition:
+              "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
+            "&:hover": {
+              transform: "scale(1.15)",
+              boxShadow: 6,
+            },
+            backgroundColor:
+              theme.palette.mode === "dark"
+                ? theme.palette.secondary.main
+                : theme.palette.primary.main,
+            color: theme.palette.getContrastText(
+              theme.palette.mode === "dark"
+                ? theme.palette.secondary.main
+                : theme.palette.primary.main
+            ),
+          }}
+        >
+          {isDark ? <LightModeIcon /> : <DarkModeIcon />}
+        </Fab>
+      </Tooltip>
+    </Box>
   );
 }
 

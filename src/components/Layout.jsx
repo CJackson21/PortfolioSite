@@ -1,16 +1,21 @@
 import React from "react";
 import { Box, useTheme, Fade } from "@mui/material";
+import ThemeSwitcher from "./ThemeSwitcher";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
+
 import VisualStarryBackground from "./VisualStarryBackground";
 import NavigationSpheres from "./NavigationSpheres";
 
 const Layout = ({ sections, introFinished, onIntroComplete }) => {
   const theme = useTheme();
+  const navigate = useNavigate();
   const [scrollProgress, setScrollProgress] = React.useState(0);
   const mainContentRef = React.useRef(null);
+  const scrollLockRef = React.useRef(false);
 
   const handleScroll = React.useCallback(() => {
-    if (mainContentRef.current) {
+    if (mainContentRef.current && !scrollLockRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = mainContentRef.current;
       const progress = scrollTop / (scrollHeight - clientHeight);
       setScrollProgress(progress || 0);
@@ -22,7 +27,6 @@ const Layout = ({ sections, introFinished, onIntroComplete }) => {
     const mainContent = mainContentRef.current;
     if (mainContent) {
       mainContent.addEventListener("scroll", handleScroll);
-      // Initial calculation
       handleScroll();
     }
 
@@ -37,32 +41,30 @@ const Layout = ({ sections, introFinished, onIntroComplete }) => {
     (sectionId) => {
       const section = sections.find((s) => s.id === sectionId);
       if (section?.ref?.current) {
+        scrollLockRef.current = true;
         window.customScrollContext = { isProgrammaticScroll: true };
-        window.history.replaceState(null, "", `#${sectionId}`);
+
+        // Always navigate even if on same path
+        navigate(section.path);
+
+        // Scroll to the top of the section
         section.ref.current.scrollIntoView({
           behavior: "smooth",
           block: "start",
         });
+
         setTimeout(() => {
+          scrollLockRef.current = false;
           window.customScrollContext.isProgrammaticScroll = false;
         }, 1000);
       }
     },
-    [sections]
+    [sections, navigate]
   );
-
-  const mappedSectionsForSpheres = React.useMemo(
-    () => sections.map((s) => ({ id: s.id, name: s.name })),
-    [sections]
-  );
-
-  const mainContentFadeDuration = 1000;
-  const mainContentDelay = 300;
-  const v2TagDelay = mainContentDelay + 200;
-  const spheresDelay = mainContentDelay + 400;
 
   return (
     <Box sx={{ display: "flex", minHeight: "100vh", position: "relative" }}>
+      {/* Background */}
       <Box
         id="starry-container"
         sx={{
@@ -79,6 +81,7 @@ const Layout = ({ sections, introFinished, onIntroComplete }) => {
           scrollProgress={scrollProgress}
         />
       </Box>
+      {/* Main Content */}
       <Box
         component="main"
         ref={mainContentRef}
@@ -92,7 +95,7 @@ const Layout = ({ sections, introFinished, onIntroComplete }) => {
           opacity: introFinished ? 1 : 0,
           pointerEvents: introFinished ? "auto" : "none",
           zIndex: 10,
-          transition: `opacity ${mainContentFadeDuration}ms ease-in-out ${mainContentDelay}ms`,
+          transition: `opacity 1000ms ease-in-out 300ms`,
         }}
       >
         {sections.map((sectionInfo) => (
@@ -100,11 +103,12 @@ const Layout = ({ sections, introFinished, onIntroComplete }) => {
             {sectionInfo.component}
           </Box>
         ))}
+        {/* Version Tag */}
         {introFinished && (
           <Fade
             in={introFinished}
             timeout={1000}
-            style={{ transitionDelay: `${v2TagDelay}ms` }}
+            style={{ transitionDelay: `500ms` }}
           >
             <Box
               sx={{
@@ -112,27 +116,39 @@ const Layout = ({ sections, introFinished, onIntroComplete }) => {
                 bottom: 12,
                 left: 12,
                 zIndex: theme.zIndex.tooltip + 1,
-                color: "white",
-                backgroundColor: "rgba(0,0,0,0.6)",
-                borderRadius: "8px",
-                padding: "0.3rem 0.6rem",
-                fontWeight: "bold",
-                fontSize: "0.85rem",
+                display: "flex",
+                gap: "8px",
+                alignItems: "center",
               }}
             >
-              v2
+              {/* Version Tag */}
+              <Box
+                sx={{
+                  color: "white",
+                  borderRadius: "8px",
+                  padding: "0.3rem 0.6rem",
+                  fontWeight: "bold",
+                  fontSize: "0.85rem",
+                }}
+              >
+                v3
+              </Box>
+
+              {/* Theme Switcher */}
+              <ThemeSwitcher />
             </Box>
           </Fade>
         )}
       </Box>
+      {/* Navigation Spheres */}
       {introFinished && (
         <Fade
           in={introFinished}
           timeout={1000}
-          style={{ transitionDelay: `${spheresDelay}ms` }}
+          style={{ transitionDelay: `700ms` }}
         >
           <NavigationSpheres
-            sections={mappedSectionsForSpheres}
+            sections={sections.map((s) => ({ id: s.id, name: s.name }))}
             onSphereClick={handleNavigate}
           />
         </Fade>

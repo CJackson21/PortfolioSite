@@ -1,25 +1,34 @@
 import React from "react";
 import { createTheme } from "@mui/material/styles";
-import { blue, blueGrey } from "@mui/material/colors";
 import { useMediaQuery } from "@mui/material";
 import useLocalStorage from "react-use-localstorage";
 
-// some of these colors are the same
-// splitting up for simplicities sake
-const TEXT_DARK = "#000000";
-const TEXT_LIGHT = "#ffffff";
+// Text Colors
+const TEXT_WHITE = "#ffffff";
+const TEXT_BLACK = "#000000";
 
-const PRIMARY_LIGHT = "#004c8b";
-const PRIMARY_MAIN = "#8b56e8";
-const PRIMARY_DARK = "#8b56e8";
+// Primary Purple Colors
+const PURPLE_LIGHT = "#6a3cb3";
+const PURPLE_DARK = "#b48bfc";
 
-const SECONDARY_LIGHT = "#8b56e8";
-const SECONDARY_MAIN = "#8b56e8";
-const SECONDARY_DARK = "#b48bfc";
+// Secondary Dark Colors
+const DARK_LIGHT = "#102027";
+const DARK_MAIN = "#37474f";
+const DARK_DARK = "#102027";
 
-const TERTIARY_LIGHT = "#102027";
-const TERTIARY_MAIN = blueGrey[800];
-const TERTIARY_DARK = "#b48bfc";
+// Background Colors
+const BG_DARK = "#121212";
+const BG_LIGHT = "#f5f5f5";
+const PAPER_DARK = "#1e1e1e";
+const PAPER_LIGHT = "#f2f4f7";
+
+// ThreeJS Background Colors
+const THREEJS_DARK = "#0b0d17";
+const THREEJS_LIGHT = "#412d5c";
+
+// Status Colors
+const ERROR_MAIN = "#c62828";
+const WARNING_MAIN = "#ffab00";
 
 export default function useCustomTheme() {
   // check prefs in local storage
@@ -28,10 +37,9 @@ export default function useCustomTheme() {
     "system"
   );
 
-  // check if the OS-level setting is in dark mode:
+  // check if the OS-level setting is in dark mode
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
-  // a callback to let us set the theme mode easily
   const handleSelectTheme = React.useCallback(
     (event, newTheme) => {
       if (newTheme != null) {
@@ -48,7 +56,6 @@ export default function useCustomTheme() {
     [prefersDarkMode, storedTheme]
   );
 
-  // create a Material-UI theme that adapts to the dark or light mode
   const theme = React.useMemo(() => {
     return createTheme({
       handleSelectTheme,
@@ -56,42 +63,39 @@ export default function useCustomTheme() {
       palette: {
         mode: isDarkMode ? "dark" : "light",
         text: {
-          primary: TEXT_LIGHT,
-          secondary: TEXT_DARK,
+          primary: TEXT_WHITE,
+          secondary: TEXT_BLACK,
         },
         primary: {
-          light: PRIMARY_LIGHT,
-          main: PRIMARY_MAIN,
-          dark: PRIMARY_DARK,
-          contrastText: "#ffffff",
+          light: PURPLE_LIGHT,
+          main: isDarkMode ? TEXT_WHITE : PURPLE_LIGHT,
+          dark: PURPLE_DARK,
+          contrastText: TEXT_WHITE,
         },
         secondary: {
-          light: SECONDARY_LIGHT,
-          main: SECONDARY_MAIN,
-          dark: SECONDARY_DARK,
-          contrastText: "#ffffff",
+          light: DARK_LIGHT,
+          main: isDarkMode ? DARK_MAIN : DARK_LIGHT,
+          dark: DARK_DARK,
+          contrastText: TEXT_WHITE,
         },
         tertiary: {
-          light: TERTIARY_LIGHT,
-          main: TERTIARY_MAIN,
-          dark: TERTIARY_DARK,
-          contrastText: "#ffffff",
+          light: DARK_LIGHT,
+          main: DARK_MAIN,
+          dark: DARK_DARK,
+          contrastText: TEXT_WHITE,
         },
         error: {
-          main: "#c62828",
+          main: ERROR_MAIN,
         },
         warning: {
-          main: "#ffab00",
-        },
-        info: {
-          main: blue[400],
+          main: WARNING_MAIN,
         },
         background: {
-          default: isDarkMode ? "#121212" : "#f5f5f5",
-          paper: isDarkMode ? "#1e1e1e" : "#f2f4f7",
+          default: isDarkMode ? BG_DARK : BG_LIGHT,
+          paper: isDarkMode ? PAPER_DARK : PAPER_LIGHT,
         },
         threejsback: {
-          default: isDarkMode ? "#0b0d17" : "#412d5c",
+          default: isDarkMode ? THREEJS_DARK : THREEJS_LIGHT,
         },
         contrastThreshold: 3,
         tonalOffset: 0.2,

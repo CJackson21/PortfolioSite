@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Fab, Tooltip } from "@mui/material";
 import PropTypes from "prop-types";
+import { useTheme } from "@mui/material/styles";
 
 import HomeIcon from "@mui/icons-material/Home";
 import WorkIcon from "@mui/icons-material/Work";
@@ -14,6 +15,7 @@ const iconMap = {
 
 const NavigationSpheres = React.forwardRef(
   ({ sections, onSphereClick }, ref) => {
+    const theme = useTheme();
     const spacing = 16;
 
     return (
@@ -28,14 +30,18 @@ const NavigationSpheres = React.forwardRef(
           gap: `${spacing}px`,
           zIndex: 1050,
           padding: "10px",
-          backgroundColor: "rgba(0,0,0,0.2)",
+          backgroundColor:
+            theme.palette.mode === "dark"
+              ? "rgba(255,255,255,0.1)"
+              : "rgba(0,0,0,0.1)",
           borderRadius: "30px",
+          backdropFilter: "blur(10px)",
         }}
       >
         {sections.slice(0, 3).map((section) => (
           <Tooltip title={`Go to ${section.name}`} key={section.id}>
             <Fab
-              color="primary"
+              color={theme.palette.mode === "dark" ? "secondary" : "primary"}
               aria-label={`Maps to ${section.name}`}
               onClick={() => onSphereClick(section.id)}
               size="medium"
@@ -44,8 +50,17 @@ const NavigationSpheres = React.forwardRef(
                   "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
                 "&:hover": {
                   transform: "scale(1.15)",
-                  boxShadow: (theme) => theme.shadows[6],
+                  boxShadow: 6,
                 },
+                backgroundColor:
+                  theme.palette.mode === "dark"
+                    ? theme.palette.secondary.main
+                    : theme.palette.primary.main,
+                color: theme.palette.getContrastText(
+                  theme.palette.mode === "dark"
+                    ? theme.palette.secondary.main
+                    : theme.palette.primary.main
+                ),
               }}
             >
               {iconMap[section.id] ||
