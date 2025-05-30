@@ -25,7 +25,7 @@ import CloseIcon from "@mui/icons-material/Close";
 const Projects = React.forwardRef(({ isMobile }, ref) => {
   const theme = useTheme();
   const {
-    palette: { mode, primary, secondary, background, text },
+    palette: { mode, primary, secondary, text },
   } = theme;
 
   const [openProjectIndex, setOpenProjectIndex] = React.useState(null);
