@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import { useTheme, alpha } from "@mui/material/styles";
 import Grid from "@mui/material/Grid2";
-import projectsData from "../data/projectsData"; // Ensure this path is correct
+import projectsData from "../data/projectsData";
 import PropTypes from "prop-types";
 
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -28,13 +28,30 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
     palette: { mode, primary, secondary, text },
   } = theme;
 
+  const backgroundColor = React.useMemo(() => {
+    if (mode === "dark") {
+      return alpha(theme.palette.background.paper, 0.85);
+    }
+    return theme.palette.background.paper;
+  }, [mode, theme]);
+
   const [openProjectIndex, setOpenProjectIndex] = React.useState(null);
 
-  const handleOpenDialog = (index) => setOpenProjectIndex(index);
-  const handleCloseDialog = () => setOpenProjectIndex(null);
+  const handleOpenDialog = React.useCallback(
+    (index) => setOpenProjectIndex(index),
+    []
+  );
+  const handleCloseDialog = React.useCallback(
+    () => setOpenProjectIndex(null),
+    []
+  );
 
-  const selectedProject =
-    openProjectIndex !== null ? projectsData[openProjectIndex] : null;
+  const selectedProject = React.useMemo(() => {
+    if (openProjectIndex === null) {
+      return null;
+    }
+    return projectsData[openProjectIndex];
+  }, [openProjectIndex]);
 
   return (
     <Box
@@ -50,10 +67,7 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
         px: { xs: 2, sm: 3, md: 4 },
         boxSizing: "border-box",
         width: "100%",
-        backgroundColor:
-          mode === "dark"
-            ? alpha(theme.palette.background.default, 0.3)
-            : alpha(theme.palette.grey[200], 0.3),
+
         overflow: "hidden",
       }}
     >
@@ -79,7 +93,6 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
           borderRadius: "2px",
         }}
       />
-
       <Stack
         spacing={{ xs: 6, md: 8 }}
         sx={{ width: "100%", maxWidth: "1200px" }}
@@ -91,10 +104,7 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
             sx={{
               p: { xs: 2.5, sm: 3, md: 4 },
               borderRadius: "16px",
-              backgroundColor:
-                mode === "dark"
-                  ? alpha(theme.palette.background.paper, 0.85)
-                  : theme.palette.background.paper,
+              backgroundColor,
               backdropFilter: mode === "dark" ? "blur(8px)" : "none",
               border: `1px solid ${alpha(theme.palette.divider, 0.2)}`,
               overflow: "hidden",
@@ -164,7 +174,6 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
                   />
                 </Box>
               </Grid>
-
               {/* Project Details Area */}
               <Grid xs={12} md={isMobile ? 12 : 6}>
                 <Stack
@@ -182,7 +191,6 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
                   >
                     {project.title}
                   </Typography>
-
                   {/* --- MOBILE CONTENT --- */}
                   {isMobile && (
                     <Button
@@ -201,7 +209,6 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
                       Learn More
                     </Button>
                   )}
-
                   {/* --- DESKTOP CONTENT --- */}
                   {!isMobile && (
                     <>
@@ -235,7 +242,6 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
                       >
                         {project.description}
                       </Typography>
-
                       {project.tags && Array.isArray(project.tags) && (
                         <Box
                           sx={{
@@ -264,7 +270,6 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
                           ))}
                         </Box>
                       )}
-
                       {project.repo && (
                         <Button
                           variant="outlined"
@@ -292,7 +297,6 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
           </Paper>
         ))}
       </Stack>
-
       {/* Project Details Dialog */}
       {selectedProject && (
         <Dialog

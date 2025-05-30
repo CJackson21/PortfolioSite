@@ -2,73 +2,64 @@ import React from "react";
 import { Box, Typography, Container, Avatar, Stack } from "@mui/material";
 
 const About = React.forwardRef((props, ref) => {
-    return (
-        <Box
-            ref={ref}
-            id="about"
+  return (
+    <Box
+      ref={ref}
+      id="about"
+      sx={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        py: { xs: 6, sm: 10 },
+        px: 2,
+      }}
+    >
+      <Container maxWidth="md">
+        <Stack spacing={4} alignItems="center" textAlign="center">
+          <Typography variant="h3" fontWeight="bold">
+            About Me
+          </Typography>
+
+          <Avatar
+            alt="Caleb Jackson"
+            src="/img/Jackson_Caleb_1-2.jpg"
             sx={{
-                minHeight: "100vh",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                py: { xs: 6, sm: 8 },
-                px: 2,
+              width: { xs: 120, sm: 150 },
+              height: { xs: 120, sm: 150 },
+              border: "3px solid",
+              borderColor: "primary.main",
             }}
-        >
-            <Container maxWidth="md">
-                {/* This Stack was causing the error because Stack was not imported */}
-                <Stack alignItems="center" spacing={4}>
-                    <Typography
-                        variant="h3"
-                        component="h2"
-                        gutterBottom
-                        textAlign="center"
-                        fontWeight="bold"
-                    >
-                        About Me
-                    </Typography>
-                    <Avatar
-                        alt="Caleb Jackson"
-                        src="/img/Jackson_Caleb_1-2.jpg"
-                        sx={{ width: 150, height: 150, mb: 2 }}
-                    />
-                    <Typography
-                        variant="h6"
-                        textAlign="center"
-                        sx={{ fontStyle: "italic", color: "text.secondary" }}
-                    >
-                        Passionate Full Stack Developer | Lifelong Learner |
-                        Tech Enthusiast
-                    </Typography>
-                    <Typography
-                        variant="body1"
-                        textAlign="left"
-                        sx={{ lineHeight: 1.7 }}
-                    >
-                        {`Hello! I'm Caleb Jackson, a dedicated Full Stack
-                        Developer with a strong foundation in creating dynamic,
-                        responsive, and user-friendly web applications. My
-                        journey in software development has been driven by a
-                        curiosity for how things work and a passion for building
-                        solutions that make a difference.`}
-                    </Typography>
-                    <Typography
-                        variant="body1"
-                        textAlign="left"
-                        sx={{ lineHeight: 1.7 }}
-                    >
-                        {`I thrive in collaborative environments and enjoy
-                        tackling complex challenges, continuously seeking to
-                        expand my skillset and stay updated with the latest
-                        industry trends. When I'm not coding, I enjoy [mention a
-                        hobby or two briefly]. Let's connect and build something
-                        amazing together!`}
-                    </Typography>
-                </Stack>
-            </Container>
-        </Box>
-    );
+          />
+
+          <Typography
+            variant="h6"
+            sx={{
+              fontStyle: "italic",
+              color: "text.primary",
+              maxWidth: 800,
+            }}
+          >
+            Passionate Full Stack Developer · Lifelong Learner · Tech Enthusiast
+          </Typography>
+
+          <Typography variant="body1" sx={{ lineHeight: 1.8, maxWidth: 700 }}>
+            {`Hi! I'm Caleb Jackson, a Full Stack Developer focused on building
+            clean, scalable, and intuitive web applications. Driven by curiosity, 
+            I found my way into Software Engineering, and I've been diving deeper 
+            into the craft every day since.`}
+          </Typography>
+
+          <Typography variant="body1" sx={{ lineHeight: 1.8, maxWidth: 700 }}>
+            {`I enjoy working on new projects, lifting weights, playing basketball, 
+            hiking, building Legos, and gaming. I'm also actively working on strengthening
+             my faith and deepening my relationship with God, something that's been deeply 
+             important to my growth both personally and professionally.`}
+          </Typography>
+        </Stack>
+      </Container>
+    </Box>
+  );
 });
 
 About.displayName = "About";

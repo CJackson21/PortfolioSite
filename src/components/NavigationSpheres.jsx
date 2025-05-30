@@ -1,7 +1,7 @@
-// NavigationSpheres.jsx
-import React from "react"; // Import React for forwardRef
+import React from "react";
 import { Box, Fab, Tooltip } from "@mui/material";
 import PropTypes from "prop-types";
+
 import HomeIcon from "@mui/icons-material/Home";
 import WorkIcon from "@mui/icons-material/Work";
 import InfoIcon from "@mui/icons-material/Info";
@@ -12,7 +12,6 @@ const iconMap = {
   about: <InfoIcon />,
 };
 
-// Wrap your component with React.forwardRef
 const NavigationSpheres = React.forwardRef(
   ({ sections, onSphereClick }, ref) => {
     const spacing = 16;
@@ -69,7 +68,6 @@ NavigationSpheres.propTypes = {
   onSphereClick: PropTypes.func.isRequired,
 };
 
-// It's good practice to set a displayName for components wrapped in forwardRef
 NavigationSpheres.displayName = "NavigationSpheres";
 
 export default NavigationSpheres;
