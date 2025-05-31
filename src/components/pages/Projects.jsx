@@ -28,36 +28,56 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
   } = theme;
   const [openProjectIndex, setOpenProjectIndex] = React.useState(null);
 
-  const backgroundColor = React.useMemo(() => {
-    return mode === "dark"
-      ? alpha(theme.palette.background.paper, 0.8)
-      : theme.palette.background.paper;
-  }, [mode, theme]);
-
   const handleOpenDialog = (index) => setOpenProjectIndex(index);
   const handleCloseDialog = () => setOpenProjectIndex(null);
 
-  const selectedProject = React.useMemo(() => {
-    return openProjectIndex !== null ? projectsData[openProjectIndex] : null;
-  }, [openProjectIndex]);
+  const selectedProject =
+    openProjectIndex !== null ? projectsData[openProjectIndex] : null;
+
+  // Safari-compatible styles
+  const styles = {
+    container: {
+      minHeight: "100vh",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      py: { xs: 4, sm: 6 },
+      px: { xs: 2, sm: 3 },
+      width: "100%",
+      WebkitOverflowScrolling: "touch",
+    },
+    projectPaper: {
+      p: { xs: 2, sm: 3 },
+      borderRadius: "12px",
+      backgroundColor:
+        mode === "dark"
+          ? alpha(theme.palette.background.paper, 0.98)
+          : theme.palette.background.paper,
+      border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+      overflow: "hidden",
+      WebkitTransform: "translateZ(0)",
+    },
+    imageContainer: {
+      width: "100%",
+      height: isMobile ? "35vh" : "280px",
+      maxHeight: "400px",
+      position: "relative",
+      overflow: "hidden",
+      borderRadius: "8px",
+      bgcolor: mode === "dark" ? "grey.900" : "grey.100",
+    },
+    image: {
+      width: "100%",
+      height: "100%",
+      objectFit: "cover",
+      WebkitBackfaceVisibility: "hidden",
+      imageRendering: "crisp-edges",
+    },
+  };
 
   return (
-    <Box
-      ref={ref}
-      id="projects"
-      sx={{
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        py: { xs: 4, sm: 8, md: 10 },
-        px: { xs: 1.5, sm: 3, md: 4 },
-        boxSizing: "border-box",
-        width: "100%",
-        overflow: "hidden",
-      }}
-    >
+    <Box ref={ref} id="projects" sx={styles.container}>
       <Typography
         variant={isMobile ? "h4" : "h3"}
         fontWeight="bold"
@@ -77,66 +97,30 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
           width: { xs: "60%", sm: "40%", md: "25%" },
           borderColor: secondary.main,
           borderBottomWidth: "3px",
-          mb: { xs: 4, sm: 6, md: 8 },
+          mb: { xs: 4, sm: 6 },
           borderRadius: "2px",
         }}
       />
       <Stack
-        spacing={{ xs: 4, md: 6 }}
-        sx={{
-          width: "100%",
-          maxWidth: "1200px",
-          px: { xs: 1, sm: 0 },
-        }}
+        spacing={{ xs: 4, md: 4 }}
+        sx={{ width: "100%", maxWidth: "1200px" }}
       >
         {projectsData.map((project, index) => (
           <Paper
             key={project.id || index}
-            elevation={isMobile ? 2 : mode === "dark" ? 8 : 4}
-            sx={{
-              p: { xs: 2, sm: 3, md: 4 },
-              borderRadius: "12px",
-              backgroundColor,
-              backdropFilter:
-                mode === "dark" && !isMobile ? "blur(8px)" : "none",
-              border: `1px solid ${alpha(theme.palette.divider, 0.2)}`,
-              overflow: "hidden",
-              transition: !isMobile
-                ? "transform 0.3s ease, box-shadow 0.3s ease"
-                : "none",
-              "&:hover": !isMobile
-                ? {
-                    transform: "translateY(-5px)",
-                    boxShadow:
-                      mode === "dark"
-                        ? `0 12px 24px ${alpha(primary.main, 0.25)}`
-                        : `0 8px 16px ${alpha(theme.palette.grey[400], 0.25)}`,
-                  }
-                : {},
-            }}
+            elevation={isMobile ? 2 : 4}
+            sx={styles.projectPaper}
           >
             <Grid
               container
-              spacing={{ xs: 2, md: 3 }}
+              spacing={2}
               alignItems="center"
               direction={
-                isMobile ? "column" : index % 2 === 0 ? "row" : "row-reverse"
+                isMobile ? "column" : index % 2 ? "row-reverse" : "row"
               }
             >
               <Grid item xs={12} md={6}>
-                <Box
-                  sx={{
-                    width: "100%",
-                    height: { xs: 180, sm: 220, md: 260 },
-                    borderRadius: "8px",
-                    overflow: "hidden",
-                    position: "relative",
-                    boxShadow: `0 2px 8px ${alpha(
-                      theme.palette.common.black,
-                      0.1
-                    )}`,
-                  }}
-                >
+                <Box sx={styles.imageContainer}>
                   <img
                     src={
                       project.image ||
@@ -146,14 +130,16 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
                     }
                     alt={`${project.title} preview`}
                     loading="lazy"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
+                    style={styles.image}
                     onError={(e) => {
                       e.target.onerror = null;
-                      e.target.src = `https://placehold.co/600x400?text=Image+Not+Found`;
+                      e.target.src = `https://placehold.co/600x400/${
+                        mode === "dark" ? "424242" : "e0e0e0"
+                      }/${
+                        mode === "dark" ? "fff" : "000"
+                      }?text=${encodeURIComponent(project.title)}`;
+                      e.target.style.objectFit = "contain";
+                      e.target.style.padding = "1rem";
                     }}
                   />
                 </Box>
@@ -256,7 +242,6 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
           </Paper>
         ))}
       </Stack>
-
       {/* Project Dialog */}
       {selectedProject && (
         <Dialog
@@ -267,14 +252,12 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
           PaperProps={{
             sx: {
               borderRadius: "12px",
-              backgroundColor:
-                mode === "dark"
-                  ? alpha(theme.palette.background.default, 0.95)
-                  : undefined,
-              backdropFilter: mode === "dark" ? "blur(5px)" : "none",
-              mx: { xs: 1.5, sm: 0 },
+              backgroundColor: theme.palette.background.paper,
+              mx: { xs: 1, sm: 0 },
+              WebkitOverflowScrolling: "touch",
             },
           }}
+          disableScrollLock={true} // iOS dismiss fix
         >
           <DialogTitle
             sx={{
@@ -300,6 +283,7 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
               <CloseIcon />
             </IconButton>
           </DialogTitle>
+
           <DialogContent
             dividers
             sx={{
@@ -313,12 +297,10 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
                 <Box
                   sx={{
                     width: "100%",
-                    height: { xs: 180, sm: 240 },
-                    borderRadius: "8px",
+                    height: isMobile ? "30vh" : "300px",
+                    position: "relative",
                     overflow: "hidden",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
+                    borderRadius: "8px",
                     bgcolor: mode === "dark" ? "grey.900" : "grey.100",
                   }}
                 >
@@ -331,9 +313,10 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
                     }
                     alt={`${selectedProject.title} preview`}
                     style={{
-                      maxWidth: "100%",
-                      maxHeight: "100%",
+                      width: "100%",
+                      height: "100%",
                       objectFit: "contain",
+                      padding: "1rem",
                     }}
                   />
                 </Box>
