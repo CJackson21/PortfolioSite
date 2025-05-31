@@ -59,7 +59,9 @@ const ScrollHandler = ({ sections, currentPath }) => {
       let minDistance = Infinity;
 
       entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
+        if (!entry.isIntersecting) {
+          return;
+        }
         const rect = entry.boundingClientRect;
         const distance = Math.abs(rect.top);
         if (distance < minDistance) {

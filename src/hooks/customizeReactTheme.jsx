@@ -19,7 +19,7 @@ const DARK_DARK = "#102027";
 // Background Colors
 const BG_DARK = "#121212";
 const BG_LIGHT = "#f5f5f5";
-const PAPER_DARK = "#1e1e1e";
+const PAPER_DARK = "#595858";
 const PAPER_LIGHT = "#f2f4f7";
 
 // ThreeJS Background Colors
@@ -64,6 +64,7 @@ export default function useCustomTheme() {
         mode: isDarkMode ? "dark" : "light",
         text: {
           primary: TEXT_WHITE,
+          main: isDarkMode ? TEXT_WHITE : TEXT_BLACK,
           secondary: TEXT_BLACK,
         },
         primary: {

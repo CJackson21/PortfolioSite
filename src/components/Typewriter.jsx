@@ -7,7 +7,7 @@ const TypingEffect = () => {
 
   const fullText = React.useMemo(
     () =>
-      "I am a recent graduate from George Fox University with a Bachelor's in Computer Science with a concentration in Cybersecurity. Feel free to take a look around at some of my work.",
+      "I am a Computer Science graduate from George Fox University. Feel free to explore my work below!",
     []
   );
 
@@ -44,7 +44,6 @@ const TypingEffect = () => {
         alignItems: "center",
         justifyContent: "center",
         height: "100%",
-        width: "100%",
         margin: "0 auto",
         padding: "0 16px",
       }}
@@ -54,9 +53,7 @@ const TypingEffect = () => {
         sx={{
           width: {
             xs: "95%", // Mobile
-            md: "650px", // 1080p
-            lg: "750px", // 1440p
-            xl: "850px", // Ultrawide
+            md: "100%", // 1080p or higher
           },
           maxWidth: "100%",
           position: "relative",
@@ -91,19 +88,27 @@ const TypingEffect = () => {
             textAlign: "left",
           }}
         >
-          {displayedText}
           <Box
             component="span"
             sx={{
-              display: "inline-flex",
-              visibility: showCursor ? "visible" : "hidden",
-              width: "1ch",
-              backgroundColor: "inherit",
-              height: "1.2em",
-              verticalAlign: "center",
+              position: "relative",
+              display: "inline",
             }}
           >
-            |
+            {displayedText}
+            <Box
+              component="span"
+              sx={{
+                position: "absolute",
+                right: 0,
+                bottom: 0,
+                visibility: showCursor ? "visible" : "hidden",
+                width: "1px",
+                height: "1em",
+                backgroundColor: "currentColor",
+                animation: "blink 1s step-start infinite",
+              }}
+            />
           </Box>
         </Typography>
       </Box>

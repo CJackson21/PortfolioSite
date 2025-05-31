@@ -131,7 +131,7 @@ const Layout = ({ sections, introFinished, onIntroComplete }) => {
                   fontSize: "0.85rem",
                 }}
               >
-                v3
+                v3.1
               </Box>
 
               {/* Theme Switcher */}

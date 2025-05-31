@@ -29,15 +29,14 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
   const {
     palette: { mode, primary, secondary, text },
   } = theme;
+  const [openProjectIndex, setOpenProjectIndex] = React.useState(null);
 
   const backgroundColor = React.useMemo(() => {
     if (mode === "dark") {
-      return alpha(theme.palette.background.paper, 0.85);
+      return alpha(theme.palette.background.paper, 0.0001);
     }
     return theme.palette.background.paper;
   }, [mode, theme]);
-
-  const [openProjectIndex, setOpenProjectIndex] = React.useState(null);
 
   const handleOpenDialog = React.useCallback(
     (index) => setOpenProjectIndex(index),
@@ -79,7 +78,7 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
         textAlign="center"
         sx={{
           mb: 2,
-          color: primary.main,
+          color: primary.contrastText,
           letterSpacing: "0.05em",
           textTransform: "uppercase",
         }}
@@ -216,7 +215,7 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
                     <>
                       <Typography
                         variant="body1"
-                        color="text.secondary"
+                        color={theme.palette.text.main}
                         sx={{
                           maxHeight: "100px",
                           overflowY: "auto",
@@ -275,7 +274,7 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
                       {project.repo && (
                         <Button
                           variant="outlined"
-                          color="secondary"
+                          color={theme.palette.text.dark}
                           startIcon={<GitHubIcon />}
                           href={project.repo}
                           target="_blank"
@@ -288,7 +287,7 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
                             mt: 1,
                           }}
                         >
-                          View on GitHub
+                          Code
                         </Button>
                       )}
                     </>
