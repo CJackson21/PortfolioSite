@@ -13,9 +13,11 @@ import {
   Chip,
   IconButton,
 } from "@mui/material";
-import PropTypes from "prop-types";
 import Grid from "@mui/material/Grid2";
+
+import PropTypes from "prop-types";
 import { useTheme, alpha } from "@mui/material/styles";
+
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import CloseIcon from "@mui/icons-material/Close";
@@ -60,12 +62,12 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
     },
     imageContainer: {
       width: "100%",
-      height: isMobile ? "35vh" : "280px",
-      maxHeight: "400px",
+      height: isMobile ? "30vh" : "25vh",
+      maxHeight: isMobile ? "30vh" : "25vh",
+      minHeight: "25vh",
       position: "relative",
       overflow: "hidden",
       borderRadius: "8px",
-      bgcolor: mode === "dark" ? "grey.900" : "grey.100",
     },
     image: {
       width: "100%",
