@@ -5,13 +5,10 @@ const TypingEffect = () => {
   const [displayedText, setDisplayedText] = React.useState("");
   const [showCursor, setShowCursor] = React.useState(true);
 
-  const fullText = React.useMemo(
-    () =>
-      "I am a Computer Science graduate from George Fox University. Feel free to explore my work below!",
-    []
-  );
+  const fullText =
+    "I am a Computer Science graduate from George Fox University. Feel free to explore my work below!";
 
-  const typeWriter = React.useCallback(() => {
+  React.useEffect(() => {
     let i = 0;
     const speed = 15;
 
@@ -24,88 +21,76 @@ const TypingEffect = () => {
     };
 
     type();
-  }, [fullText]);
-
-  React.useEffect(() => {
-    typeWriter();
 
     const cursorInterval = setInterval(() => {
       setShowCursor((prev) => !prev);
     }, 500);
 
     return () => clearInterval(cursorInterval);
-  }, [typeWriter]);
+  }, [fullText]);
 
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
         width: "100%",
-        padding: { xs: "0 16px", sm: "0 24px" },
-        margin: "0 auto",
-        maxWidth: { xs: "100%", sm: "80%", md: "70%" },
+        px: { xs: 2, sm: 3 },
+        mb: { xs: 3, sm: 4 },
       }}
     >
       <Box
         sx={{
-          width: "100%",
           position: "relative",
-          minHeight: { xs: "100px", sm: "150px" },
-          textAlign: { xs: "center" },
+          minHeight: "60px",
+          textAlign: "center",
         }}
       >
         {/* Hidden text for layout */}
         <Typography
           variant="h6"
-          component="div"
           sx={{
             visibility: "hidden",
-            whiteSpace: "pre-wrap",
+            whiteSpace: "normal",
             wordBreak: "break-word",
-            textAlign: "inherit",
+            lineHeight: 1.5,
+            px: 1,
           }}
         >
           {fullText}
         </Typography>
+
         {/* Visible typing effect */}
         <Typography
           variant="h6"
-          component="div"
           sx={{
             position: "absolute",
             top: 0,
             left: 0,
-            width: "100%",
-            whiteSpace: "pre-wrap",
+            right: 0,
+            whiteSpace: "normal",
             wordBreak: "break-word",
-            textAlign: "inherit",
+            textAlign: "center",
+            lineHeight: 1.5,
+            px: 1,
           }}
         >
+          {displayedText}
           <Box
             component="span"
             sx={{
-              position: "relative",
-              display: "inline",
+              display: "inline-block",
+              width: "2px",
+              height: "1em",
+              bgcolor: "text.primary",
+              ml: "2px",
+              verticalAlign: "middle",
+              visibility: showCursor ? "visible" : "hidden",
+              animation: "blink 1s step-end infinite",
+              "@keyframes blink": {
+                "0%, 100%": { opacity: 1 },
+                "50%": { opacity: 0 },
+              },
             }}
-          >
-            {displayedText}
-            <Box
-              component="span"
-              sx={{
-                position: "absolute",
-                right: 0,
-                bottom: 0,
-                visibility: showCursor ? "visible" : "hidden",
-                width: "1px",
-                height: "1em",
-                backgroundColor: "currentColor",
-                animation: "blink 1s step-start infinite",
-              }}
-            />
-          </Box>
+          />
         </Typography>
       </Box>
     </Box>

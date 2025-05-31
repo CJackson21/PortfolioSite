@@ -15,43 +15,30 @@ import {
 } from "@mui/material";
 import PropTypes from "prop-types";
 import Grid from "@mui/material/Grid2";
-
 import { useTheme, alpha } from "@mui/material/styles";
-
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import CloseIcon from "@mui/icons-material/Close";
-
 import projectsData from "../../data/projectsData";
 
 const Projects = React.forwardRef(({ isMobile }, ref) => {
   const theme = useTheme();
   const {
-    palette: { mode, primary, secondary, text },
+    palette: { mode, primary, secondary },
   } = theme;
   const [openProjectIndex, setOpenProjectIndex] = React.useState(null);
 
   const backgroundColor = React.useMemo(() => {
-    if (mode === "dark") {
-      return alpha(theme.palette.background.paper, 0.0001);
-    }
-    return theme.palette.background.paper;
+    return mode === "dark"
+      ? alpha(theme.palette.background.paper, 0.8)
+      : theme.palette.background.paper;
   }, [mode, theme]);
 
-  const handleOpenDialog = React.useCallback(
-    (index) => setOpenProjectIndex(index),
-    []
-  );
-  const handleCloseDialog = React.useCallback(
-    () => setOpenProjectIndex(null),
-    []
-  );
+  const handleOpenDialog = (index) => setOpenProjectIndex(index);
+  const handleCloseDialog = () => setOpenProjectIndex(null);
 
   const selectedProject = React.useMemo(() => {
-    if (openProjectIndex === null) {
-      return null;
-    }
-    return projectsData[openProjectIndex];
+    return openProjectIndex !== null ? projectsData[openProjectIndex] : null;
   }, [openProjectIndex]);
 
   return (
@@ -64,11 +51,10 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        py: { xs: 6, sm: 8, md: 10 },
-        px: { xs: 2, sm: 3, md: 4 },
+        py: { xs: 4, sm: 8, md: 10 },
+        px: { xs: 1.5, sm: 3, md: 4 },
         boxSizing: "border-box",
         width: "100%",
-
         overflow: "hidden",
       }}
     >
@@ -81,6 +67,7 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
           color: primary.contrastText,
           letterSpacing: "0.05em",
           textTransform: "uppercase",
+          px: 2,
         }}
       >
         My Projects
@@ -90,71 +77,72 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
           width: { xs: "60%", sm: "40%", md: "25%" },
           borderColor: secondary.main,
           borderBottomWidth: "3px",
-          mb: { xs: 6, sm: 8, md: 10 },
+          mb: { xs: 4, sm: 6, md: 8 },
           borderRadius: "2px",
         }}
       />
       <Stack
-        spacing={{ xs: 6, md: 8 }}
-        sx={{ width: "100%", maxWidth: "1200px" }}
+        spacing={{ xs: 4, md: 6 }}
+        sx={{
+          width: "100%",
+          maxWidth: "1200px",
+          px: { xs: 1, sm: 0 },
+        }}
       >
         {projectsData.map((project, index) => (
           <Paper
             key={project.id || index}
-            elevation={mode === "dark" ? 8 : 4}
+            elevation={isMobile ? 2 : mode === "dark" ? 8 : 4}
             sx={{
-              p: { xs: 2.5, sm: 3, md: 4 },
-              borderRadius: "16px",
+              p: { xs: 2, sm: 3, md: 4 },
+              borderRadius: "12px",
               backgroundColor,
-              backdropFilter: mode === "dark" ? "blur(8px)" : "none",
+              backdropFilter:
+                mode === "dark" && !isMobile ? "blur(8px)" : "none",
               border: `1px solid ${alpha(theme.palette.divider, 0.2)}`,
               overflow: "hidden",
-              transition:
-                "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
-              "&:hover": {
-                transform: "translateY(-8px)",
-                boxShadow:
-                  mode === "dark"
-                    ? `0 16px 30px ${alpha(theme.palette.primary.main, 0.35)}`
-                    : `0 12px 24px ${alpha(theme.palette.grey[400], 0.35)}`,
-              },
+              transition: !isMobile
+                ? "transform 0.3s ease, box-shadow 0.3s ease"
+                : "none",
+              "&:hover": !isMobile
+                ? {
+                    transform: "translateY(-5px)",
+                    boxShadow:
+                      mode === "dark"
+                        ? `0 12px 24px ${alpha(primary.main, 0.25)}`
+                        : `0 8px 16px ${alpha(theme.palette.grey[400], 0.25)}`,
+                  }
+                : {},
             }}
           >
             <Grid
               container
-              spacing={{ xs: 2, md: 4 }}
+              spacing={{ xs: 2, md: 3 }}
               alignItems="center"
               direction={
                 isMobile ? "column" : index % 2 === 0 ? "row" : "row-reverse"
               }
             >
-              {/* Project Image (Common for Mobile and Desktop) */}
-              <Grid xs={12} md={isMobile ? 12 : 6}>
+              <Grid item xs={12} md={6}>
                 <Box
                   sx={{
                     width: "100%",
-                    height: { xs: 200, sm: 220, md: 280 },
-                    borderRadius: "12px",
+                    height: { xs: 180, sm: 220, md: 260 },
+                    borderRadius: "8px",
                     overflow: "hidden",
                     position: "relative",
-                    boxShadow: `0 4px 12px ${alpha(
+                    boxShadow: `0 2px 8px ${alpha(
                       theme.palette.common.black,
                       0.1
                     )}`,
-                    transition: "transform 0.4s ease",
-                    "&:hover img": {
-                      transform: "scale(1.05)",
-                    },
                   }}
                 >
                   <img
                     src={
                       project.image ||
-                      `https://placehold.co/600x400/${theme.palette.grey[300].substring(
-                        1
-                      )}/${theme.palette.text.secondary.substring(1)}?text=${
+                      `https://placehold.co/600x400?text=${encodeURIComponent(
                         project.title
-                      }`
+                      )}`
                     }
                     alt={`${project.title} preview`}
                     loading="lazy"
@@ -162,38 +150,31 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
                       width: "100%",
                       height: "100%",
                       objectFit: "cover",
-                      transition: "transform 0.4s ease-out",
                     }}
                     onError={(e) => {
                       e.target.onerror = null;
-                      e.target.src = `https://placehold.co/600x400/${theme.palette.grey[300].substring(
-                        1
-                      )}/${theme.palette.text.secondary.substring(
-                        1
-                      )}?text=Image+Not+Found`;
+                      e.target.src = `https://placehold.co/600x400?text=Image+Not+Found`;
                     }}
                   />
                 </Box>
               </Grid>
-              {/* Project Details Area */}
-              <Grid xs={12} md={isMobile ? 12 : 6}>
+              <Grid item xs={12} md={6}>
                 <Stack
-                  spacing={isMobile ? 1.5 : 2}
+                  spacing={1.5}
                   sx={{
                     textAlign: isMobile ? "center" : "left",
                     alignItems: isMobile ? "center" : "flex-start",
-                    mt: isMobile ? 2 : 0,
                   }}
                 >
                   <Typography
-                    variant={isMobile ? "h6" : "h4"}
+                    variant={isMobile ? "h5" : "h4"}
                     fontWeight="bold"
                     color="primary.main"
                   >
                     {project.title}
                   </Typography>
-                  {/* --- MOBILE CONTENT --- */}
-                  {isMobile && (
+
+                  {isMobile ? (
                     <Button
                       variant="contained"
                       color="primary"
@@ -209,48 +190,34 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
                     >
                       Learn More
                     </Button>
-                  )}
-                  {/* --- DESKTOP CONTENT --- */}
-                  {!isMobile && (
+                  ) : (
                     <>
                       <Typography
                         variant="body1"
-                        color={theme.palette.text.main}
+                        color="text.primary"
                         sx={{
                           maxHeight: "100px",
                           overflowY: "auto",
-                          mb: 1.5,
-                          textAlign: "left",
+                          mb: 1,
                           pr: 1,
                           "&::-webkit-scrollbar": {
                             width: "6px",
                           },
-                          "&::-webkit-scrollbar-track": {
-                            background: alpha(theme.palette.grey[300], 0.2),
-                            borderRadius: "3px",
-                          },
                           "&::-webkit-scrollbar-thumb": {
-                            background: alpha(
-                              theme.palette.secondary.light,
-                              0.7
-                            ),
+                            backgroundColor: alpha(secondary.main, 0.5),
                             borderRadius: "3px",
-                          },
-                          "&::-webkit-scrollbar-thumb:hover": {
-                            background: theme.palette.secondary.main,
                           },
                         }}
                       >
                         {project.description}
                       </Typography>
-                      {project.tags && Array.isArray(project.tags) && (
+                      {project.tags?.length > 0 && (
                         <Box
                           sx={{
                             display: "flex",
                             flexWrap: "wrap",
                             gap: 0.75,
-                            justifyContent: "flex-start",
-                            mb: 2,
+                            mb: 1.5,
                           }}
                         >
                           {project.tags.map((tag, tagIndex) => (
@@ -260,13 +227,6 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
                               size="small"
                               variant="outlined"
                               color="secondary"
-                              sx={{
-                                borderColor: alpha(secondary.main, 0.5),
-                                color:
-                                  mode === "dark"
-                                    ? secondary.light
-                                    : secondary.dark,
-                              }}
                             />
                           ))}
                         </Box>
@@ -274,7 +234,6 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
                       {project.repo && (
                         <Button
                           variant="outlined"
-                          color={theme.palette.text.dark}
                           startIcon={<GitHubIcon />}
                           href={project.repo}
                           target="_blank"
@@ -284,10 +243,9 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
                             px: 3,
                             py: 0.8,
                             textTransform: "none",
-                            mt: 1,
                           }}
                         >
-                          Code
+                          View Code
                         </Button>
                       )}
                     </>
@@ -298,7 +256,8 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
           </Paper>
         ))}
       </Stack>
-      {/* Project Details Dialog */}
+
+      {/* Project Dialog */}
       {selectedProject && (
         <Dialog
           open={openProjectIndex !== null}
@@ -307,26 +266,26 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
           maxWidth="md"
           PaperProps={{
             sx: {
-              borderRadius: "16px",
+              borderRadius: "12px",
               backgroundColor:
                 mode === "dark"
                   ? alpha(theme.palette.background.default, 0.95)
                   : undefined,
               backdropFilter: mode === "dark" ? "blur(5px)" : "none",
+              mx: { xs: 1.5, sm: 0 },
             },
           }}
-          aria-labelledby="project-dialog-title"
         >
           <DialogTitle
-            id="project-dialog-title"
-            sx={{ textAlign: "center", pt: 3, pb: 1, position: "relative" }}
+            sx={{
+              textAlign: "center",
+              pt: 3,
+              pb: 1,
+              position: "relative",
+              px: { xs: 3, sm: 4 },
+            }}
           >
-            <Typography
-              variant="h4"
-              component="span"
-              fontWeight="bold"
-              color="primary.main"
-            >
+            <Typography variant="h5" component="div" fontWeight="bold">
               {selectedProject.title}
             </Typography>
             <IconButton
@@ -334,9 +293,8 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
               onClick={handleCloseDialog}
               sx={{
                 position: "absolute",
-                right: theme.spacing(2),
-                top: theme.spacing(1.5),
-                color: theme.palette.grey[500],
+                right: { xs: 8, sm: 12 },
+                top: { xs: 8, sm: 12 },
               }}
             >
               <CloseIcon />
@@ -344,90 +302,70 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
           </DialogTitle>
           <DialogContent
             dividers
-            sx={{ borderColor: alpha(theme.palette.divider, 0.1) }}
+            sx={{
+              borderColor: alpha(theme.palette.divider, 0.1),
+              px: { xs: 2, sm: 3 },
+              py: { xs: 2, sm: 3 },
+            }}
           >
-            <Grid container spacing={3}>
-              <Grid xs={12} md={5}>
-                {/* Container for the image in the dialog */}
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={5}>
                 <Box
                   sx={{
                     width: "100%",
-                    maxHeight: { xs: 200, sm: 240, md: 300 },
-                    borderRadius: "12px",
+                    height: { xs: 180, sm: 240 },
+                    borderRadius: "8px",
                     overflow: "hidden",
-                    mb: { xs: 2, md: 0 },
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
+                    bgcolor: mode === "dark" ? "grey.900" : "grey.100",
                   }}
                 >
                   <img
                     src={
                       selectedProject.image ||
-                      `https://placehold.co/600x400/${theme.palette.grey[300].substring(
-                        1
-                      )}/${theme.palette.text.secondary.substring(1)}?text=${
+                      `https://placehold.co/600x400?text=${encodeURIComponent(
                         selectedProject.title
-                      }`
+                      )}`
                     }
                     alt={`${selectedProject.title} preview`}
-                    loading="lazy"
                     style={{
-                      display: "block",
                       maxWidth: "100%",
-                      maxHeight: isMobile ? "180px" : "280px",
-                      objectFit: "contain", // Maintain aspect ratio within these bounds
-                      borderRadius: "8px", // Optional: slightly rounded corners for the image itself
-                    }}
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src = `https://placehold.co/600x400/${theme.palette.grey[300].substring(
-                        1
-                      )}/${theme.palette.text.secondary.substring(
-                        1
-                      )}?text=Image+Not+Found`;
+                      maxHeight: "100%",
+                      objectFit: "contain",
                     }}
                   />
                 </Box>
               </Grid>
-              <Grid xs={12} md={7}>
+              <Grid item xs={12} md={7}>
                 <Typography
                   variant="body1"
                   paragraph
                   sx={{
-                    color: text.primary,
                     lineHeight: 1.7,
-                    whiteSpace: "pre-wrap",
+                    whiteSpace: "pre-line",
                   }}
                 >
                   {selectedProject.description}
                 </Typography>
-                {selectedProject.tags &&
-                  Array.isArray(selectedProject.tags) && (
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexWrap: "wrap",
-                        gap: 1,
-                        mt: 2,
-                        mb: 2,
-                      }}
-                    >
-                      {selectedProject.tags.map((tag, tagIndex) => (
-                        <Chip
-                          key={tagIndex}
-                          label={tag}
-                          variant="filled"
-                          color="secondary"
-                          size="small"
-                          sx={{
-                            backgroundColor: alpha(secondary.main, 0.2),
-                            color: secondary.dark,
-                          }}
-                        />
-                      ))}
-                    </Box>
-                  )}
+                {selectedProject.tags?.length > 0 && (
+                  <Box
+                    sx={{ display: "flex", flexWrap: "wrap", gap: 1, my: 2 }}
+                  >
+                    {selectedProject.tags.map((tag, tagIndex) => (
+                      <Chip
+                        key={tagIndex}
+                        label={tag}
+                        size="small"
+                        color="secondary"
+                        sx={{
+                          backgroundColor: alpha(secondary.main, 0.1),
+                        }}
+                      />
+                    ))}
+                  </Box>
+                )}
               </Grid>
             </Grid>
           </DialogContent>
@@ -441,12 +379,11 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
             {selectedProject.repo && (
               <Button
                 variant="contained"
-                color="primary"
                 startIcon={<GitHubIcon />}
                 href={selectedProject.repo}
                 target="_blank"
                 rel="noopener noreferrer"
-                sx={{ borderRadius: "20px", px: 3, textTransform: "none" }}
+                sx={{ borderRadius: "20px", px: 3 }}
               >
                 View on GitHub
               </Button>
@@ -455,7 +392,7 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
               onClick={handleCloseDialog}
               variant="outlined"
               color="secondary"
-              sx={{ borderRadius: "20px", px: 3, textTransform: "none" }}
+              sx={{ borderRadius: "20px", px: 3 }}
             >
               Close
             </Button>
