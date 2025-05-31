@@ -122,20 +122,21 @@ const Layout = ({ sections, introFinished, onIntroComplete, isMobile }) => {
               }}
             >
               {/* Version Tag */}
-              <Box
-                sx={{
-                  color: "white",
-                  borderRadius: "8px",
-                  padding: "0.3rem 0.6rem",
-                  fontWeight: "bold",
-                  fontSize: "0.85rem",
-                }}
-              >
-                v3.1
-              </Box>
-
+              {!isMobile && (
+                <Box
+                  sx={{
+                    color: "white",
+                    borderRadius: "8px",
+                    padding: "0.3rem 0.6rem",
+                    fontWeight: "bold",
+                    fontSize: "0.85rem",
+                  }}
+                >
+                  v3.1
+                </Box>
+              )}
               {/* Theme Switcher */}
-              <ThemeSwitcher />
+              <ThemeSwitcher isMobile={isMobile} />
             </Box>
           </Fade>
         )}

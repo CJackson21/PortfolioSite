@@ -1,10 +1,12 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Box, Fab, Tooltip } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+
 import DarkModeIcon from "@mui/icons-material/DarkModeOutlined";
 import LightModeIcon from "@mui/icons-material/WbSunny";
 
-function ThemeSwitcher() {
+function ThemeSwitcher({ isMobile }) {
   const theme = useTheme();
   const { handleSelectTheme } = theme;
   const isDark = theme.palette.mode === "dark";
@@ -14,17 +16,19 @@ function ThemeSwitcher() {
     handleSelectTheme(null, newMode);
   };
 
+  const buttonSize = isMobile ? 32 : 48;
+
   return (
     <Box
       sx={{
         position: "fixed",
-        bottom: 30,
-        right: 30,
+        bottom: isMobile ? 16 : 30,
+        right: isMobile ? 16 : 30,
         zIndex: 1050,
-        padding: "10px",
-        backgroundColor: theme.palette.background.paper + "80", // 80 = 50% opacity
-        borderRadius: "30px",
-        backdropFilter: "blur(10px)",
+        padding: isMobile ? "4px" : "10px",
+        backgroundColor: theme.palette.background.paper + "80",
+        borderRadius: isMobile ? "20px" : "30px",
+        backdropFilter: "blur(8px)",
       }}
     >
       <Tooltip title={isDark ? "Switch to light mode" : "Switch to dark mode"}>
@@ -32,33 +36,39 @@ function ThemeSwitcher() {
           color="inherit"
           aria-label="Toggle theme"
           onClick={toggleThemeMode}
-          size="medium"
           sx={{
-            transition: "all 0.2s ease-in-out",
-            backgroundColor:
-              theme.palette.mode === "dark"
-                ? theme.palette.secondary.main
-                : theme.palette.primary.main,
+            width: buttonSize,
+            height: buttonSize,
+            minHeight: 0,
+            borderRadius: "50%",
+            transition: "all 0.15s ease-in-out",
+            backgroundColor: isDark
+              ? theme.palette.secondary.main
+              : theme.palette.primary.main,
             color: theme.palette.getContrastText(
-              theme.palette.mode === "dark"
-                ? theme.palette.secondary.main
-                : theme.palette.primary.main
+              isDark ? theme.palette.secondary.main : theme.palette.primary.main
             ),
             "&:hover": {
-              transform: "scale(1.15)",
-              boxShadow: 6,
-              backgroundColor:
-                theme.palette.mode === "dark"
-                  ? theme.palette.secondary.dark
-                  : theme.palette.primary.dark,
+              transform: "scale(1.1)",
+              boxShadow: 4,
+              backgroundColor: isDark
+                ? theme.palette.secondary.dark
+                : theme.palette.primary.dark,
             },
           }}
         >
-          {isDark ? <LightModeIcon /> : <DarkModeIcon />}
+          {isDark ? (
+            <LightModeIcon sx={{ fontSize: isMobile ? 16 : 24 }} />
+          ) : (
+            <DarkModeIcon sx={{ fontSize: isMobile ? 16 : 24 }} />
+          )}
         </Fab>
       </Tooltip>
     </Box>
   );
 }
 
+ThemeSwitcher.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+};
 export default React.memo(ThemeSwitcher);
