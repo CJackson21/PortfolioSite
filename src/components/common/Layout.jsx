@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import VisualStarryBackground from "../ui/VisualStarryBackground";
 import NavigationSpheres from "../ui/NavigationSpheres";
 
-const Layout = ({ sections, introFinished, onIntroComplete }) => {
+const Layout = ({ sections, introFinished, onIntroComplete, isMobile }) => {
   const theme = useTheme();
   const navigate = useNavigate();
   const [scrollProgress, setScrollProgress] = React.useState(0);
@@ -141,7 +141,7 @@ const Layout = ({ sections, introFinished, onIntroComplete }) => {
         )}
       </Box>
       {/* Navigation Spheres */}
-      {introFinished && (
+      {introFinished && !isMobile && (
         <Fade
           in={introFinished}
           timeout={1000}
@@ -168,6 +168,7 @@ Layout.propTypes = {
   ).isRequired,
   introFinished: PropTypes.bool.isRequired,
   onIntroComplete: PropTypes.func.isRequired,
+  isMobile: PropTypes.bool.isRequired,
 };
 
 export default React.memo(Layout);

@@ -25,7 +25,7 @@ const Home = React.forwardRef((props, ref) => {
           </Typography>
           <Typography
             fontWeight="bold"
-            sx={{ fontSize: { xs: "3rem", sm: "5rem" } }}
+            sx={{ fontSize: { xs: "2.5rem", sm: "5rem" } }}
           >
             Caleb Jackson
           </Typography>

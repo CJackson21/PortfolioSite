@@ -43,21 +43,18 @@ const TypingEffect = () => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        height: "100%",
+        width: "100%",
+        padding: { xs: "0 16px", sm: "0 24px" },
         margin: "0 auto",
-        padding: "0 16px",
+        maxWidth: { xs: "100%", sm: "80%", md: "70%" },
       }}
     >
-      {/* Fixed-width container for all screen sizes */}
       <Box
         sx={{
-          width: {
-            xs: "95%", // Mobile
-            md: "100%", // 1080p or higher
-          },
-          maxWidth: "100%",
+          width: "100%",
           position: "relative",
-          minHeight: "150px",
+          minHeight: { xs: "100px", sm: "150px" },
+          textAlign: { xs: "center" },
         }}
       >
         {/* Hidden text for layout */}
@@ -68,12 +65,11 @@ const TypingEffect = () => {
             visibility: "hidden",
             whiteSpace: "pre-wrap",
             wordBreak: "break-word",
-            textAlign: "left",
+            textAlign: "inherit",
           }}
         >
           {fullText}
         </Typography>
-
         {/* Visible typing effect */}
         <Typography
           variant="h6"
@@ -85,7 +81,7 @@ const TypingEffect = () => {
             width: "100%",
             whiteSpace: "pre-wrap",
             wordBreak: "break-word",
-            textAlign: "left",
+            textAlign: "inherit",
           }}
         >
           <Box
