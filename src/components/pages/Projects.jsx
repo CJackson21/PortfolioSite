@@ -62,12 +62,11 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
     },
     imageContainer: {
       width: "100%",
-      height: isMobile ? "30vh" : "25vh",
-      maxHeight: isMobile ? "30vh" : "25vh",
-      minHeight: "25vh",
+      height: isMobile ? "200px" : "25vh",
       position: "relative",
       overflow: "hidden",
       borderRadius: "8px",
+      backgroundColor: mode === "dark" ? "grey.900" : "grey.100",
     },
     image: {
       width: "100%",
@@ -75,6 +74,14 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
       objectFit: "cover",
       WebkitBackfaceVisibility: "hidden",
       imageRendering: "crisp-edges",
+    },
+    dialogImageContainer: {
+      width: "100%",
+      height: isMobile ? "200px" : "300px",
+      position: "relative",
+      overflow: "hidden",
+      borderRadius: "8px",
+      backgroundColor: mode === "dark" ? "grey.900" : "grey.100",
     },
   };
 
@@ -296,16 +303,7 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
           >
             <Grid container spacing={2}>
               <Grid item xs={12} md={5}>
-                <Box
-                  sx={{
-                    width: "100%",
-                    height: isMobile ? "30vh" : "300px",
-                    position: "relative",
-                    overflow: "hidden",
-                    borderRadius: "8px",
-                    bgcolor: mode === "dark" ? "grey.900" : "grey.100",
-                  }}
-                >
+                <Box sx={styles.dialogImageContainer}>
                   <img
                     src={
                       selectedProject.image ||
