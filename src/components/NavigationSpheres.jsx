@@ -41,7 +41,7 @@ const NavigationSpheres = React.forwardRef(
         {sections.slice(0, 3).map((section) => (
           <Tooltip title={`Go to ${section.name}`} key={section.id}>
             <Fab
-              color={theme.palette.mode === "dark" ? "secondary" : "primary"}
+              color="primary"
               aria-label={`Maps to ${section.name}`}
               onClick={() => onSphereClick(section.id)}
               size="medium"
@@ -52,15 +52,8 @@ const NavigationSpheres = React.forwardRef(
                   transform: "scale(1.15)",
                   boxShadow: 6,
                 },
-                backgroundColor:
-                  theme.palette.mode === "dark"
-                    ? theme.palette.secondary.main
-                    : theme.palette.primary.main,
-                color: theme.palette.getContrastText(
-                  theme.palette.mode === "dark"
-                    ? theme.palette.secondary.main
-                    : theme.palette.primary.main
-                ),
+                backgroundColor: theme.palette.primary.main,
+                color: theme.palette.primary.contrastText,
               }}
             >
               {iconMap[section.id] ||

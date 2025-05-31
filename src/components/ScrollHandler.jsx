@@ -118,8 +118,8 @@ const ScrollHandler = ({ sections, currentPath }) => {
     observerRef.current = new IntersectionObserver(observer, observerOptions);
 
     sections
-      .filter((s) => s.ref?.current)
-      .forEach((s) => observerRef.current.observe(s.ref.current));
+      .filter((section) => section.ref?.current)
+      .forEach((section) => observerRef.current.observe(section.ref.current));
 
     return () => {
       observerRef.current?.disconnect();
