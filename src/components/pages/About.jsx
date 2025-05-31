@@ -73,7 +73,7 @@ const About = React.forwardRef((props, ref) => {
           spacing={2.5}
           alignItems="center"
           sx={{
-            pt: 8,
+            pt: 12,
             position: "relative",
           }}
         >
