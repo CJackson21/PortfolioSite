@@ -66,7 +66,6 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
       position: "relative",
       overflow: "hidden",
       borderRadius: "8px",
-      backgroundColor: mode === "dark" ? "grey.900" : "grey.100",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
@@ -144,7 +143,7 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
               }
             >
               <Grid item xs={12} md={6}>
-                <Box sx={styles.dialogImageContainer}>
+                <Box sx={styles.imageContainer}>
                   <img
                     src={
                       project.image ||
