@@ -80,7 +80,9 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
     },
     dialogImageContainer: {
       width: "100%",
-      height: isMobile ? "200px" : "300px",
+      height: "auto",
+      minHeight: "200px",
+      maxHeight: "400px",
       position: "relative",
       overflow: "hidden",
       borderRadius: "8px",
@@ -88,6 +90,14 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
+    },
+    dialogImage: {
+      width: "auto",
+      height: "auto",
+      maxWidth: "100%",
+      maxHeight: "100%",
+      objectFit: "contain",
+      padding: "12px",
     },
   };
 
@@ -135,7 +145,7 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
               }
             >
               <Grid item xs={12} md={6}>
-                <Box sx={styles.imageContainer}>
+                <Box sx={styles.dialogImageContainer}>
                   <img
                     src={
                       project.image ||
@@ -372,7 +382,7 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
                 rel="noopener noreferrer"
                 sx={{ borderRadius: "20px", px: 3 }}
               >
-                View on GitHub
+                View Code
               </Button>
             )}
             <Button
