@@ -8,9 +8,9 @@ const projects = [
     repo: "https://github.com/CJackson21/Discord-Music-Bot",
   },
   {
-    title: "React Website (v2)",
+    title: "React Website (v3.1)",
     description:
-      "This very website is version 2 of my portfolio, designed to showcase my projects, skills, and creativity. Built with React and Material-UI for a modern, responsive user interface, it also integrates Three.js for interactive 3D elements (this site's background). This iteration incorporates cool tools and techniques to enhance user experience, such as smooth animations, modular component design, and advanced styling. It's a demonstration of my ability to build engaging and functional web applications while continuously improving on past work.",
+      "This very website is version 3 of my portfolio, designed to showcase my projects, skills, and creativity. Built with React and Material-UI for a modern, responsive user interface, it also integrates Three.js for interactive 3D elements (this site's background). This iteration incorporates cool tools and techniques to enhance user experience, such as smooth animations, modular component design, and advanced styling. It's a demonstration of my ability to build engaging and functional web applications while continuously improving on past work.",
     link: "#",
     image: "/img/react.png",
     repo: "https://github.com/CJackson21/PortfolioSite",
@@ -18,7 +18,7 @@ const projects = [
   {
     title: "Buildertrend Automation Tool",
     description:
-      "An automation script built in Python to tackle repetitive data-entry tasks on Buildertrend. Using Selenium and other Python libraries, this tool navigates the platform’s interface and programmatically marks tasks as complete across multiple years, months, and sales representatives—eliminating the need for manual, item-by-item clicks. The script leverages browser automation techniques like dynamically locating elements, handling dropdowns, and implementing robust error handling to ensure reliable performance. This project highlights my ability to identify and resolve real-world inefficiencies by creating a custom automation solution. By removing the limitation of no multi-select feature on Buildertrend, it saved significant time and reduced manual effort, showcasing both my problem-solving skills and my proficiency in Python-based web automation.",
+      "An automation script built in Python to tackle repetitive data-entry tasks on Buildertrend. Using Selenium and other Python libraries, this tool navigates the platform's interface and programmatically marks tasks as complete across multiple years, months, and sales representatives—eliminating the need for manual, item-by-item clicks. The script leverages browser automation techniques like dynamically locating elements, handling dropdowns, and implementing robust error handling to ensure reliable performance. This project highlights my ability to identify and resolve real-world inefficiencies by creating a custom automation solution. By removing the limitation of no multi-select feature on Buildertrend, it saved significant time and reduced manual effort, showcasing both my problem-solving skills and my proficiency in Python-based web automation.",
     link: "#",
     image: "/img/python.png",
     repo: "https://github.com/CJackson21/WebpageButtonClicker",
