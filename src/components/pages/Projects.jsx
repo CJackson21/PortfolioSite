@@ -67,13 +67,16 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
       overflow: "hidden",
       borderRadius: "8px",
       backgroundColor: mode === "dark" ? "grey.900" : "grey.100",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
     },
     image: {
       width: "100%",
       height: "100%",
-      objectFit: "cover",
+      objectFit: "contain",
+      padding: "8px",
       WebkitBackfaceVisibility: "hidden",
-      imageRendering: "crisp-edges",
     },
     dialogImageContainer: {
       width: "100%",
@@ -82,6 +85,9 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
       overflow: "hidden",
       borderRadius: "8px",
       backgroundColor: mode === "dark" ? "grey.900" : "grey.100",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
     },
   };
 
@@ -147,8 +153,6 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
                       }/${
                         mode === "dark" ? "fff" : "000"
                       }?text=${encodeURIComponent(project.title)}`;
-                      e.target.style.objectFit = "contain";
-                      e.target.style.padding = "1rem";
                     }}
                   />
                 </Box>
@@ -316,7 +320,7 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
                       width: "100%",
                       height: "100%",
                       objectFit: "contain",
-                      padding: "1rem",
+                      padding: "12px",
                     }}
                   />
                 </Box>
