@@ -3,11 +3,11 @@ import { CssBaseline, ThemeProvider, useMediaQuery } from "@mui/material";
 import { Routes, Route, useLocation } from "react-router-dom";
 import useCustomTheme from "./hooks/customizeReactTheme";
 
-import About from "./components/About";
-import Home from "./components/Home";
-import Projects from "./components/Projects";
-import Layout from "./components/Layout";
-import ScrollHandler from "./components/ScrollHandler";
+import About from "./components/pages/About";
+import Home from "./components/pages/Home";
+import Projects from "./components/pages/Projects";
+import Layout from "./components/common/Layout";
+import ScrollHandler from "./components/common/ScrollHandler";
 
 const App = () => {
   const { theme } = useCustomTheme();

@@ -22,27 +22,19 @@ function ThemeSwitcher() {
         right: 30,
         zIndex: 1050,
         padding: "10px",
-        backgroundColor:
-          theme.palette.mode === "dark"
-            ? "rgba(255,255,255,0.1)"
-            : "rgba(0,0,0,0.1)",
+        backgroundColor: theme.palette.background.paper + "80", // 80 = 50% opacity
         borderRadius: "30px",
         backdropFilter: "blur(10px)",
       }}
     >
       <Tooltip title={isDark ? "Switch to light mode" : "Switch to dark mode"}>
         <Fab
-          color={isDark ? "secondary" : "primary"}
+          color="inherit"
           aria-label="Toggle theme"
           onClick={toggleThemeMode}
           size="medium"
           sx={{
-            transition:
-              "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
-            "&:hover": {
-              transform: "scale(1.15)",
-              boxShadow: 6,
-            },
+            transition: "all 0.2s ease-in-out",
             backgroundColor:
               theme.palette.mode === "dark"
                 ? theme.palette.secondary.main
@@ -52,6 +44,14 @@ function ThemeSwitcher() {
                 ? theme.palette.secondary.main
                 : theme.palette.primary.main
             ),
+            "&:hover": {
+              transform: "scale(1.15)",
+              boxShadow: 6,
+              backgroundColor:
+                theme.palette.mode === "dark"
+                  ? theme.palette.secondary.dark
+                  : theme.palette.primary.dark,
+            },
           }}
         >
           {isDark ? <LightModeIcon /> : <DarkModeIcon />}

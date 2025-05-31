@@ -22,7 +22,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import CloseIcon from "@mui/icons-material/Close";
 
-import projectsData from "../data/projectsData";
+import projectsData from "../../data/projectsData";
 
 const Projects = React.forwardRef(({ isMobile }, ref) => {
   const theme = useTheme();

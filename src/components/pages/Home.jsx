@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Stack, Typography } from "@mui/material";
-import TypingEffect from "./Typewriter";
+import TypingEffect from "../ui/Typewriter";
 import PropTypes from "prop-types";
 
 // Main home introductory page

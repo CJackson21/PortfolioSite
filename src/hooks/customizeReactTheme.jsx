@@ -69,7 +69,7 @@ export default function useCustomTheme() {
         },
         primary: {
           light: PURPLE_LIGHT,
-          main: isDarkMode ? TEXT_WHITE : PURPLE_LIGHT,
+          main: isDarkMode ? PURPLE_DARK : PURPLE_LIGHT,
           dark: PURPLE_DARK,
           contrastText: TEXT_WHITE,
         },

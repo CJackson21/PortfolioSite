@@ -4,8 +4,8 @@ import ThemeSwitcher from "./ThemeSwitcher";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 
-import VisualStarryBackground from "./VisualStarryBackground";
-import NavigationSpheres from "./NavigationSpheres";
+import VisualStarryBackground from "../ui/VisualStarryBackground";
+import NavigationSpheres from "../ui/NavigationSpheres";
 
 const Layout = ({ sections, introFinished, onIntroComplete }) => {
   const theme = useTheme();
