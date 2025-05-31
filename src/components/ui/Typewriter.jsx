@@ -1,7 +1,8 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
+import PropTypes from "prop-types";
 
-const TypingEffect = () => {
+const TypingEffect = ({ startDelay = 0 }) => {
   const [displayedText, setDisplayedText] = React.useState("");
   const [showCursor, setShowCursor] = React.useState(true);
 
@@ -10,7 +11,7 @@ const TypingEffect = () => {
 
   React.useEffect(() => {
     let i = 0;
-    const speed = 15;
+    const speed = 25;
 
     const type = () => {
       if (i < fullText.length) {
@@ -20,14 +21,19 @@ const TypingEffect = () => {
       }
     };
 
-    type();
+    const startTimer = setTimeout(() => {
+      type();
+    }, startDelay);
 
     const cursorInterval = setInterval(() => {
       setShowCursor((prev) => !prev);
     }, 500);
 
-    return () => clearInterval(cursorInterval);
-  }, [fullText]);
+    return () => {
+      clearTimeout(startTimer);
+      clearInterval(cursorInterval);
+    };
+  }, [startDelay]);
 
   return (
     <Box
@@ -95,6 +101,10 @@ const TypingEffect = () => {
       </Box>
     </Box>
   );
+};
+
+TypingEffect.propTypes = {
+  startDelay: PropTypes.number,
 };
 
 export default React.memo(TypingEffect);

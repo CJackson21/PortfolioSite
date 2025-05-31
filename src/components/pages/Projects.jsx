@@ -86,7 +86,6 @@ const Projects = React.forwardRef(({ isMobile }, ref) => {
       position: "relative",
       overflow: "hidden",
       borderRadius: "8px",
-      backgroundColor: mode === "dark" ? "grey.900" : "grey.100",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",

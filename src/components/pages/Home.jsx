@@ -32,7 +32,7 @@ const Home = React.forwardRef((props, ref) => {
           <Typography sx={{ fontSize: { xs: "1.5rem", sm: "2.5rem" } }}>
             Full Stack Developer
           </Typography>
-          {props?.introFinished && <TypingEffect />}
+          {props?.introFinished && <TypingEffect startDelay={600} />}
         </Stack>
       </Box>
     </Box>
